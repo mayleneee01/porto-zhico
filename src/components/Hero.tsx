@@ -27,7 +27,6 @@ const LinkedinIcon = ({ size = 24 }: { size?: number }) => (
 
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [videoOpacity, setVideoOpacity] = useState(1);
 
   // Force muted and autoplay via JS to bypass strict browser policies (Safari/Chrome)
   useEffect(() => {
@@ -40,19 +39,6 @@ export default function Hero() {
     }
   }, []);
 
-  // Smooth loop fade transition
-  const handleTimeUpdate = () => {
-    if (videoRef.current) {
-      const { currentTime, duration } = videoRef.current;
-      // Fade out slightly during the last 0.5 seconds to hide abrupt loops
-      if (duration > 0 && duration - currentTime < 0.5) {
-        setVideoOpacity(0.5);
-      } else {
-        setVideoOpacity(1);
-      }
-    }
-  };
-
   return (
     <section className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden pt-20">
       {/* Video Background Layer */}
@@ -62,9 +48,7 @@ export default function Hero() {
         loop
         muted
         playsInline
-        onTimeUpdate={handleTimeUpdate}
-        className="absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-500 ease-in-out"
-        style={{ opacity: videoOpacity }}
+        className="absolute inset-0 w-full h-full object-cover z-0"
       >
         <source src="/hero-bg.mp4" type="video/mp4" />
       </video>
