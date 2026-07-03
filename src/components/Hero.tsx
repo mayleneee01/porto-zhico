@@ -69,8 +69,23 @@ export default function Hero() {
         <source src="/hero-bg.mp4" type="video/mp4" />
       </video>
 
-      {/* Solid Black Overlay Layer (50% Opacity) */}
-      <div className="absolute inset-0 bg-black/50 z-0"></div>
+      {/* LAYER 1: Base Darkening (agar teks tetap terbaca) */}
+      <div className="absolute inset-0 bg-black/40 z-0"></div>
+
+      {/* LAYER 2: Dot Grid Pattern (Elemen Tambahan ala Cyber/Tech) */}
+      <div 
+        className="absolute inset-0 z-0 opacity-30" 
+        style={{ 
+          backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.8) 1px, transparent 1px)', 
+          backgroundSize: '48px 48px' 
+        }}
+      ></div>
+
+      {/* LAYER 3: Radial Vignette (Shadow di pinggiran layar) */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,#0A0A0A_120%)] z-0"></div>
+
+      {/* LAYER 4: Smooth Bottom Fade (Agar tidak patah saat transisi ke section bawah) */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0A0A0A] z-0"></div>
 
       <div className="z-10 text-center px-6 relative">
         <FadeIn direction="up">
