@@ -6,6 +6,14 @@ import { put } from '@vercel/blob';
 
 // PROJECTS
 export async function addProject(formData: FormData) {
+  let imageUrl = null;
+  const imageFile = formData.get('imageFile') as File | null;
+  
+  if (imageFile && imageFile.size > 0) {
+    const blob = await put(imageFile.name, imageFile, { access: 'public' });
+    imageUrl = blob.url;
+  }
+
   await prisma.project.create({
     data: {
       title: formData.get('title') as string,
@@ -13,7 +21,7 @@ export async function addProject(formData: FormData) {
       techStack: formData.get('techStack') as string,
       demoUrl: (formData.get('demoUrl') as string) || null,
       githubUrl: (formData.get('githubUrl') as string) || null,
-      image: (formData.get('image') as string) || null,
+      image: imageUrl,
     },
   });
   revalidatePath('/admin/projects');
@@ -22,16 +30,30 @@ export async function addProject(formData: FormData) {
 
 export async function updateProject(formData: FormData) {
   const id = formData.get('id') as string;
+  
+  let imageUrl: string | undefined = undefined;
+  const imageFile = formData.get('imageFile') as File | null;
+  
+  if (imageFile && imageFile.size > 0) {
+    const blob = await put(imageFile.name, imageFile, { access: 'public' });
+    imageUrl = blob.url;
+  }
+
+  const data: any = {
+    title: formData.get('title') as string,
+    description: formData.get('description') as string,
+    techStack: formData.get('techStack') as string,
+    demoUrl: (formData.get('demoUrl') as string) || null,
+    githubUrl: (formData.get('githubUrl') as string) || null,
+  };
+
+  if (imageUrl) {
+    data.image = imageUrl;
+  }
+
   await prisma.project.update({
     where: { id },
-    data: {
-      title: formData.get('title') as string,
-      description: formData.get('description') as string,
-      techStack: formData.get('techStack') as string,
-      demoUrl: (formData.get('demoUrl') as string) || null,
-      githubUrl: (formData.get('githubUrl') as string) || null,
-      image: (formData.get('image') as string) || null,
-    },
+    data,
   });
   revalidatePath('/admin/projects');
   revalidatePath('/');

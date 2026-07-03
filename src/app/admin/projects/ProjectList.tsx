@@ -36,8 +36,9 @@ export default function ProjectList({ projects }: { projects: Project[] }) {
                 <input required name="techStack" defaultValue={project.techStack} className="w-full bg-black/50 border border-white/10 rounded p-2 text-white text-sm" />
               </div>
               <div>
-                <label className="text-xs text-gray-400 uppercase tracking-wider mb-1 block">Image URL</label>
-                <input name="image" defaultValue={project.image || ''} className="w-full bg-black/50 border border-white/10 rounded p-2 text-white text-sm" />
+                <label className="text-xs text-gray-400 uppercase tracking-wider mb-1 block">New Image File (Optional)</label>
+                <input type="file" accept="image/*" name="imageFile" className="w-full bg-black/50 border border-white/10 rounded p-2 text-white text-sm" />
+                {project.image && <p className="text-xs text-gray-500 mt-1">Current: {project.image}</p>}
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>

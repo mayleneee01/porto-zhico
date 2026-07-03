@@ -29,8 +29,8 @@ export default async function AdminProjects() {
                 <input required name="techStack" className="w-full bg-black/50 border border-white/10 rounded p-2 text-white text-sm" placeholder="React, Tailwind" />
               </div>
               <div>
-                <label className="text-xs text-gray-400 uppercase tracking-wider mb-1 block">Image URL</label>
-                <input name="image" className="w-full bg-black/50 border border-white/10 rounded p-2 text-white text-sm" placeholder="https://..." />
+                <label className="text-xs text-gray-400 uppercase tracking-wider mb-1 block">Image File</label>
+                <input type="file" accept="image/*" name="imageFile" className="w-full bg-black/50 border border-white/10 rounded p-2 text-white text-sm" />
               </div>
               <div>
                 <label className="text-xs text-gray-400 uppercase tracking-wider mb-1 block">Demo URL</label>
