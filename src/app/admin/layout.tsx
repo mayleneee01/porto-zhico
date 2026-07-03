@@ -1,8 +1,9 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { LayoutDashboard, FolderKanban, Award, Briefcase, LogOut } from 'lucide-react';
+import { LayoutDashboard, FolderKanban, Award, Briefcase, LogOut, Menu, X } from 'lucide-react';
 import clsx from 'clsx';
 
 const menuItems = [
@@ -15,6 +16,7 @@ const menuItems = [
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleLogout = async () => {
     await fetch('/api/auth/logout', { method: 'POST' });
@@ -28,9 +30,20 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }
 
   return (
-    <div className="flex min-h-screen bg-black text-white font-sans selection:bg-white selection:text-black">
+    <div className="flex flex-col md:flex-row min-h-screen bg-black text-white font-sans selection:bg-white selection:text-black">
+      {/* Mobile Top Bar */}
+      <div className="md:hidden flex items-center justify-between p-4 border-b border-white/10 bg-black sticky top-0 z-50">
+        <div className="text-xl font-bold">ZP. ADMIN</div>
+        <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
+
       {/* Sidebar */}
-      <aside className="w-64 border-r border-white/10 flex flex-col hidden md:flex">
+      <aside className={clsx(
+        "md:w-64 border-r border-white/10 flex-col md:flex bg-black z-40",
+        isMobileMenuOpen ? "flex" : "hidden"
+      )}>
         <div className="p-6 border-b border-white/10">
           <Link href="/" className="text-2xl font-bold tracking-widest text-gradient">
             ZP. ADMIN
@@ -43,6 +56,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <Link
                 key={item.name}
                 href={item.href}
+                onClick={() => setIsMobileMenuOpen(false)}
                 className={clsx(
                   'flex items-center gap-3 px-4 py-3 rounded-lg transition-colors',
                   isActive ? 'bg-white text-black font-semibold' : 'text-gray-400 hover:text-white hover:bg-white/5'
