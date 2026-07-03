@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react';
 import FadeIn from './FadeIn';
 
 const GithubIcon = ({ size = 24 }: { size?: number }) => (
@@ -23,14 +24,42 @@ const LinkedinIcon = ({ size = 24 }: { size?: number }) => (
 );
 
 export default function Hero() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoOpacity, setVideoOpacity] = useState(1);
+
+  // Smooth loop fade transition
+  const handleTimeUpdate = () => {
+    if (videoRef.current) {
+      const { currentTime, duration } = videoRef.current;
+      // Fade out slightly during the last 0.5 seconds to hide abrupt loops
+      if (duration > 0 && duration - currentTime < 0.5) {
+        setVideoOpacity(0.5);
+      } else {
+        setVideoOpacity(1);
+      }
+    }
+  };
+
   return (
     <section className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden pt-20">
-      {/* Soft Center Glow */}
-      <div className="absolute inset-0 z-0 flex justify-center items-center pointer-events-none">
-        <div className="w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] rounded-full bg-white/5 blur-[120px]"></div>
-      </div>
+      {/* Video Background Layer */}
+      <video
+        ref={videoRef}
+        autoPlay
+        loop
+        muted
+        playsInline
+        onTimeUpdate={handleTimeUpdate}
+        className="absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-500 ease-in-out"
+        style={{ opacity: videoOpacity }}
+      >
+        <source src="/hero-bg.mp4" type="video/mp4" />
+      </video>
 
-      <div className="z-10 text-center px-6">
+      {/* Solid Black Overlay Layer (50% Opacity) */}
+      <div className="absolute inset-0 bg-black/50 z-0"></div>
+
+      <div className="z-10 text-center px-6 relative">
         <FadeIn direction="up">
           <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter mb-4 text-white font-[family-name:var(--font-cyber)]">
             PORTFOLIO
