@@ -25,7 +25,10 @@ const LinkedinIcon = ({ size = 24 }: { size?: number }) => (
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden pt-20">
-      {/* Clean Background - Geometry removed as requested */}
+      {/* Soft Center Glow */}
+      <div className="absolute inset-0 z-0 flex justify-center items-center pointer-events-none">
+        <div className="w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] rounded-full bg-white/5 blur-[120px]"></div>
+      </div>
 
       <div className="z-10 text-center px-6">
         <FadeIn direction="up">
