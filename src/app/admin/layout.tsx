@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { LayoutDashboard, FolderKanban, Award, Briefcase, LogOut, Menu, X } from 'lucide-react';
+import { LayoutDashboard, FolderKanban, Award, Briefcase, Code2, LogOut, Menu, X } from 'lucide-react';
 import clsx from 'clsx';
 
 const menuItems = [
@@ -11,6 +11,7 @@ const menuItems = [
   { name: 'Projects', href: '/admin/projects', icon: FolderKanban },
   { name: 'Certifications', href: '/admin/certifications', icon: Award },
   { name: 'Experience', href: '/admin/experience', icon: Briefcase },
+  { name: 'Skills', href: '/admin/skills', icon: Code2 },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

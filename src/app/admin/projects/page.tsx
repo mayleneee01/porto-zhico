@@ -1,35 +1,11 @@
 import { prisma } from '@/lib/prisma';
-import { revalidatePath } from 'next/cache';
-import { Trash2 } from 'lucide-react';
+import { addProject } from '../actions';
+import ProjectList from './ProjectList';
 
 export const revalidate = 0;
 
 export default async function AdminProjects() {
   const projects = await prisma.project.findMany({ orderBy: { createdAt: 'desc' } });
-
-  async function addProject(formData: FormData) {
-    'use server';
-    await prisma.project.create({
-      data: {
-        title: formData.get('title') as string,
-        description: formData.get('description') as string,
-        techStack: formData.get('techStack') as string,
-        demoUrl: (formData.get('demoUrl') as string) || null,
-        githubUrl: (formData.get('githubUrl') as string) || null,
-        image: (formData.get('image') as string) || null,
-      },
-    });
-    revalidatePath('/admin/projects');
-    revalidatePath('/');
-  }
-
-  async function deleteProject(formData: FormData) {
-    'use server';
-    const id = formData.get('id') as string;
-    await prisma.project.delete({ where: { id } });
-    revalidatePath('/admin/projects');
-    revalidatePath('/');
-  }
 
   return (
     <div>
@@ -73,22 +49,7 @@ export default async function AdminProjects() {
         
         <div className="lg:col-span-2 space-y-4">
           <h2 className="text-xl font-bold mb-6">Existing Projects ({projects.length})</h2>
-          {projects.map(project => (
-            <div key={project.id} className="glass p-4 rounded-xl flex justify-between items-start">
-              <div>
-                <h3 className="font-bold text-lg">{project.title}</h3>
-                <p className="text-sm text-gray-400 mb-2">{project.description}</p>
-                <p className="text-xs font-mono text-gray-500">{project.techStack}</p>
-              </div>
-              <form action={deleteProject}>
-                <input type="hidden" name="id" value={project.id} />
-                <button type="submit" className="text-red-400 hover:text-red-300 hover:bg-red-900/20 p-2 rounded transition-colors">
-                  <Trash2 size={18} />
-                </button>
-              </form>
-            </div>
-          ))}
-          {projects.length === 0 && <p className="text-gray-500">No projects found.</p>}
+          <ProjectList projects={projects} />
         </div>
       </div>
     </div>

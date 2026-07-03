@@ -1,43 +1,11 @@
 import { prisma } from '@/lib/prisma';
-import { revalidatePath } from 'next/cache';
-import { Trash2 } from 'lucide-react';
-import { put } from '@vercel/blob';
+import { addCert } from '../actions';
+import CertList from './CertList';
 
 export const revalidate = 0;
 
 export default async function AdminCertifications() {
   const certs = await prisma.certification.findMany({ orderBy: { date: 'desc' } });
-
-  async function addCert(formData: FormData) {
-    'use server';
-    let imageUrl = null;
-    const imageFile = formData.get('imageFile') as File | null;
-    
-    if (imageFile && imageFile.size > 0) {
-      const blob = await put(imageFile.name, imageFile, { access: 'public' });
-      imageUrl = blob.url;
-    }
-
-    await prisma.certification.create({
-      data: {
-        name: formData.get('name') as string,
-        issuer: formData.get('issuer') as string,
-        date: formData.get('date') as string,
-        url: (formData.get('url') as string) || null,
-        image: imageUrl,
-      },
-    });
-    revalidatePath('/admin/certifications');
-    revalidatePath('/');
-  }
-
-  async function deleteCert(formData: FormData) {
-    'use server';
-    const id = formData.get('id') as string;
-    await prisma.certification.delete({ where: { id } });
-    revalidatePath('/admin/certifications');
-    revalidatePath('/');
-  }
 
   return (
     <div>
@@ -77,22 +45,7 @@ export default async function AdminCertifications() {
         
         <div className="lg:col-span-2 space-y-4">
           <h2 className="text-xl font-bold mb-6">Existing Certifications ({certs.length})</h2>
-          {certs.map(cert => (
-            <div key={cert.id} className="glass p-4 rounded-xl flex justify-between items-start">
-              <div>
-                <h3 className="font-bold text-lg">{cert.name}</h3>
-                <p className="text-sm text-gray-400">{cert.issuer}</p>
-                <p className="text-xs font-mono text-gray-500 mt-1">{cert.date}</p>
-              </div>
-              <form action={deleteCert}>
-                <input type="hidden" name="id" value={cert.id} />
-                <button type="submit" className="text-red-400 hover:text-red-300 hover:bg-red-900/20 p-2 rounded transition-colors">
-                  <Trash2 size={18} />
-                </button>
-              </form>
-            </div>
-          ))}
-          {certs.length === 0 && <p className="text-gray-500">No certifications found.</p>}
+          <CertList certs={certs} />
         </div>
       </div>
     </div>

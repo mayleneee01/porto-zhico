@@ -17,35 +17,35 @@ export default function Projects({ projects }: { projects: Project[] }) {
           <h2 className="text-4xl font-bold mb-16 tracking-wider text-center text-gradient">PROJECTS</h2>
         </FadeIn>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
           {projects.map((project, index) => (
             <FadeIn key={project.id} direction="up" delay={index * 0.1}>
-              <div className="glass rounded-2xl overflow-hidden group h-full flex flex-col hover:border-white/30 hover:shadow-[0_0_20px_rgba(255,255,255,0.05)] transition-all">
-                <div className="aspect-video relative bg-[#111] overflow-hidden border-b border-white/10">
+              <div className="glass rounded-2xl overflow-hidden group h-full flex flex-row md:flex-col hover:border-white/30 hover:shadow-[0_0_20px_rgba(255,255,255,0.05)] transition-all items-center md:items-stretch">
+                <div className="w-28 h-28 md:w-full md:h-auto md:aspect-video relative bg-[#111] overflow-hidden md:border-b border-white/10 shrink-0">
                   {project.image ? (
                     <Image src={project.image} alt={project.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-gray-700 font-mono text-sm">No Image</div>
+                    <div className="w-full h-full flex items-center justify-center text-gray-700 font-mono text-[10px] md:text-sm">No Image</div>
                   )}
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4">
                     {project.demoUrl && (
-                      <a href={project.demoUrl} target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center hover:scale-110 transition-transform">
-                        <ExternalLink size={20} />
+                      <a href={project.demoUrl} target="_blank" rel="noreferrer" className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white text-black flex items-center justify-center hover:scale-110 transition-transform">
+                        <ExternalLink size={16} />
                       </a>
                     )}
                     {project.githubUrl && (
-                      <a href={project.githubUrl} target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-[#222] text-white flex items-center justify-center hover:scale-110 transition-transform">
-                        <GithubIcon size={20} />
+                      <a href={project.githubUrl} target="_blank" rel="noreferrer" className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#222] text-white flex items-center justify-center hover:scale-110 transition-transform">
+                        <GithubIcon size={16} />
                       </a>
                     )}
                   </div>
                 </div>
-                <div className="p-6 flex flex-col flex-grow">
-                  <h3 className="text-xl font-bold mb-2 text-gray-100">{project.title}</h3>
-                  <p className="text-gray-400 font-light text-sm mb-4 flex-grow">{project.description}</p>
-                  <div className="flex flex-wrap gap-2 mt-auto">
+                <div className="p-4 md:p-6 flex flex-col flex-grow min-w-0">
+                  <h3 className="text-base md:text-xl font-bold mb-1 md:mb-2 text-gray-100 truncate md:whitespace-normal">{project.title}</h3>
+                  <p className="text-gray-400 font-light text-xs md:text-sm mb-2 md:mb-4 flex-grow line-clamp-2 md:line-clamp-none">{project.description}</p>
+                  <div className="flex flex-wrap gap-1 md:gap-2 mt-auto">
                     {project.techStack.split(',').map((tech, i) => (
-                      <span key={i} className="text-xs font-mono px-2 py-1 bg-white/5 border border-white/10 rounded text-gray-300">
+                      <span key={i} className="text-[9px] md:text-xs font-mono px-1.5 py-0.5 md:px-2 md:py-1 bg-white/5 border border-white/10 rounded text-gray-300 whitespace-nowrap">
                         {tech.trim()}
                       </span>
                     ))}
