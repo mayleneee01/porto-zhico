@@ -18,12 +18,26 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    // Scroll listener removed as navbar is now absolute
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <nav
-      className="relative z-50 py-5 w-full bg-transparent border-b border-white/10"
+      className={clsx(
+        "fixed top-0 left-0 right-0 z-[100] w-full transition-all duration-300",
+        isScrolled
+          ? "py-4 bg-black/90 backdrop-blur-md border-b border-white/10 shadow-xl"
+          : "py-6 bg-transparent border-b border-transparent"
+      )}
     >
       <div className="container mx-auto px-6 max-w-6xl flex justify-between items-center">
         {/* Logo removed as requested */}
