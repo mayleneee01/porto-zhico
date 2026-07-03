@@ -95,12 +95,18 @@ export default function Hero() {
         </FadeIn>
         
         <FadeIn direction="up" delay={0.2}>
-          <h2 className="text-2xl md:text-4xl text-white mb-8 tracking-widest uppercase font-[family-name:var(--font-cyber)]">
+          <h2 className="text-2xl md:text-4xl text-white mb-4 tracking-widest uppercase font-[family-name:var(--font-cyber)]">
             Zhico Pradita
           </h2>
         </FadeIn>
+
+        <FadeIn direction="up" delay={0.3}>
+          <p className="text-sm md:text-lg text-gray-300 font-light tracking-widest mb-8 uppercase">
+            Breaking Systems to Build Better Defenses
+          </p>
+        </FadeIn>
         
-        <FadeIn direction="up" delay={0.4}>
+        <FadeIn direction="up" delay={0.5}>
           <div className="flex justify-center gap-6 mt-4">
             <a href="https://github.com/mayleneee01" target="_blank" rel="noreferrer" className="text-white hover:scale-110 transition-transform">
               <GithubIcon size={32} />
