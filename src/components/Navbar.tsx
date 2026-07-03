@@ -23,7 +23,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className="absolute top-0 left-0 right-0 z-50 py-5 bg-transparent border-b border-white/10"
+      className="relative z-50 py-5 w-full bg-transparent border-b border-white/10"
     >
       <div className="container mx-auto px-6 max-w-6xl flex justify-between items-center">
         {/* Logo removed as requested */}

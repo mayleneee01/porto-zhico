@@ -19,7 +19,7 @@ export default async function Home() {
   ]);
 
   return (
-    <main className="bg-black min-h-screen text-white font-sans selection:bg-white selection:text-black">
+    <main className="min-h-screen text-white font-sans selection:bg-white selection:text-black flex flex-col">
       <Navbar />
       <Hero />
       <About />

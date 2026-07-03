@@ -22,15 +22,15 @@ export default function About() {
           <FadeIn direction="left" delay={0.2} className="w-full md:w-2/3">
             <div className="glass p-8 rounded-2xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
-              <h3 className="text-2xl font-bold text-white mb-4">Security Researcher & Penetration Tester</h3>
+              <h3 className="text-2xl font-bold text-white mb-4">SOC Analyst & Penetration Tester</h3>
               <p className="text-lg leading-relaxed text-gray-300 mb-6 font-light">
-                I am an Informatics student at <strong className="text-white font-medium">Institut Teknologi Sumatera (ITERA)</strong> with a deep focus on cybersecurity. I have a strong passion for identifying vulnerabilities and building more resilient defenses.
+                As an Informatics student at <strong className="text-white font-medium">Institut Teknologi Sumatera (ITERA)</strong>, I have cultivated a profound expertise in cybersecurity. My mission is not merely to understand digital threats, but to anticipate, hunt, and neutralize them before they compromise critical infrastructure.
               </p>
               <p className="text-lg leading-relaxed text-gray-300 mb-6 font-light">
-                With hands-on experience in <strong className="text-white font-medium">Penetration Testing</strong>, <strong className="text-white font-medium">Bug Bounty Hunting</strong>, and <strong className="text-white font-medium">Security Auditing</strong>, I continuously sharpen my skills to understand how systems can be exploited and how to prevent it.
+                I thrive in the dynamic landscape of cybersecurity, bringing hands-on expertise in log and network monitoring via <strong className="text-white font-medium">SIEM Wazuh</strong>. My background spans <strong className="text-white font-medium">Penetration Testing</strong>, active <strong className="text-white font-medium">Bug Hunting</strong>, and various <strong className="text-white font-medium">Freelance</strong> engagements. This diverse experience empowers me to adopt an attacker's mindset while designing robust, resilient defensive strategies.
               </p>
               <p className="text-lg leading-relaxed text-gray-300 font-light italic border-l-2 border-white/30 pl-4 py-1">
-                "I believe that cybersecurity is not just about breaking systems — it's about building a safer digital ecosystem for everyone."
+                "In the realm of cybersecurity, true power lies not in breaking systems, but in architecting an unbreakable digital ecosystem for the future."
               </p>
             </div>
           </FadeIn>
