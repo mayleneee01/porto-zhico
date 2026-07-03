@@ -25,11 +25,7 @@ const LinkedinIcon = ({ size = 24 }: { size?: number }) => (
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden pt-20">
-      {/* Stark Geometric Background */}
-      <div className="absolute inset-0 z-0 flex justify-center items-center pointer-events-none opacity-20">
-        <div className="w-[1px] h-full bg-white"></div>
-        <div className="absolute w-[80vw] h-[1px] bg-white"></div>
-      </div>
+      {/* Clean Background - Geometry removed as requested */}
 
       <div className="z-10 text-center px-6">
         <FadeIn direction="up">
