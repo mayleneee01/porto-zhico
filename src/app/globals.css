@@ -35,10 +35,23 @@
 }
 
 body {
-  background-color: #000000;
+  background-color: #0A0A0A;
+  background-image: radial-gradient(rgba(112, 128, 144, 0.05) 1.5px, transparent 1.5px);
+  background-size: 30px 30px;
+  background-position: 0 0;
+  animation: move-dots 60s linear infinite;
   color: var(--foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
   overflow-x: hidden;
+}
+
+@keyframes move-dots {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 30px 30px;
+  }
 }
 
 .glass {
