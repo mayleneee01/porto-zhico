@@ -33,9 +33,8 @@ export default function Navbar() {
       )}
     >
       <div className="container mx-auto px-6 max-w-6xl flex justify-between items-center">
-        <Link href="/" className="text-xl font-bold tracking-widest text-gradient">
-          ZP.
-        </Link>
+        {/* Logo removed as requested */}
+        <div className="hidden md:block w-8"></div>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex gap-8">

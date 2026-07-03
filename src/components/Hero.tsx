@@ -1,4 +1,5 @@
 import FadeIn from './FadeIn';
+import Image from 'next/image';
 
 const GithubIcon = ({ size = 24 }: { size?: number }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -39,10 +40,21 @@ export default function Hero() {
           </h1>
         </FadeIn>
         
+        <FadeIn direction="up" delay={0.1}>
+          <div className="flex justify-center mb-6 mt-4">
+            <div className="relative w-40 h-40 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-white/10 shadow-[0_0_30px_rgba(255,255,255,0.1)] hover:scale-105 transition-transform duration-500">
+              <Image src="/profile.png" alt="Zhico Pradita" fill className="object-cover" priority />
+            </div>
+          </div>
+        </FadeIn>
+        
         <FadeIn direction="up" delay={0.2}>
-          <h2 className="text-2xl md:text-4xl font-light text-gray-400 mb-6 tracking-widest uppercase">
-            Security Analyst
+          <h2 className="text-2xl md:text-4xl font-light text-white mb-2 tracking-widest uppercase">
+            Zhico Pradita
           </h2>
+          <h3 className="text-lg md:text-xl font-light text-gray-500 mb-6 tracking-wide">
+            Security Analyst
+          </h3>
           <p className="text-gray-300 max-w-2xl mx-auto mb-10 font-light leading-relaxed">
             I identify and secure digital assets from cyber threats. As an informatics student specializing in Penetration Testing and Bug Bounty – turning vulnerabilities into robust defenses.
           </p>
