@@ -1,4 +1,5 @@
 import FadeIn from './FadeIn';
+import Image from 'next/image';
 
 export default function About() {
   return (
@@ -10,11 +11,10 @@ export default function About() {
         
         <div className="flex flex-col md:flex-row items-center gap-12">
           <FadeIn direction="right" className="w-full md:w-1/3 flex justify-center">
-            <div className="w-64 h-64 md:w-80 md:h-80 rounded-full border border-white/20 p-2 relative overflow-hidden group">
+            <div className="w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-white/20 p-1 relative overflow-hidden group shadow-[0_0_40px_rgba(255,255,255,0.1)]">
               <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
-              {/* Fallback avatar if no image is available */}
-              <div className="w-full h-full rounded-full bg-[#111] flex items-center justify-center text-gray-600 text-6xl font-light">
-                ZP
+              <div className="relative w-full h-full rounded-full overflow-hidden">
+                <Image src="/profile.png" alt="Zhico Pradita" fill className="object-cover" />
               </div>
             </div>
           </FadeIn>
