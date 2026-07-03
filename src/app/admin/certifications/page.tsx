@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 import { Trash2 } from 'lucide-react';
+import { put } from '@vercel/blob';
 
 export const revalidate = 0;
 
@@ -9,13 +10,21 @@ export default async function AdminCertifications() {
 
   async function addCert(formData: FormData) {
     'use server';
+    let imageUrl = null;
+    const imageFile = formData.get('imageFile') as File | null;
+    
+    if (imageFile && imageFile.size > 0) {
+      const blob = await put(imageFile.name, imageFile, { access: 'public' });
+      imageUrl = blob.url;
+    }
+
     await prisma.certification.create({
       data: {
         name: formData.get('name') as string,
         issuer: formData.get('issuer') as string,
         date: formData.get('date') as string,
         url: (formData.get('url') as string) || null,
-        image: (formData.get('image') as string) || null,
+        image: imageUrl,
       },
     });
     revalidatePath('/admin/certifications');
@@ -50,6 +59,10 @@ export default async function AdminCertifications() {
               <div>
                 <label className="text-xs text-gray-400 uppercase tracking-wider mb-1 block">Date (Year) *</label>
                 <input required name="date" className="w-full bg-black/50 border border-white/10 rounded p-2 text-white text-sm" placeholder="2023" />
+              </div>
+              <div>
+                <label className="text-xs text-gray-400 uppercase tracking-wider mb-1 block">Image File</label>
+                <input type="file" accept="image/*" name="imageFile" className="w-full bg-black/50 border border-white/10 rounded p-2 text-white text-sm" />
               </div>
               <div>
                 <label className="text-xs text-gray-400 uppercase tracking-wider mb-1 block">Credential URL</label>
