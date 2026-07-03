@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import FadeIn from './FadeIn';
 
 const GithubIcon = ({ size = 24 }: { size?: number }) => (
@@ -26,6 +26,17 @@ const LinkedinIcon = ({ size = 24 }: { size?: number }) => (
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoOpacity, setVideoOpacity] = useState(1);
+
+  // Force muted and autoplay via JS to bypass strict browser policies (Safari/Chrome)
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.defaultMuted = true;
+      videoRef.current.muted = true;
+      videoRef.current.play().catch((error) => {
+        console.warn("Autoplay was prevented by the browser:", error);
+      });
+    }
+  }, []);
 
   // Smooth loop fade transition
   const handleTimeUpdate = () => {
