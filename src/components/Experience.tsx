@@ -1,5 +1,5 @@
 import FadeIn from './FadeIn';
-import { Experience as ExperienceModel } from '@prisma/client';
+import { Experience as ExperienceModel } from '@/generated/prisma';
 
 export default function Experience({ experiences }: { experiences: ExperienceModel[] }) {
   return (

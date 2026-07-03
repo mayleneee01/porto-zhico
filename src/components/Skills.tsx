@@ -1,6 +1,6 @@
 import FadeIn from './FadeIn';
 import * as Icons from 'lucide-react';
-import { Skill } from '@prisma/client';
+import { Skill } from '@/generated/prisma';
 
 export default function Skills({ skills }: { skills: Skill[] }) {
   // Helper to render icon by name dynamically

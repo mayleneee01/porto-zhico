@@ -1,6 +1,6 @@
 import FadeIn from './FadeIn';
 import { ExternalLink } from 'lucide-react';
-import { Project } from '@prisma/client';
+import { Project } from '@/generated/prisma';
 import Image from 'next/image';
 
 const GithubIcon = ({ size = 24 }: { size?: number }) => (

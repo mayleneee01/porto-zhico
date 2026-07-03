@@ -1,6 +1,6 @@
 import FadeIn from './FadeIn';
 import { Award, ExternalLink } from 'lucide-react';
-import { Certification } from '@prisma/client';
+import { Certification } from '@/generated/prisma';
 import Image from 'next/image';
 
 export default function Certifications({ certs }: { certs: Certification[] }) {
