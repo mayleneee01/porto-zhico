@@ -24,9 +24,9 @@ const SKILL_CONFIG: Record<string, { category: string; icon: string }> = {
 
 export default function Skills({ skills }: { skills: Skill[] }) {
   const renderIcon = (name: string | null) => {
-    if (!name) return <Icons.Code2 size={24} />;
+    if (!name) return <Icons.Code2 size={20} />;
     const IconComponent = (Icons as any)[name];
-    return IconComponent ? <IconComponent size={24} /> : <Icons.Code2 size={24} />;
+    return IconComponent ? <IconComponent size={20} /> : <Icons.Code2 size={20} />;
   };
 
   const groupedSkills = skills.reduce((acc, skill) => {
@@ -38,7 +38,7 @@ export default function Skills({ skills }: { skills: Skill[] }) {
 
   return (
     <section id="skills" className="py-24 relative z-10">
-      <div className="container mx-auto px-6 max-w-6xl">
+      <div className="container mx-auto px-6 max-w-4xl">
         <FadeIn direction="up">
           <h2 className="text-4xl font-bold mb-16 tracking-wider text-center text-white font-[family-name:var(--font-cyber)]">SKILLS</h2>
         </FadeIn>
@@ -53,19 +53,21 @@ export default function Skills({ skills }: { skills: Skill[] }) {
             if (!categorySkills || categorySkills.length === 0) return null;
 
             return (
-              <div key={category} className="flex flex-col items-center">
+              <div key={category} className="flex flex-col">
                 <FadeIn direction="up">
-                  <h3 className="text-sm md:text-base text-gray-400 tracking-[0.2em] mb-8 border-b border-white/10 pb-2 uppercase">{category}</h3>
+                  <h3 className="text-sm md:text-base text-gray-400 tracking-[0.2em] mb-6 border-b border-white/10 pb-2 uppercase w-full">{category}</h3>
                 </FadeIn>
                 
-                <div className="flex flex-wrap justify-center gap-6 w-full">
+                <div className={categorySkills.length > 4 ? "grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-2 w-full" : "flex flex-col gap-2 w-full md:w-2/3"}>
                   {categorySkills.map((skill, index) => (
-                    <FadeIn key={skill.id} direction="up" delay={index * 0.1} className="w-full sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] lg:w-[calc(25%-18px)]">
-                      <div className="glass p-6 rounded-xl flex flex-col items-center gap-4 hover:-translate-y-2 transition-transform duration-300 group h-full">
-                        <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center text-gray-300 group-hover:text-white group-hover:bg-white/10 transition-all">
+                    <FadeIn key={skill.id} direction="up" delay={index * 0.1}>
+                      <div className="flex items-center gap-4 py-3 border-b border-white/5 group hover:border-white/20 transition-colors cursor-default">
+                        <div className="text-gray-500 group-hover:text-white transition-colors shrink-0">
                           {renderIcon(skill.configuredIcon)}
                         </div>
-                        <span className="text-gray-200 font-medium tracking-wide text-center">{skill.name}</span>
+                        <span className="text-gray-300 font-medium tracking-wide group-hover:text-white transition-colors">
+                          {skill.name}
+                        </span>
                       </div>
                     </FadeIn>
                   ))}
