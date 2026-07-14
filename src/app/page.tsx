@@ -12,12 +12,10 @@ import { prisma } from '@/lib/prisma';
 export const revalidate = 0; // Disable static rendering to see DB changes instantly
 
 export default async function Home() {
-  const [skills, projects, certifications, experiences] = await Promise.all([
-    prisma.skill.findMany({ orderBy: { createdAt: 'asc' } }),
-    prisma.project.findMany({ orderBy: { createdAt: 'desc' } }),
-    prisma.certification.findMany({ orderBy: { date: 'desc' } }),
-    prisma.experience.findMany({ orderBy: { createdAt: 'desc' } }),
-  ]);
+  const skills = await prisma.skill.findMany({ orderBy: { createdAt: 'asc' } }).catch(() => []);
+  const projects = await prisma.project.findMany({ orderBy: { createdAt: 'desc' } }).catch(() => []);
+  const certifications = await prisma.certification.findMany({ orderBy: { date: 'desc' } }).catch(() => []);
+  const experiences = await prisma.experience.findMany({ orderBy: { createdAt: 'desc' } }).catch(() => []);
 
   return (
     <PageWrapper>
