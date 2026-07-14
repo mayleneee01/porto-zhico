@@ -8,7 +8,7 @@ export default function Certifications({ certs }: { certs: Certification[] }) {
     <section id="certifications" className="py-24 relative z-10 bg-black/30 border-y border-white/5">
       <div className="container mx-auto px-6 max-w-6xl">
         <FadeIn direction="up">
-          <h2 className="text-4xl font-bold mb-16 tracking-wider text-center text-white font-[family-name:var(--font-cyber)]">CERTIFICATIONS</h2>
+          <h2 className="text-4xl font-bold mb-16 tracking-wider text-center text-white font-[family-name:var(--font-cyber)]">MILESTONES</h2>
         </FadeIn>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">

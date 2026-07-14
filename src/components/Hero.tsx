@@ -40,7 +40,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden pt-20">
+    <section id="home" className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden pt-20">
       {/* Video Background Layer */}
       <video
         ref={videoRef}

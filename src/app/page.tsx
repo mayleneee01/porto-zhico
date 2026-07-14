@@ -6,6 +6,7 @@ import Projects from '@/components/Projects';
 import Certifications from '@/components/Certifications';
 import Experience from '@/components/Experience';
 import Contact from '@/components/Contact';
+import PageWrapper from '@/components/PageWrapper';
 import { prisma } from '@/lib/prisma';
 
 export const revalidate = 0; // Disable static rendering to see DB changes instantly
@@ -19,21 +20,23 @@ export default async function Home() {
   ]);
 
   return (
-    <main className="min-h-screen text-white font-sans selection:bg-white selection:text-black flex flex-col">
-      <Navbar />
-      <Hero />
-      <About />
-      <Skills skills={skills} />
-      <Projects projects={projects} />
-      <Experience experiences={experiences} />
-      <Certifications certs={certifications} />
-      <Contact />
-      
-      <footer className="py-8 text-center border-t border-white/10">
-        <p className="text-sm text-gray-500 font-light tracking-widest">
-          &copy; {new Date().getFullYear()} ZHICO PRADITA. ALL RIGHTS RESERVED.
-        </p>
-      </footer>
-    </main>
+    <PageWrapper>
+      <main className="min-h-screen text-white font-sans selection:bg-white selection:text-black flex flex-col pb-20 md:pb-0">
+        <Navbar />
+        <Hero />
+        <About />
+        <Skills skills={skills} />
+        <Projects projects={projects} />
+        <Experience experiences={experiences} />
+        <Certifications certs={certifications} />
+        <Contact />
+        
+        <footer className="py-8 text-center border-t border-white/10">
+          <p className="text-sm text-gray-500 font-light tracking-widest">
+            &copy; {new Date().getFullYear()} ZHICO PRADITA. ALL RIGHTS RESERVED.
+          </p>
+        </footer>
+      </main>
+    </PageWrapper>
   );
 }
