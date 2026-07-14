@@ -9,7 +9,8 @@ import Contact from '@/components/Contact';
 import PageWrapper from '@/components/PageWrapper';
 import { prisma } from '@/lib/prisma';
 
-export const revalidate = 0; // Disable static rendering to see DB changes instantly
+// Next.js will build this page statically. On-demand revalidation (revalidatePath)
+// inside admin actions will automatically regenerate the page whenever database content changes.
 
 export default async function Home() {
   const skills = await prisma.skill.findMany({ orderBy: { order: 'asc' } }).catch(() => []);

@@ -14,7 +14,14 @@ export default function About() {
             <div className="w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-white/20 p-1 relative overflow-hidden group shadow-[0_0_40px_rgba(255,255,255,0.1)]">
               <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
               <div className="relative w-full h-full rounded-full overflow-hidden bg-white/5">
-                <Image src="/profile.png" alt="Zhico Pradita" fill className="object-cover object-[center_20%]" />
+                <Image 
+                  src="/profile.png" 
+                  alt="Zhico Pradita" 
+                  fill 
+                  sizes="(max-width: 768px) 256px, 320px"
+                  priority
+                  className="object-cover object-[center_20%]" 
+                />
               </div>
             </div>
           </FadeIn>
