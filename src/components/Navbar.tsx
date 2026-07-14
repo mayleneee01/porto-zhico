@@ -105,7 +105,7 @@ export default function Navbar() {
 
       {/* Mobile Bottom Tab Bar */}
       <nav className="md:hidden fixed bottom-0 left-0 w-full z-[100] mobile-tab-bar">
-        <div className="flex justify-center items-end gap-6 w-full px-4 pb-2 pt-1 relative">
+        <div className="flex justify-around items-end w-full px-2 pb-2 pt-1 relative">
           {navLinks.map((link) => {
             const Icon = link.icon;
             const isHome = link.name === 'Home';

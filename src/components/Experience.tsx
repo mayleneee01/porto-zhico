@@ -79,9 +79,9 @@ export default function Experience({ experiences }: { experiences: ExperienceMod
                           <Image src={exp.icon} alt={exp.company} fill className="object-contain p-1.5" />
                         </div>
                       )}
-                      <div>
-                        <h3 className="text-xl font-bold text-gray-100">{exp.position}</h3>
-                        <h4 className="text-md font-medium text-gray-400">{exp.company}</h4>
+                      <div className="min-w-0 break-words flex-1">
+                        <h3 className="text-lg md:text-xl font-bold text-gray-100">{exp.position}</h3>
+                        <h4 className="text-sm md:text-md font-medium text-gray-400">{exp.company}</h4>
                       </div>
                     </div>
                     

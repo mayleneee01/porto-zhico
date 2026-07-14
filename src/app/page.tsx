@@ -19,7 +19,7 @@ export default async function Home() {
 
   return (
     <PageWrapper>
-      <main className="min-h-screen text-white font-sans selection:bg-white selection:text-black flex flex-col pb-20 md:pb-0">
+      <main className="min-h-screen text-white font-sans selection:bg-white selection:text-black flex flex-col pb-28 md:pb-0">
         <Navbar />
         <Hero />
         <About />
