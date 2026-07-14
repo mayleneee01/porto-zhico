@@ -61,7 +61,7 @@ export default function Experience({ experiences }: { experiences: ExperienceMod
                 {/* Content (Right side or Full on Mobile) */}
                 <div className="md:w-1/2 md:pl-12">
                   <div className="glass p-6 rounded-2xl group hover:border-white/30 transition-colors relative">
-                    {/* Mobile Date */}
+                    {/* Mobile Date & Badges */}
                     <div className="md:hidden flex flex-wrap gap-2 mb-4">
                       <span className="text-xs font-mono text-gray-400 bg-white/5 px-2 py-1 rounded border border-white/10">{exp.date}</span>
                       <span className="text-[10px] font-mono px-2 py-1 rounded bg-white/5 border border-white/10 text-gray-400 uppercase tracking-wider">
@@ -74,27 +74,27 @@ export default function Experience({ experiences }: { experiences: ExperienceMod
                       )}
                     </div>
 
-                    {/* Desktop Category badge */}
-                    <div className="hidden md:flex absolute top-4 right-4 z-10 gap-2">
-                      <div className="bg-white/10 backdrop-blur-sm px-2 py-0.5 rounded-md text-[10px] font-mono text-gray-300 border border-white/10 uppercase tracking-wider">
-                        {exp.category || 'professional'}
-                      </div>
-                      {exp.gpa && (
-                        <div className="bg-blue-900/30 backdrop-blur-sm px-2 py-0.5 rounded-md text-[10px] font-mono text-blue-300 border border-blue-500/30 uppercase tracking-wider">
-                          GPA: {exp.gpa}
-                        </div>
-                      )}
-                    </div>
-
                     <div className="flex items-start gap-4 mb-4">
                       {exp.icon && (
                         <div className="w-12 h-12 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden shrink-0 relative mt-1">
                           <Image src={exp.icon} alt={exp.company} fill className="object-contain p-1.5" />
                         </div>
                       )}
-                      <div className="min-w-0 break-words flex-1 md:pr-56">
+                      <div className="min-w-0 break-words flex-1">
                         <h3 className="text-lg md:text-xl font-bold text-gray-100">{exp.position}</h3>
-                        <h4 className="text-sm md:text-md font-medium text-gray-400">{exp.company}</h4>
+                        <h4 className="text-sm md:text-md font-medium text-gray-400 mb-2">{exp.company}</h4>
+                        
+                        {/* Desktop Badges */}
+                        <div className="hidden md:flex flex-wrap gap-2">
+                          <span className="bg-white/10 backdrop-blur-sm px-2 py-0.5 rounded-md text-[10px] font-mono text-gray-300 border border-white/10 uppercase tracking-wider">
+                            {exp.category || 'professional'}
+                          </span>
+                          {exp.gpa && (
+                            <span className="bg-blue-900/30 backdrop-blur-sm px-2 py-0.5 rounded-md text-[10px] font-mono text-blue-300 border border-blue-500/30 uppercase tracking-wider">
+                              GPA: {exp.gpa}
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
                     
