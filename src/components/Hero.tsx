@@ -53,7 +53,7 @@ export default function Hero() {
             videoRef.current.play().catch(e => console.warn(e));
           }
         }}
-        className="absolute inset-0 w-full h-full object-cover z-0 hidden md:block"
+        className="absolute inset-0 w-full h-full object-cover z-0"
       >
         <source src="/hero-bg.mp4" type="video/mp4" />
       </video>
