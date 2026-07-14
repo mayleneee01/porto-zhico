@@ -26,10 +26,17 @@ export default function LoginPage() {
         router.push('/admin');
         router.refresh();
       } else {
-        const data = await res.json();
-        setError(data.error || 'Login failed');
+        let errorMessage = 'Login failed';
+        try {
+          const data = await res.json();
+          errorMessage = data.error || errorMessage;
+        } catch (jsonErr) {
+          errorMessage = `Server Error (${res.status})`;
+        }
+        setError(errorMessage);
       }
     } catch (err) {
+      console.error("Client login fetch error:", err);
       setError('An error occurred');
     } finally {
       setLoading(false);

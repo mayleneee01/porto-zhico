@@ -18,6 +18,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Invalid password' }, { status: 401 });
     }
   } catch (error) {
+    console.error("LOGIN_ROUTE_ERROR:", error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
