@@ -4,6 +4,18 @@ import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 import { put } from '@vercel/blob';
 
+function sanitizeFilename(filename: string): string {
+  const parts = filename.split('.');
+  const ext = parts.pop() || '';
+  const base = parts.join('.');
+  const cleanBase = base
+    .toLowerCase()
+    .replace(/[^a-z0-9-_]/g, '-') // Replace spaces and special characters with hyphens
+    .replace(/-+/g, '-')          // Collapse multiple hyphens
+    .replace(/^-+|-+$/g, '');     // Trim leading/trailing hyphens
+  return `${cleanBase || 'file'}.${ext}`;
+}
+
 export async function reorderItems(model: string, items: { id: string; order: number }[]) {
   // Use sequential updates instead of a single transaction because Prisma
   // doesn't have a built-in polymorphic update method
@@ -36,8 +48,9 @@ export async function addProject(formData: FormData) {
     const imageFile = formData.get('imageFile') as File | null;
     
     if (imageFile && imageFile.size > 0) {
-      console.log(`Uploading project image: ${imageFile.name} (${imageFile.size} bytes)`);
-      const blob = await put(imageFile.name, imageFile, { access: 'public' });
+      const cleanName = sanitizeFilename(imageFile.name);
+      console.log(`Uploading project image: ${cleanName} (${imageFile.size} bytes)`);
+      const blob = await put(cleanName, imageFile, { access: 'public' });
       imageUrl = blob.url;
       console.log(`Uploaded successfully: ${imageUrl}`);
     }
@@ -68,8 +81,9 @@ export async function updateProject(formData: FormData) {
     const imageFile = formData.get('imageFile') as File | null;
     
     if (imageFile && imageFile.size > 0) {
-      console.log(`Uploading new project image: ${imageFile.name} (${imageFile.size} bytes)`);
-      const blob = await put(imageFile.name, imageFile, { access: 'public' });
+      const cleanName = sanitizeFilename(imageFile.name);
+      console.log(`Uploading new project image: ${cleanName} (${imageFile.size} bytes)`);
+      const blob = await put(cleanName, imageFile, { access: 'public' });
       imageUrl = blob.url;
       console.log(`Uploaded successfully: ${imageUrl}`);
     }
@@ -112,8 +126,9 @@ export async function addCert(formData: FormData) {
     const imageFile = formData.get('imageFile') as File | null;
     
     if (imageFile && imageFile.size > 0) {
-      console.log(`Uploading certification image: ${imageFile.name} (${imageFile.size} bytes)`);
-      const blob = await put(imageFile.name, imageFile, { access: 'public' });
+      const cleanName = sanitizeFilename(imageFile.name);
+      console.log(`Uploading certification image: ${cleanName} (${imageFile.size} bytes)`);
+      const blob = await put(cleanName, imageFile, { access: 'public' });
       imageUrl = blob.url;
       console.log(`Uploaded successfully: ${imageUrl}`);
     }
@@ -144,7 +159,8 @@ export async function updateCert(formData: FormData) {
   const imageFile = formData.get('imageFile') as File | null;
   
   if (imageFile && imageFile.size > 0) {
-    const blob = await put(imageFile.name, imageFile, { access: 'public' });
+    const cleanName = sanitizeFilename(imageFile.name);
+    const blob = await put(cleanName, imageFile, { access: 'public' });
     imageUrl = blob.url;
   }
 
@@ -215,8 +231,9 @@ export async function addExp(formData: FormData) {
     const iconFile = formData.get('iconFile') as File | null;
     
     if (iconFile && iconFile.size > 0) {
-      console.log(`Uploading experience icon: ${iconFile.name} (${iconFile.size} bytes)`);
-      const blob = await put(iconFile.name, iconFile, { access: 'public' });
+      const cleanName = sanitizeFilename(iconFile.name);
+      console.log(`Uploading experience icon: ${cleanName} (${iconFile.size} bytes)`);
+      const blob = await put(cleanName, iconFile, { access: 'public' });
       iconUrl = blob.url;
       console.log(`Uploaded successfully: ${iconUrl}`);
     }
@@ -247,7 +264,8 @@ export async function updateExp(formData: FormData) {
   const iconFile = formData.get('iconFile') as File | null;
   
   if (iconFile && iconFile.size > 0) {
-    const blob = await put(iconFile.name, iconFile, { access: 'public' });
+    const cleanName = sanitizeFilename(iconFile.name);
+    const blob = await put(cleanName, iconFile, { access: 'public' });
     iconUrl = blob.url;
   }
 
