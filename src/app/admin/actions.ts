@@ -186,10 +186,41 @@ export async function addExp(formData: FormData) {
   revalidatePath('/');
 }
 
+export async function updateExp(formData: FormData) {
+  const id = formData.get('id') as string;
+  
+  let iconUrl: string | undefined = undefined;
+  const iconFile = formData.get('iconFile') as File | null;
+  
+  if (iconFile && iconFile.size > 0) {
+    const blob = await put(iconFile.name, iconFile, { access: 'public' });
+    iconUrl = blob.url;
+  }
+
+  const data: any = {
+    position: formData.get('position') as string,
+    company: formData.get('company') as string,
+    date: formData.get('date') as string,
+    description: formData.get('description') as string,
+    category: (formData.get('category') as string) || 'professional',
+  };
+
+  if (iconUrl) {
+    data.icon = iconUrl;
+  }
+
+  await prisma.experience.update({
+    where: { id },
+    data,
+  });
+  
+  revalidatePath('/admin/experience');
+  revalidatePath('/');
+}
+
 export async function deleteExp(formData: FormData) {
   const id = formData.get('id') as string;
   await prisma.experience.delete({ where: { id } });
   revalidatePath('/admin/experience');
   revalidatePath('/');
 }
-

@@ -9,6 +9,7 @@ import Image from 'next/image';
 const FILTER_CATEGORIES: FilterCategory[] = [
   { key: 'all', label: 'All' },
   { key: 'professional', label: 'Professional' },
+  { key: 'education', label: 'Education' },
   { key: 'organization', label: 'Organization' },
 ];
 
