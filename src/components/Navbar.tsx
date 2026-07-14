@@ -1,43 +1,71 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Home, FolderKanban, Briefcase, Trophy, Mail } from 'lucide-react';
 import clsx from 'clsx';
 
 const navLinks = [
-  { name: 'Home', href: '#home', icon: Home },
-  { name: 'Project', href: '#projects', icon: FolderKanban },
-  { name: 'Experience', href: '#experience', icon: Briefcase },
-  { name: 'Milestones', href: '#certifications', icon: Trophy },
-  { name: 'Contact', href: '#contact', icon: Mail },
+  { name: 'Home', href: '/#home', sectionId: 'home', icon: Home },
+  { name: 'Project', href: '/#projects', sectionId: 'projects', icon: FolderKanban },
+  { name: 'Experience', href: '/#experience', sectionId: 'experience', icon: Briefcase },
+  { name: 'Milestones', href: '/#certifications', sectionId: 'certifications', icon: Trophy },
+  { name: 'Contact', href: '/#contact', sectionId: 'contact', icon: Mail },
 ];
 
 export default function Navbar() {
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+
+  const detectActiveSection = useCallback(() => {
+    // Only detect sections on the homepage
+    if (pathname !== '/') {
+      setActiveSection('');
+      return;
+    }
+
+    const sectionIds = navLinks.map(link => link.sectionId);
+    for (let i = sectionIds.length - 1; i >= 0; i--) {
+      const el = document.getElementById(sectionIds[i]);
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= 150) {
+          setActiveSection(sectionIds[i]);
+          return;
+        }
+      }
+    }
+    // Default to home if at top
+    setActiveSection('home');
+  }, [pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
-
-      // Detect active section
-      const sections = navLinks.map(link => link.href.replace('#', ''));
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sections[i]);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= 150) {
-            setActiveSection(sections[i]);
-            break;
-          }
-        }
-      }
+      detectActiveSection();
     };
 
     window.addEventListener('scroll', handleScroll);
+    // Run once on mount
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [detectActiveSection]);
+
+  const handleNavClick = (e: React.MouseEvent, link: typeof navLinks[0]) => {
+    // If already on homepage, do smooth scroll
+    if (pathname === '/') {
+      e.preventDefault();
+      const el = document.getElementById(link.sectionId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      } else if (link.sectionId === 'home') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+    // If on different page, Link will navigate to /#section
+  };
 
   return (
     <>
@@ -56,9 +84,10 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
+                onClick={(e) => handleNavClick(e, link)}
                 className={clsx(
                   "text-sm uppercase tracking-wider transition-all duration-300 relative group",
-                  activeSection === link.href.replace('#', '')
+                  activeSection === link.sectionId
                     ? "text-white"
                     : "text-gray-400 hover:text-white"
                 )}
@@ -67,7 +96,7 @@ export default function Navbar() {
                 <span
                   className={clsx(
                     "absolute -bottom-1 left-0 h-[2px] bg-white transition-all duration-300",
-                    activeSection === link.href.replace('#', '')
+                    activeSection === link.sectionId
                       ? "w-full"
                       : "w-0 group-hover:w-full"
                   )}
@@ -81,16 +110,17 @@ export default function Navbar() {
       {/* Mobile Bottom Tab Bar */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 z-[100] mobile-tab-bar">
         <div className="flex justify-around items-end px-2 pb-1 pt-1 relative">
-          {navLinks.map((link, index) => {
+          {navLinks.map((link) => {
             const Icon = link.icon;
             const isHome = link.name === 'Home';
-            const isActive = activeSection === link.href.replace('#', '');
+            const isActive = activeSection === link.sectionId;
 
             if (isHome) {
               return (
                 <Link
                   key={link.name}
                   href={link.href}
+                  onClick={(e) => handleNavClick(e, link)}
                   className="mobile-tab-home-container"
                 >
                   <div
@@ -115,6 +145,7 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
+                onClick={(e) => handleNavClick(e, link)}
                 className="mobile-tab-item"
               >
                 <div className={clsx(

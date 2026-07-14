@@ -15,6 +15,7 @@ export default async function AdminExperience() {
         company: formData.get('company') as string,
         date: formData.get('date') as string,
         description: formData.get('description') as string,
+        category: (formData.get('category') as string) || 'professional',
       },
     });
     revalidatePath('/admin/experience');
@@ -53,6 +54,13 @@ export default async function AdminExperience() {
               <div>
                 <label className="text-xs text-gray-400 uppercase tracking-wider mb-1 block">Description *</label>
                 <textarea required name="description" rows={4} className="w-full bg-black/50 border border-white/10 rounded p-2 text-white text-sm resize-none"></textarea>
+              </div>
+              <div>
+                <label className="text-xs text-gray-400 uppercase tracking-wider mb-1 block">Category *</label>
+                <select name="category" required className="w-full bg-black/50 border border-white/10 rounded p-2 text-white text-sm">
+                  <option value="professional">Professional</option>
+                  <option value="organization">Organization</option>
+                </select>
               </div>
               <button type="submit" className="bg-white text-black font-bold py-2 rounded hover:bg-gray-200 transition-colors mt-4">
                 ADD EXPERIENCE

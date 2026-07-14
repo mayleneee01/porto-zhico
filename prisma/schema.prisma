@@ -31,6 +31,7 @@ model Certification {
   date      String
   image     String?
   url       String?
+  category  String   @default("certification")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -41,6 +42,7 @@ model Experience {
   company     String
   date        String
   description String
+  category    String   @default("professional")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

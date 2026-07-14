@@ -1,18 +1,53 @@
+'use client';
+
+import { useState, useMemo } from 'react';
 import FadeIn from './FadeIn';
+import FilterTabs, { FilterCategory } from './FilterTabs';
 import { Award, ExternalLink } from 'lucide-react';
 import { Certification } from '@/generated/prisma';
 import Image from 'next/image';
 
+const FILTER_CATEGORIES: FilterCategory[] = [
+  { key: 'all', label: 'All' },
+  { key: 'certification', label: 'Certification' },
+  { key: 'award', label: 'Award' },
+];
+
 export default function Certifications({ certs }: { certs: Certification[] }) {
+  const [activeFilter, setActiveFilter] = useState('all');
+
+  const counts = useMemo(() => {
+    const result: Record<string, number> = { all: certs.length };
+    for (const cert of certs) {
+      const cat = cert.category || 'certification';
+      result[cat] = (result[cat] || 0) + 1;
+    }
+    return result;
+  }, [certs]);
+
+  const filteredCerts = useMemo(() => {
+    if (activeFilter === 'all') return certs;
+    return certs.filter(cert => (cert.category || 'certification') === activeFilter);
+  }, [certs, activeFilter]);
+
   return (
     <section id="certifications" className="py-24 relative z-10 bg-black/30 border-y border-white/5">
       <div className="container mx-auto px-6 max-w-6xl">
         <FadeIn direction="up">
-          <h2 className="text-4xl font-bold mb-16 tracking-wider text-center text-white font-[family-name:var(--font-cyber)]">MILESTONES</h2>
+          <h2 className="text-4xl font-bold mb-8 tracking-wider text-center text-white font-[family-name:var(--font-cyber)]">MILESTONES</h2>
+        </FadeIn>
+
+        <FadeIn direction="up" delay={0.1}>
+          <FilterTabs
+            categories={FILTER_CATEGORIES}
+            activeFilter={activeFilter}
+            onFilterChange={setActiveFilter}
+            counts={counts}
+          />
         </FadeIn>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
-          {certs.map((cert, index) => (
+          {filteredCerts.map((cert, index) => (
             <FadeIn key={cert.id} direction="up" delay={index * 0.1}>
               <div className="glass rounded-2xl flex flex-row md:flex-col group hover:border-white/30 hover:shadow-[0_0_20px_rgba(255,255,255,0.05)] transition-all overflow-hidden h-full items-center md:items-stretch">
                 {/* Image Cover */}
@@ -24,6 +59,10 @@ export default function Certifications({ certs }: { certs: Certification[] }) {
                   )}
                   <div className="absolute top-2 right-2 z-10 bg-black/70 px-2 py-1 rounded-md text-[10px] md:text-xs font-mono text-white shadow-md border border-white/10 w-max">
                     {cert.date}
+                  </div>
+                  {/* Category badge */}
+                  <div className="absolute top-2 left-2 z-10 bg-white/10 backdrop-blur-sm px-2 py-0.5 rounded-md text-[9px] md:text-[10px] font-mono text-gray-300 border border-white/10 uppercase tracking-wider">
+                    {cert.category || 'certification'}
                   </div>
                 </div>
 
@@ -52,8 +91,10 @@ export default function Certifications({ certs }: { certs: Certification[] }) {
               </div>
             </FadeIn>
           ))}
-          {certs.length === 0 && (
-            <div className="col-span-full text-center text-gray-500">No certifications added yet.</div>
+          {filteredCerts.length === 0 && (
+            <div className="col-span-full text-center text-gray-500 py-8">
+              {certs.length === 0 ? 'No milestones added yet.' : 'No items match this filter.'}
+            </div>
           )}
         </div>
       </div>

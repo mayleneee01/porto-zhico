@@ -36,6 +36,13 @@ export default async function AdminCertifications() {
                 <label className="text-xs text-gray-400 uppercase tracking-wider mb-1 block">Credential URL</label>
                 <input name="url" className="w-full bg-black/50 border border-white/10 rounded p-2 text-white text-sm" placeholder="https://..." />
               </div>
+              <div>
+                <label className="text-xs text-gray-400 uppercase tracking-wider mb-1 block">Category *</label>
+                <select name="category" required className="w-full bg-black/50 border border-white/10 rounded p-2 text-white text-sm">
+                  <option value="certification">Certification</option>
+                  <option value="award">Award</option>
+                </select>
+              </div>
               <button type="submit" className="bg-white text-black font-bold py-2 rounded hover:bg-gray-200 transition-colors mt-4">
                 ADD CERTIFICATION
               </button>

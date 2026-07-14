@@ -82,6 +82,7 @@ export async function addCert(formData: FormData) {
       issuer: formData.get('issuer') as string,
       date: formData.get('date') as string,
       url: (formData.get('url') as string) || null,
+      category: (formData.get('category') as string) || 'certification',
       image: imageUrl,
     },
   });
@@ -106,6 +107,7 @@ export async function updateCert(formData: FormData) {
     issuer: formData.get('issuer') as string,
     date: formData.get('date') as string,
     url: (formData.get('url') as string) || null,
+    category: (formData.get('category') as string) || 'certification',
   };
 
   if (imageUrl) {

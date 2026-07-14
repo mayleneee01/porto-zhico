@@ -1,16 +1,51 @@
+'use client';
+
+import { useState, useMemo } from 'react';
 import FadeIn from './FadeIn';
+import FilterTabs, { FilterCategory } from './FilterTabs';
 import { Experience as ExperienceModel } from '@/generated/prisma';
 
+const FILTER_CATEGORIES: FilterCategory[] = [
+  { key: 'all', label: 'All' },
+  { key: 'professional', label: 'Professional' },
+  { key: 'organization', label: 'Organization' },
+];
+
 export default function Experience({ experiences }: { experiences: ExperienceModel[] }) {
+  const [activeFilter, setActiveFilter] = useState('all');
+
+  const counts = useMemo(() => {
+    const result: Record<string, number> = { all: experiences.length };
+    for (const exp of experiences) {
+      const cat = exp.category || 'professional';
+      result[cat] = (result[cat] || 0) + 1;
+    }
+    return result;
+  }, [experiences]);
+
+  const filteredExperiences = useMemo(() => {
+    if (activeFilter === 'all') return experiences;
+    return experiences.filter(exp => (exp.category || 'professional') === activeFilter);
+  }, [experiences, activeFilter]);
+
   return (
     <section id="experience" className="py-24 relative z-10">
       <div className="container mx-auto px-6 max-w-4xl">
         <FadeIn direction="up">
-          <h2 className="text-4xl font-bold mb-16 tracking-wider text-center text-gradient">EXPERIENCE</h2>
+          <h2 className="text-4xl font-bold mb-8 tracking-wider text-center text-gradient">EXPERIENCE</h2>
+        </FadeIn>
+
+        <FadeIn direction="up" delay={0.1}>
+          <FilterTabs
+            categories={FILTER_CATEGORIES}
+            activeFilter={activeFilter}
+            onFilterChange={setActiveFilter}
+            counts={counts}
+          />
         </FadeIn>
         
         <div className="relative border-l border-white/20 ml-4 md:ml-0 md:pl-0">
-          {experiences.map((exp, index) => (
+          {filteredExperiences.map((exp, index) => (
             <FadeIn key={exp.id} direction="up" delay={index * 0.1}>
               <div className="mb-10 ml-8 md:ml-0 md:flex md:items-center relative">
                 {/* Timeline dot */}
@@ -27,6 +62,11 @@ export default function Experience({ experiences }: { experiences: ExperienceMod
                     {/* Mobile Date */}
                     <span className="md:hidden inline-block mb-3 text-xs font-mono text-gray-400 bg-white/5 px-2 py-1 rounded border border-white/10">{exp.date}</span>
                     
+                    {/* Category badge */}
+                    <span className="inline-block mb-2 text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 border border-white/10 text-gray-400 uppercase tracking-wider">
+                      {exp.category || 'professional'}
+                    </span>
+
                     <h3 className="text-xl font-bold text-gray-100">{exp.position}</h3>
                     <h4 className="text-md font-medium text-gray-400 mb-4">{exp.company}</h4>
                     <p className="text-gray-300 font-light text-sm leading-relaxed">
@@ -37,8 +77,10 @@ export default function Experience({ experiences }: { experiences: ExperienceMod
               </div>
             </FadeIn>
           ))}
-          {experiences.length === 0 && (
-            <div className="text-center text-gray-500">No experiences added yet.</div>
+          {filteredExperiences.length === 0 && (
+            <div className="text-center text-gray-500 py-8">
+              {experiences.length === 0 ? 'No experiences added yet.' : 'No items match this filter.'}
+            </div>
           )}
           
           {/* Desktop Center Line override */}
