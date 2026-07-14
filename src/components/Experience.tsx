@@ -54,12 +54,12 @@ export default function Experience({ experiences }: { experiences: ExperienceMod
                 <div className="absolute w-4 h-4 rounded-full bg-white -left-[39px] md:left-1/2 md:-translate-x-1/2 top-1.5 md:top-1/2 md:-translate-y-1/2 shadow-[0_0_10px_rgba(255,255,255,0.5)] z-10"></div>
 
                 {/* Desktop Date (Left side) */}
-                <div className="hidden md:block w-1/2 pr-12 text-right">
+                <div className="hidden md:block w-1/2 shrink-0 pr-12 text-right">
                   <span className="text-sm font-mono text-gray-400 bg-white/5 px-3 py-1 rounded border border-white/10">{exp.date}</span>
                 </div>
 
                 {/* Content (Right side or Full on Mobile) */}
-                <div className="md:w-1/2 md:pl-12">
+                <div className="md:w-1/2 shrink-0 md:pl-12">
                   <div className="glass p-6 rounded-2xl group hover:border-white/30 transition-colors relative">
                     {/* Mobile Date & Badges */}
                     <div className="md:hidden flex flex-wrap gap-2 mb-4">
