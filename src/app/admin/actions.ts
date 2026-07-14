@@ -50,7 +50,11 @@ export async function addProject(formData: FormData) {
     if (imageFile && imageFile.size > 0) {
       const cleanName = sanitizeFilename(imageFile.name);
       console.log(`Uploading project image: ${cleanName} (${imageFile.size} bytes)`);
-      const blob = await put(cleanName, imageFile, { access: 'public' });
+      const blob = await put(cleanName, imageFile, { 
+        access: 'public',
+        addRandomSuffix: true,
+        allowOverwrite: true
+      });
       imageUrl = blob.url;
       console.log(`Uploaded successfully: ${imageUrl}`);
     }
@@ -83,7 +87,11 @@ export async function updateProject(formData: FormData) {
     if (imageFile && imageFile.size > 0) {
       const cleanName = sanitizeFilename(imageFile.name);
       console.log(`Uploading new project image: ${cleanName} (${imageFile.size} bytes)`);
-      const blob = await put(cleanName, imageFile, { access: 'public' });
+      const blob = await put(cleanName, imageFile, { 
+        access: 'public',
+        addRandomSuffix: true,
+        allowOverwrite: true
+      });
       imageUrl = blob.url;
       console.log(`Uploaded successfully: ${imageUrl}`);
     }
@@ -128,7 +136,11 @@ export async function addCert(formData: FormData) {
     if (imageFile && imageFile.size > 0) {
       const cleanName = sanitizeFilename(imageFile.name);
       console.log(`Uploading certification image: ${cleanName} (${imageFile.size} bytes)`);
-      const blob = await put(cleanName, imageFile, { access: 'public' });
+      const blob = await put(cleanName, imageFile, { 
+        access: 'public',
+        addRandomSuffix: true,
+        allowOverwrite: true
+      });
       imageUrl = blob.url;
       console.log(`Uploaded successfully: ${imageUrl}`);
     }
@@ -160,7 +172,11 @@ export async function updateCert(formData: FormData) {
   
   if (imageFile && imageFile.size > 0) {
     const cleanName = sanitizeFilename(imageFile.name);
-    const blob = await put(cleanName, imageFile, { access: 'public' });
+    const blob = await put(cleanName, imageFile, { 
+      access: 'public',
+      addRandomSuffix: true,
+      allowOverwrite: true
+    });
     imageUrl = blob.url;
   }
 
@@ -233,7 +249,11 @@ export async function addExp(formData: FormData) {
     if (iconFile && iconFile.size > 0) {
       const cleanName = sanitizeFilename(iconFile.name);
       console.log(`Uploading experience icon: ${cleanName} (${iconFile.size} bytes)`);
-      const blob = await put(cleanName, iconFile, { access: 'public' });
+      const blob = await put(cleanName, iconFile, { 
+        access: 'public',
+        addRandomSuffix: true,
+        allowOverwrite: true
+      });
       iconUrl = blob.url;
       console.log(`Uploaded successfully: ${iconUrl}`);
     }
@@ -265,7 +285,11 @@ export async function updateExp(formData: FormData) {
   
   if (iconFile && iconFile.size > 0) {
     const cleanName = sanitizeFilename(iconFile.name);
-    const blob = await put(cleanName, iconFile, { access: 'public' });
+    const blob = await put(cleanName, iconFile, { 
+      access: 'public',
+      addRandomSuffix: true,
+      allowOverwrite: true
+    });
     iconUrl = blob.url;
   }
 
