@@ -62,9 +62,9 @@ export default function Experience({ experiences }: { experiences: ExperienceMod
                 <div className="md:w-1/2 md:pl-12">
                   <div className="glass p-6 rounded-2xl group hover:border-white/30 transition-colors relative">
                     {/* Mobile Date */}
-                    <div className="md:hidden flex justify-between items-center mb-4">
+                    <div className="md:hidden flex flex-wrap gap-2 mb-4">
                       <span className="text-xs font-mono text-gray-400 bg-white/5 px-2 py-1 rounded border border-white/10">{exp.date}</span>
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 border border-white/10 text-gray-400 uppercase tracking-wider">
+                      <span className="text-[10px] font-mono px-2 py-1 rounded bg-white/5 border border-white/10 text-gray-400 uppercase tracking-wider">
                         {exp.category || 'professional'}
                       </span>
                     </div>

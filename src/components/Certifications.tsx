@@ -61,7 +61,7 @@ export default function Certifications({ certs }: { certs: Certification[] }) {
                     {cert.date}
                   </div>
                   {/* Category badge */}
-                  <div className="absolute top-2 left-2 z-10 bg-white/10 backdrop-blur-sm px-2 py-0.5 rounded-md text-[9px] md:text-[10px] font-mono text-gray-300 border border-white/10 uppercase tracking-wider">
+                  <div className="absolute bottom-2 left-2 z-10 bg-black/50 backdrop-blur-sm px-2 py-0.5 rounded-md text-[9px] md:text-[10px] font-mono text-gray-300 border border-white/10 uppercase tracking-wider">
                     {cert.category || 'certification'}
                   </div>
                 </div>
