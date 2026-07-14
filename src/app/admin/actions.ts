@@ -31,57 +31,71 @@ export async function reorderItems(model: string, items: { id: string; order: nu
 
 // PROJECTS
 export async function addProject(formData: FormData) {
-  let imageUrl = null;
-  const imageFile = formData.get('imageFile') as File | null;
-  
-  if (imageFile && imageFile.size > 0) {
-    const blob = await put(imageFile.name, imageFile, { access: 'public' });
-    imageUrl = blob.url;
-  }
+  try {
+    let imageUrl = null;
+    const imageFile = formData.get('imageFile') as File | null;
+    
+    if (imageFile && imageFile.size > 0) {
+      console.log(`Uploading project image: ${imageFile.name} (${imageFile.size} bytes)`);
+      const blob = await put(imageFile.name, imageFile, { access: 'public' });
+      imageUrl = blob.url;
+      console.log(`Uploaded successfully: ${imageUrl}`);
+    }
 
-  await prisma.project.create({
-    data: {
+    await prisma.project.create({
+      data: {
+        title: formData.get('title') as string,
+        description: formData.get('description') as string,
+        techStack: formData.get('techStack') as string,
+        demoUrl: (formData.get('demoUrl') as string) || null,
+        githubUrl: (formData.get('githubUrl') as string) || null,
+        image: imageUrl,
+      },
+    });
+    revalidatePath('/admin/projects');
+    revalidatePath('/');
+  } catch (error) {
+    console.error("ADD_PROJECT_ERROR:", error);
+    throw error;
+  }
+}
+
+export async function updateProject(formData: FormData) {
+  try {
+    const id = formData.get('id') as string;
+    
+    let imageUrl: string | undefined = undefined;
+    const imageFile = formData.get('imageFile') as File | null;
+    
+    if (imageFile && imageFile.size > 0) {
+      console.log(`Uploading new project image: ${imageFile.name} (${imageFile.size} bytes)`);
+      const blob = await put(imageFile.name, imageFile, { access: 'public' });
+      imageUrl = blob.url;
+      console.log(`Uploaded successfully: ${imageUrl}`);
+    }
+
+    const data: any = {
       title: formData.get('title') as string,
       description: formData.get('description') as string,
       techStack: formData.get('techStack') as string,
       demoUrl: (formData.get('demoUrl') as string) || null,
       githubUrl: (formData.get('githubUrl') as string) || null,
-      image: imageUrl,
-    },
-  });
-  revalidatePath('/admin/projects');
-  revalidatePath('/');
-}
+    };
 
-export async function updateProject(formData: FormData) {
-  const id = formData.get('id') as string;
-  
-  let imageUrl: string | undefined = undefined;
-  const imageFile = formData.get('imageFile') as File | null;
-  
-  if (imageFile && imageFile.size > 0) {
-    const blob = await put(imageFile.name, imageFile, { access: 'public' });
-    imageUrl = blob.url;
+    if (imageUrl) {
+      data.image = imageUrl;
+    }
+
+    await prisma.project.update({
+      where: { id },
+      data,
+    });
+    revalidatePath('/admin/projects');
+    revalidatePath('/');
+  } catch (error) {
+    console.error("UPDATE_PROJECT_ERROR:", error);
+    throw error;
   }
-
-  const data: any = {
-    title: formData.get('title') as string,
-    description: formData.get('description') as string,
-    techStack: formData.get('techStack') as string,
-    demoUrl: (formData.get('demoUrl') as string) || null,
-    githubUrl: (formData.get('githubUrl') as string) || null,
-  };
-
-  if (imageUrl) {
-    data.image = imageUrl;
-  }
-
-  await prisma.project.update({
-    where: { id },
-    data,
-  });
-  revalidatePath('/admin/projects');
-  revalidatePath('/');
 }
 
 export async function deleteProject(formData: FormData) {
@@ -93,26 +107,33 @@ export async function deleteProject(formData: FormData) {
 
 // CERTIFICATIONS
 export async function addCert(formData: FormData) {
-  let imageUrl = null;
-  const imageFile = formData.get('imageFile') as File | null;
-  
-  if (imageFile && imageFile.size > 0) {
-    const blob = await put(imageFile.name, imageFile, { access: 'public' });
-    imageUrl = blob.url;
-  }
+  try {
+    let imageUrl = null;
+    const imageFile = formData.get('imageFile') as File | null;
+    
+    if (imageFile && imageFile.size > 0) {
+      console.log(`Uploading certification image: ${imageFile.name} (${imageFile.size} bytes)`);
+      const blob = await put(imageFile.name, imageFile, { access: 'public' });
+      imageUrl = blob.url;
+      console.log(`Uploaded successfully: ${imageUrl}`);
+    }
 
-  await prisma.certification.create({
-    data: {
-      name: formData.get('name') as string,
-      issuer: formData.get('issuer') as string,
-      date: formData.get('date') as string,
-      url: (formData.get('url') as string) || null,
-      category: (formData.get('category') as string) || 'certification',
-      image: imageUrl,
-    },
-  });
-  revalidatePath('/admin/certifications');
-  revalidatePath('/');
+    await prisma.certification.create({
+      data: {
+        name: formData.get('name') as string,
+        issuer: formData.get('issuer') as string,
+        date: formData.get('date') as string,
+        url: (formData.get('url') as string) || null,
+        category: (formData.get('category') as string) || 'certification',
+        image: imageUrl,
+      },
+    });
+    revalidatePath('/admin/certifications');
+    revalidatePath('/');
+  } catch (error) {
+    console.error("ADD_CERT_ERROR:", error);
+    throw error;
+  }
 }
 
 export async function updateCert(formData: FormData) {
@@ -189,27 +210,34 @@ export async function deleteSkill(formData: FormData) {
 
 // EXPERIENCE
 export async function addExp(formData: FormData) {
-  let iconUrl = null;
-  const iconFile = formData.get('iconFile') as File | null;
-  
-  if (iconFile && iconFile.size > 0) {
-    const blob = await put(iconFile.name, iconFile, { access: 'public' });
-    iconUrl = blob.url;
-  }
+  try {
+    let iconUrl = null;
+    const iconFile = formData.get('iconFile') as File | null;
+    
+    if (iconFile && iconFile.size > 0) {
+      console.log(`Uploading experience icon: ${iconFile.name} (${iconFile.size} bytes)`);
+      const blob = await put(iconFile.name, iconFile, { access: 'public' });
+      iconUrl = blob.url;
+      console.log(`Uploaded successfully: ${iconUrl}`);
+    }
 
-  await prisma.experience.create({
-    data: {
-      position: formData.get('position') as string,
-      company: formData.get('company') as string,
-      date: formData.get('date') as string,
-      description: formData.get('description') as string,
-      category: (formData.get('category') as string) || 'professional',
-      gpa: (formData.get('gpa') as string) || null,
-      icon: iconUrl,
-    },
-  });
-  revalidatePath('/admin/experience');
-  revalidatePath('/');
+    await prisma.experience.create({
+      data: {
+        position: formData.get('position') as string,
+        company: formData.get('company') as string,
+        date: formData.get('date') as string,
+        description: formData.get('description') as string,
+        category: (formData.get('category') as string) || 'professional',
+        gpa: (formData.get('gpa') as string) || null,
+        icon: iconUrl,
+      },
+    });
+    revalidatePath('/admin/experience');
+    revalidatePath('/');
+  } catch (error) {
+    console.error("ADD_EXP_ERROR:", error);
+    throw error;
+  }
 }
 
 export async function updateExp(formData: FormData) {
