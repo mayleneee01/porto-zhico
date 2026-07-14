@@ -21,7 +21,7 @@ export default function Projects({ projects }: { projects: Project[] }) {
           {projects.map((project, index) => (
             <FadeIn key={project.id} direction="up" delay={index * 0.1}>
               <div className="glass rounded-2xl overflow-hidden group h-full flex flex-row md:flex-col hover:border-white/30 hover:shadow-[0_0_20px_rgba(255,255,255,0.05)] transition-all items-center md:items-stretch">
-                <div className="w-28 h-28 md:w-full md:h-auto md:aspect-video relative bg-[#111] overflow-hidden md:border-b border-white/10 shrink-0">
+                <div className="w-24 h-24 ml-4 rounded-xl md:rounded-none md:ml-0 md:w-full md:h-auto md:aspect-video relative bg-[#111] overflow-hidden md:border-b border-white/10 shrink-0">
                   {project.image ? (
                     <Image src={project.image} alt={project.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
                   ) : (
