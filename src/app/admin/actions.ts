@@ -4,6 +4,31 @@ import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 import { put } from '@vercel/blob';
 
+export async function reorderItems(model: string, items: { id: string; order: number }[]) {
+  // Use sequential updates instead of a single transaction because Prisma
+  // doesn't have a built-in polymorphic update method
+  if (model === 'Experience') {
+    for (const item of items) {
+      await prisma.experience.update({ where: { id: item.id }, data: { order: item.order } });
+    }
+  } else if (model === 'Project') {
+    for (const item of items) {
+      await prisma.project.update({ where: { id: item.id }, data: { order: item.order } });
+    }
+  } else if (model === 'Certification') {
+    for (const item of items) {
+      await prisma.certification.update({ where: { id: item.id }, data: { order: item.order } });
+    }
+  } else if (model === 'Skill') {
+    for (const item of items) {
+      await prisma.skill.update({ where: { id: item.id }, data: { order: item.order } });
+    }
+  }
+  
+  revalidatePath('/admin');
+  revalidatePath('/');
+}
+
 // PROJECTS
 export async function addProject(formData: FormData) {
   let imageUrl = null;
@@ -179,6 +204,7 @@ export async function addExp(formData: FormData) {
       date: formData.get('date') as string,
       description: formData.get('description') as string,
       category: (formData.get('category') as string) || 'professional',
+      gpa: (formData.get('gpa') as string) || null,
       icon: iconUrl,
     },
   });
@@ -203,6 +229,7 @@ export async function updateExp(formData: FormData) {
     date: formData.get('date') as string,
     description: formData.get('description') as string,
     category: (formData.get('category') as string) || 'professional',
+    gpa: (formData.get('gpa') as string) || null,
   };
 
   if (iconUrl) {

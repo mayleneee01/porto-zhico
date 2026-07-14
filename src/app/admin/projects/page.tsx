@@ -5,7 +5,7 @@ import ProjectList from './ProjectList';
 export const revalidate = 0;
 
 export default async function AdminProjects() {
-  const projects = await prisma.project.findMany({ orderBy: { createdAt: 'desc' } });
+  const projects = await prisma.project.findMany({ orderBy: { order: 'asc' } });
 
   return (
     <div>

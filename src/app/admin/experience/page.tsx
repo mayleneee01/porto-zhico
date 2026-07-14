@@ -3,6 +3,7 @@ import { addExp, updateExp, deleteExp } from '../actions';
 import { Trash2, Edit2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import DraggableList from '@/components/admin/DraggableList';
 
 export const revalidate = 0;
 
@@ -10,7 +11,7 @@ export default async function AdminExperience({ searchParams }: { searchParams: 
   // Await searchParams in Next 15+ per new App Router changes
   const params = await searchParams;
   
-  const exps = await prisma.experience.findMany({ orderBy: { createdAt: 'desc' } });
+  const exps = await prisma.experience.findMany({ orderBy: { order: 'asc' } });
   
   const editId = params.edit;
   const editExp = editId ? exps.find(e => e.id === editId) : null;
@@ -58,6 +59,10 @@ export default async function AdminExperience({ searchParams }: { searchParams: 
                 </select>
               </div>
               <div>
+                <label className="text-xs text-gray-400 uppercase tracking-wider mb-1 block">GPA / Score (Optional)</label>
+                <input defaultValue={editExp?.gpa || ''} name="gpa" className="w-full bg-black/50 border border-white/10 rounded p-2 text-white text-sm" placeholder="e.g. 3.84/4.00" />
+              </div>
+              <div>
                 <label className="text-xs text-gray-400 uppercase tracking-wider mb-1 block">Company / Institution Logo {editExp && '(Leave empty to keep current)'}</label>
                 <input type="file" accept="image/*" name="iconFile" className="w-full bg-black/50 border border-white/10 rounded p-2 text-white text-sm" />
                 {editExp?.icon && (
@@ -77,9 +82,15 @@ export default async function AdminExperience({ searchParams }: { searchParams: 
         </div>
         
         <div className="lg:col-span-2 space-y-4">
-          <h2 className="text-xl font-bold mb-6">Timeline Entries ({exps.length})</h2>
-          {exps.map(exp => (
-            <div key={exp.id} className={`glass p-4 rounded-xl flex justify-between items-start gap-4 ${editId === exp.id ? 'ring-2 ring-white/50' : ''}`}>
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-xl font-bold">Timeline Entries ({exps.length})</h2>
+            <span className="text-xs text-gray-400">Drag handle to reorder</span>
+          </div>
+          <DraggableList 
+            items={exps} 
+            model="Experience"
+            renderItem={(exp) => (
+            <div className={`glass p-4 rounded-xl flex justify-between items-start gap-4 ${editId === exp.id ? 'ring-2 ring-white/50' : ''}`}>
               {exp.icon && (
                 <div className="w-12 h-12 rounded-lg bg-white/5 border border-white/10 overflow-hidden relative shrink-0">
                   <Image src={exp.icon} alt={exp.company} fill className="object-contain p-1" />
@@ -89,8 +100,9 @@ export default async function AdminExperience({ searchParams }: { searchParams: 
                 <h3 className="font-bold text-lg">{exp.position}</h3>
                 <p className="text-md text-gray-300">{exp.company}</p>
                 <p className="text-xs font-mono text-gray-500 mb-2">{exp.date}</p>
-                <div className="mb-2">
+                <div className="mb-2 flex gap-2">
                   <span className="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded border border-white/10 bg-white/5 text-gray-300">{exp.category}</span>
+                  {exp.gpa && <span className="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded border border-white/10 bg-blue-900/30 text-blue-300">GPA: {exp.gpa}</span>}
                 </div>
                 <p className="text-sm text-gray-400 line-clamp-2">{exp.description}</p>
               </div>
@@ -106,8 +118,7 @@ export default async function AdminExperience({ searchParams }: { searchParams: 
                 </form>
               </div>
             </div>
-          ))}
-          {exps.length === 0 && <p className="text-gray-500">No entries found.</p>}
+          )} />
         </div>
       </div>
     </div>

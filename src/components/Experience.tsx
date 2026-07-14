@@ -67,12 +67,24 @@ export default function Experience({ experiences }: { experiences: ExperienceMod
                       <span className="text-[10px] font-mono px-2 py-1 rounded bg-white/5 border border-white/10 text-gray-400 uppercase tracking-wider">
                         {exp.category || 'professional'}
                       </span>
+                      {exp.gpa && (
+                        <span className="text-[10px] font-mono px-2 py-1 rounded bg-blue-900/30 border border-blue-500/30 text-blue-300 uppercase tracking-wider">
+                          GPA: {exp.gpa}
+                        </span>
+                      )}
                     </div>
 
                     {/* Desktop Category badge */}
-                    <span className="hidden md:inline-block mb-3 text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 border border-white/10 text-gray-400 uppercase tracking-wider">
-                      {exp.category || 'professional'}
-                    </span>
+                    <div className="hidden md:flex absolute top-4 right-4 z-10 gap-2">
+                      <div className="bg-white/10 backdrop-blur-sm px-2 py-0.5 rounded-md text-[10px] font-mono text-gray-300 border border-white/10 uppercase tracking-wider">
+                        {exp.category || 'professional'}
+                      </div>
+                      {exp.gpa && (
+                        <div className="bg-blue-900/30 backdrop-blur-sm px-2 py-0.5 rounded-md text-[10px] font-mono text-blue-300 border border-blue-500/30 uppercase tracking-wider">
+                          GPA: {exp.gpa}
+                        </div>
+                      )}
+                    </div>
 
                     <div className="flex items-start gap-4 mb-4">
                       {exp.icon && (

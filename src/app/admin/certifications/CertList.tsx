@@ -5,6 +5,8 @@ import { Trash2, Edit2, X, Save } from 'lucide-react';
 import { Certification } from '@/generated/prisma';
 import { deleteCert, updateCert } from '../actions';
 
+import DraggableList from '@/components/admin/DraggableList';
+
 export default function CertList({ certs }: { certs: Certification[] }) {
   const [editingId, setEditingId] = useState<string | null>(null);
 
@@ -13,9 +15,11 @@ export default function CertList({ certs }: { certs: Certification[] }) {
   }
 
   return (
-    <div className="space-y-4">
-      {certs.map((cert) => (
-        <div key={cert.id} className="glass p-4 rounded-xl">
+    <DraggableList 
+      items={certs} 
+      model="Certification"
+      renderItem={(cert) => (
+        <div className="glass p-4 rounded-xl">
           {editingId === cert.id ? (
             <form action={async (formData) => {
               await updateCert(formData);
@@ -75,7 +79,7 @@ export default function CertList({ certs }: { certs: Certification[] }) {
             </div>
           )}
         </div>
-      ))}
-    </div>
+      )} 
+    />
   );
 }

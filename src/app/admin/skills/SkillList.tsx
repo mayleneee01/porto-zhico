@@ -5,6 +5,8 @@ import { Trash2, Edit2, X, Save } from 'lucide-react';
 import { Skill } from '@/generated/prisma';
 import { deleteSkill, updateSkill } from '../actions';
 
+import DraggableList from '@/components/admin/DraggableList';
+
 export default function SkillList({ skills }: { skills: Skill[] }) {
   const [editingId, setEditingId] = useState<string | null>(null);
 
@@ -13,9 +15,11 @@ export default function SkillList({ skills }: { skills: Skill[] }) {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      {skills.map((skill) => (
-        <div key={skill.id} className="glass p-4 rounded-xl">
+    <DraggableList 
+      items={skills} 
+      model="Skill"
+      renderItem={(skill) => (
+        <div className="glass p-4 rounded-xl w-full">
           {editingId === skill.id ? (
             <form action={async (formData) => {
               await updateSkill(formData);
@@ -61,7 +65,7 @@ export default function SkillList({ skills }: { skills: Skill[] }) {
             </div>
           )}
         </div>
-      ))}
-    </div>
+      )}
+    />
   );
 }

@@ -5,7 +5,7 @@ import CertList from './CertList';
 export const revalidate = 0;
 
 export default async function AdminCertifications() {
-  const certs = await prisma.certification.findMany({ orderBy: { date: 'desc' } });
+  const certs = await prisma.certification.findMany({ orderBy: { order: 'asc' } });
 
   return (
     <div>

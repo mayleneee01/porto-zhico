@@ -5,7 +5,7 @@ import SkillList from './SkillList';
 export const revalidate = 0;
 
 export default async function AdminSkills() {
-  const skills = await prisma.skill.findMany({ orderBy: { createdAt: 'desc' } });
+  const skills = await prisma.skill.findMany({ orderBy: { order: 'asc' } });
 
   return (
     <div>

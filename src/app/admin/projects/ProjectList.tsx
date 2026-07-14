@@ -5,6 +5,8 @@ import { Trash2, Edit2, X, Save } from 'lucide-react';
 import { Project } from '@/generated/prisma';
 import { deleteProject, updateProject } from '../actions';
 
+import DraggableList from '@/components/admin/DraggableList';
+
 export default function ProjectList({ projects }: { projects: Project[] }) {
   const [editingId, setEditingId] = useState<string | null>(null);
 
@@ -13,9 +15,11 @@ export default function ProjectList({ projects }: { projects: Project[] }) {
   }
 
   return (
-    <div className="space-y-4">
-      {projects.map((project) => (
-        <div key={project.id} className="glass p-4 rounded-xl">
+    <DraggableList 
+      items={projects} 
+      model="Project"
+      renderItem={(project) => (
+        <div className="glass p-4 rounded-xl">
           {editingId === project.id ? (
             <form action={async (formData) => {
               await updateProject(formData);
@@ -81,7 +85,7 @@ export default function ProjectList({ projects }: { projects: Project[] }) {
             </div>
           )}
         </div>
-      ))}
-    </div>
+      )} 
+    />
   );
 }
