@@ -161,3 +161,35 @@ export async function deleteSkill(formData: FormData) {
   revalidatePath('/admin/skills');
   revalidatePath('/');
 }
+
+// EXPERIENCE
+export async function addExp(formData: FormData) {
+  let iconUrl = null;
+  const iconFile = formData.get('iconFile') as File | null;
+  
+  if (iconFile && iconFile.size > 0) {
+    const blob = await put(iconFile.name, iconFile, { access: 'public' });
+    iconUrl = blob.url;
+  }
+
+  await prisma.experience.create({
+    data: {
+      position: formData.get('position') as string,
+      company: formData.get('company') as string,
+      date: formData.get('date') as string,
+      description: formData.get('description') as string,
+      category: (formData.get('category') as string) || 'professional',
+      icon: iconUrl,
+    },
+  });
+  revalidatePath('/admin/experience');
+  revalidatePath('/');
+}
+
+export async function deleteExp(formData: FormData) {
+  const id = formData.get('id') as string;
+  await prisma.experience.delete({ where: { id } });
+  revalidatePath('/admin/experience');
+  revalidatePath('/');
+}
+

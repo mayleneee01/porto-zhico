@@ -6,6 +6,9 @@ export async function GET() {
     // Add category column to Experience if it doesn't exist
     await prisma.$executeRawUnsafe(`ALTER TABLE "Experience" ADD COLUMN IF NOT EXISTS "category" TEXT NOT NULL DEFAULT 'professional';`);
     
+    // Add icon column to Experience if it doesn't exist
+    await prisma.$executeRawUnsafe(`ALTER TABLE "Experience" ADD COLUMN IF NOT EXISTS "icon" TEXT;`);
+    
     // Add category column to Certification if it doesn't exist
     await prisma.$executeRawUnsafe(`ALTER TABLE "Certification" ADD COLUMN IF NOT EXISTS "category" TEXT NOT NULL DEFAULT 'certification';`);
     

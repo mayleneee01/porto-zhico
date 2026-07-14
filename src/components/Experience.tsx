@@ -4,6 +4,8 @@ import { useState, useMemo } from 'react';
 import FadeIn from './FadeIn';
 import FilterTabs, { FilterCategory } from './FilterTabs';
 import { Experience as ExperienceModel } from '@/generated/prisma';
+import Image from 'next/image';
+import { Briefcase } from 'lucide-react';
 
 const FILTER_CATEGORIES: FilterCategory[] = [
   { key: 'all', label: 'All' },
@@ -29,10 +31,10 @@ export default function Experience({ experiences }: { experiences: ExperienceMod
   }, [experiences, activeFilter]);
 
   return (
-    <section id="experience" className="py-24 relative z-10">
-      <div className="container mx-auto px-6 max-w-4xl">
+    <section id="experience" className="py-24 relative z-10 bg-black/40">
+      <div className="container mx-auto px-6 max-w-6xl">
         <FadeIn direction="up">
-          <h2 className="text-4xl font-bold mb-8 tracking-wider text-center text-gradient">EXPERIENCE</h2>
+          <h2 className="text-4xl font-bold mb-8 tracking-wider text-center text-white font-[family-name:var(--font-cyber)]">EXPERIENCE</h2>
         </FadeIn>
 
         <FadeIn direction="up" delay={0.1}>
@@ -44,47 +46,44 @@ export default function Experience({ experiences }: { experiences: ExperienceMod
           />
         </FadeIn>
         
-        <div className="relative border-l border-white/20 ml-4 md:ml-0 md:pl-0">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
           {filteredExperiences.map((exp, index) => (
             <FadeIn key={exp.id} direction="up" delay={index * 0.1}>
-              <div className="mb-10 ml-8 md:ml-0 md:flex md:items-center relative">
-                {/* Timeline dot */}
-                <div className="absolute w-4 h-4 rounded-full bg-white -left-[39px] md:left-1/2 md:-translate-x-1/2 top-1.5 md:top-1/2 md:-translate-y-1/2 shadow-[0_0_10px_rgba(255,255,255,0.5)] z-10"></div>
-                
-                {/* Desktop Date (Left side) */}
-                <div className="hidden md:block w-1/2 pr-12 text-right">
-                  <span className="text-sm font-mono text-gray-400 bg-white/5 px-3 py-1 rounded border border-white/10">{exp.date}</span>
+              <div className="glass p-6 md:p-8 rounded-2xl h-full flex flex-col group hover:border-white/30 hover:shadow-[0_0_20px_rgba(255,255,255,0.05)] transition-all">
+                <div className="flex items-start justify-between mb-6">
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden shrink-0 relative group-hover:border-white/30 transition-colors">
+                      {exp.icon ? (
+                        <Image src={exp.icon} alt={exp.company} fill className="object-contain p-2" />
+                      ) : (
+                        <Briefcase size={24} className="text-gray-400 group-hover:text-white transition-colors" />
+                      )}
+                    </div>
+                    <div>
+                      <h3 className="text-lg md:text-xl font-bold text-gray-100 leading-tight">{exp.position}</h3>
+                      <p className="text-sm md:text-md text-gray-400 font-medium mt-1">{exp.company}</p>
+                    </div>
+                  </div>
                 </div>
                 
-                {/* Content (Right side or Full on Mobile) */}
-                <div className="md:w-1/2 md:pl-12">
-                  <div className="glass p-6 rounded-2xl group hover:border-white/30 transition-colors relative">
-                    {/* Mobile Date */}
-                    <span className="md:hidden inline-block mb-3 text-xs font-mono text-gray-400 bg-white/5 px-2 py-1 rounded border border-white/10">{exp.date}</span>
-                    
-                    {/* Category badge */}
-                    <span className="inline-block mb-2 text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 border border-white/10 text-gray-400 uppercase tracking-wider">
-                      {exp.category || 'professional'}
-                    </span>
-
-                    <h3 className="text-xl font-bold text-gray-100">{exp.position}</h3>
-                    <h4 className="text-md font-medium text-gray-400 mb-4">{exp.company}</h4>
-                    <p className="text-gray-300 font-light text-sm leading-relaxed">
-                      {exp.description}
-                    </p>
-                  </div>
+                <p className="text-gray-300 font-light text-sm leading-relaxed flex-grow mb-6">
+                  {exp.description}
+                </p>
+                
+                <div className="mt-auto flex items-center justify-between pt-4 border-t border-white/10">
+                  <span className="text-xs font-mono text-gray-400 bg-white/5 px-2.5 py-1 rounded border border-white/10">{exp.date}</span>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 border border-white/10 text-gray-500 uppercase tracking-wider">
+                    {exp.category || 'professional'}
+                  </span>
                 </div>
               </div>
             </FadeIn>
           ))}
           {filteredExperiences.length === 0 && (
-            <div className="text-center text-gray-500 py-8">
+            <div className="col-span-full text-center text-gray-500 py-8">
               {experiences.length === 0 ? 'No experiences added yet.' : 'No items match this filter.'}
             </div>
           )}
-          
-          {/* Desktop Center Line override */}
-          <div className="hidden md:block absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[1px] bg-white/20"></div>
         </div>
       </div>
     </section>
