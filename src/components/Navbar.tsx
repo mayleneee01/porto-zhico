@@ -19,15 +19,28 @@ export default function Navbar() {
 
   // Section IDs in actual DOM order (top to bottom on the page).
   // This must match the order sections appear in page.tsx, NOT the navLinks display order.
-  const sectionIdsInDomOrder = ['home', 'projects', 'experience', 'certifications', 'contact'];
+  // Sections without a nav link (about, skills) are included so the algorithm
+  // doesn't skip over them and light up the wrong tab.
+  const sectionIdsInDomOrder = ['home', 'about', 'skills', 'projects', 'experience', 'certifications', 'contact'];
+
+  // Map non-nav sections to the nav section that should be active when scrolled there
+  const sectionToNavMap: Record<string, string> = {
+    'home': 'home',
+    'about': 'home',
+    'skills': 'home',
+    'projects': 'projects',
+    'experience': 'experience',
+    'certifications': 'certifications',
+    'contact': 'contact',
+  };
 
   const detectActiveSection = useCallback(() => {
     for (let i = sectionIdsInDomOrder.length - 1; i >= 0; i--) {
       const el = document.getElementById(sectionIdsInDomOrder[i]);
       if (el) {
         const rect = el.getBoundingClientRect();
-        if (rect.top <= 150) {
-          setActiveSection(sectionIdsInDomOrder[i]);
+        if (rect.top <= window.innerHeight / 2) {
+          setActiveSection(sectionToNavMap[sectionIdsInDomOrder[i]] || sectionIdsInDomOrder[i]);
           return;
         }
       }
