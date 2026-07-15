@@ -17,14 +17,17 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
+  // Section IDs in actual DOM order (top to bottom on the page).
+  // This must match the order sections appear in page.tsx, NOT the navLinks display order.
+  const sectionIdsInDomOrder = ['home', 'projects', 'experience', 'certifications', 'contact'];
+
   const detectActiveSection = useCallback(() => {
-    const sectionIds = navLinks.map(link => link.sectionId);
-    for (let i = sectionIds.length - 1; i >= 0; i--) {
-      const el = document.getElementById(sectionIds[i]);
+    for (let i = sectionIdsInDomOrder.length - 1; i >= 0; i--) {
+      const el = document.getElementById(sectionIdsInDomOrder[i]);
       if (el) {
         const rect = el.getBoundingClientRect();
         if (rect.top <= 150) {
-          setActiveSection(sectionIds[i]);
+          setActiveSection(sectionIdsInDomOrder[i]);
           return;
         }
       }
