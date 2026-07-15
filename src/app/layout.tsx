@@ -20,8 +20,9 @@ const cyberFont = Share_Tech_Mono({
 
 export const metadata: Metadata = {
   title: "Zhico Pradita Portfolio",
-  description: ""Official portfolio of Zhico Pradita, an Informatics student at ITERA specializing in Cybersecurity, Penetration Testing, and SOC Analysis."",
+  description: "Official portfolio of Zhico Pradita, an Informatics student at ITERA specializing in Cybersecurity.",
 };
+
 
 import type { Viewport } from 'next';
 
