@@ -108,24 +108,6 @@ export default function Hero() {
             </a>
           </div>
         </FadeIn>
-        
-        <FadeIn direction="up" delay={0.6}>
-          <div className="mt-8 flex justify-center px-4">
-            <a
-              href="/api/cv/download"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2 md:px-6 md:py-2.5 bg-transparent hover:bg-white/5 border border-white/20 hover:border-white/40 text-gray-300 hover:text-white text-xs md:text-sm font-light uppercase tracking-widest backdrop-blur-sm transition-all duration-300 rounded-sm hover:-translate-y-0.5"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 md:w-5 md:h-5">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="7 10 12 15 17 10" />
-                <line x1="12" x2="12" y1="15" y2="3" />
-              </svg>
-              Download CV
-            </a>
-          </div>
-        </FadeIn>
       </div>
     </section>
   );
