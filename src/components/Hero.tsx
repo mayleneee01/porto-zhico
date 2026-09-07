@@ -81,6 +81,15 @@ export default function Hero() {
         background: `linear-gradient(to bottom, transparent, transparent 50%, var(--bg-primary))`
       }}></div>
 
+      {/* LAYER 5: Scrolling Background Text (Full Page) */}
+      <div className="absolute inset-0 z-0 flex items-center justify-center overflow-hidden pointer-events-none mix-blend-overlay">
+        <div className="outline-text-container-full">
+          <span className="outline-text">
+            ZHICO&nbsp;PRADITA&nbsp;&nbsp;&nbsp;&nbsp;ZHICO&nbsp;PRADITA&nbsp;&nbsp;&nbsp;&nbsp;ZHICO&nbsp;PRADITA&nbsp;&nbsp;&nbsp;&nbsp;
+          </span>
+        </div>
+      </div>
+
       {/* HERO CONTENT */}
       <div className="z-10 relative flex flex-col items-center justify-center w-full max-w-5xl px-6">
         
@@ -98,13 +107,6 @@ export default function Hero() {
         <FadeIn direction="up" delay={0.3}>
           <div className="relative w-44 h-56 sm:w-52 sm:h-64 md:w-72 md:h-[22rem] lg:w-80 lg:h-[26rem]">
             
-            {/* Scrolling outline text — BEHIND photo */}
-            <div className="outline-text-container">
-              <span className="outline-text">
-                ZHICO&nbsp;PRADITA&nbsp;&nbsp;&nbsp;&nbsp;ZHICO&nbsp;PRADITA&nbsp;&nbsp;&nbsp;&nbsp;ZHICO&nbsp;PRADITA&nbsp;&nbsp;&nbsp;&nbsp;
-              </span>
-            </div>
-
             {/* Profile photo — on top of text */}
             <div className="relative w-full h-full z-[1]" style={{
               maskImage: 'linear-gradient(to bottom, black 65%, transparent 100%)',

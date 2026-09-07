@@ -41,10 +41,44 @@ export default function ThemeProvider({ children }: { children: React.ReactNode 
   const toggleTheme = useCallback((e: React.MouseEvent) => {
     const newTheme: Theme = theme === 'dark' ? 'light' : 'dark';
 
-    // Apply new theme — CSS transitions on .theme-ready handle smooth animation
-    setTheme(newTheme);
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
+    // Support for View Transitions API
+    if (!document.startViewTransition) {
+      setTheme(newTheme);
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      return;
+    }
+
+    const x = e.clientX;
+    const y = e.clientY;
+    const endRadius = Math.hypot(
+      Math.max(x, innerWidth - x),
+      Math.max(y, innerHeight - y)
+    );
+
+    const transition = document.startViewTransition(() => {
+      setTheme(newTheme);
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    });
+
+    transition.ready.then(() => {
+      const clipPath = [
+        `circle(0px at ${x}px ${y}px)`,
+        `circle(${endRadius}px at ${x}px ${y}px)`,
+      ];
+      
+      document.documentElement.animate(
+        {
+          clipPath: theme === 'dark' ? clipPath : [...clipPath].reverse(),
+        },
+        {
+          duration: 500,
+          easing: 'ease-out',
+          pseudoElement: theme === 'dark' ? '::view-transition-new(root)' : '::view-transition-old(root)',
+        }
+      );
+    });
   }, [theme]);
 
   if (!mounted) {
