@@ -41,7 +41,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id="home" className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden pt-20">
+    <section id="home" className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden pb-20 md:pb-0 pt-6 md:pt-20">
       {/* Video Background Layer */}
       <video
         ref={videoRef}
@@ -96,7 +96,7 @@ export default function Hero() {
 
         {/* Photo container */}
         <FadeIn direction="up" delay={0.3}>
-          <div className="relative w-48 h-56 sm:w-56 sm:h-72 md:w-80 md:h-[28rem] lg:w-96 lg:h-[32rem]">
+          <div className="relative w-48 h-56 sm:w-56 sm:h-72 md:w-72 md:h-[24rem] lg:w-80 lg:h-[28rem] xl:w-96 xl:h-[30rem]">
             
             {/* Profile photo — on top of text */}
             <div className="relative w-full h-full z-[1]" style={{
