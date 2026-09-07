@@ -185,16 +185,6 @@ export default function Navbar() {
             );
           })}
         </div>
-      </nav>
-
-      {/* Mobile Theme Toggle - Top Right */}
-      <button
-        onClick={toggleTheme}
-        className="md:hidden fixed top-4 right-4 z-[100] theme-toggle"
-        aria-label="Toggle theme"
-      >
-        {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-      </button>
     </>
   );
 }
