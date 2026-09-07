@@ -13,6 +13,7 @@ const menuItems = [
   { name: 'Certifications', href: '/admin/certifications', icon: Award },
   { name: 'Experience', href: '/admin/experience', icon: Briefcase },
   { name: 'Skills', href: '/admin/skills', icon: Code2 },
+  { name: 'Tools', href: '/admin/tools', icon: Code2 },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

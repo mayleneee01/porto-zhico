@@ -35,7 +35,7 @@ export default function Experience({ experiences }: { experiences: ExperienceMod
       <div className="container mx-auto px-6 max-w-4xl">
         <FadeIn direction="up">
           <div className="text-center mb-8">
-            <h2 className="text-4xl font-bold tracking-wider" style={{ color: 'var(--text-primary)' }}>
+            <h2 className="text-2xl md:text-4xl font-bold tracking-wider" style={{ color: 'var(--text-primary)' }}>
               EXPERIENCE
             </h2>
             <div className="mt-3 mx-auto w-16 h-[2px]" style={{ background: 'var(--led-color)' }}></div>
@@ -89,7 +89,7 @@ export default function Experience({ experiences }: { experiences: ExperienceMod
                 {/* Content Card */}
                 <div className="md:w-1/2 shrink-0 md:pl-12">
                   <div
-                    className="exp-card glass p-6 rounded-2xl group transition-colors relative overflow-hidden"
+                    className="exp-card glass p-4 md:p-6 rounded-2xl group transition-colors relative overflow-hidden"
                   >
                     {/* Subtle glow on hover */}
                     <div
@@ -139,10 +139,10 @@ export default function Experience({ experiences }: { experiences: ExperienceMod
                         </div>
                       )}
                       <div className="min-w-0 break-words flex-grow">
-                        <h3 className="text-lg md:text-xl font-bold" style={{ color: 'var(--text-primary)' }}>
+                        <h3 className="text-base md:text-xl font-bold" style={{ color: 'var(--text-primary)' }}>
                           {exp.position}
                         </h3>
-                        <h4 className="text-sm md:text-md font-medium mb-2" style={{ color: 'var(--text-secondary)' }}>
+                        <h4 className="text-xs md:text-md font-medium mb-2" style={{ color: 'var(--text-secondary)' }}>
                           {exp.company}
                         </h4>
                         
@@ -167,7 +167,7 @@ export default function Experience({ experiences }: { experiences: ExperienceMod
                       </div>
                     </div>
                     
-                    <p className="text-sm leading-relaxed font-light" style={{ color: 'var(--text-secondary)' }}>
+                    <p className="text-xs md:text-sm leading-relaxed font-light mt-1" style={{ color: 'var(--text-secondary)' }}>
                       {exp.description}
                     </p>
                   </div>

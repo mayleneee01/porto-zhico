@@ -38,7 +38,7 @@ export default function Certifications({ certs }: { certs: Certification[] }) {
     }}>
       <div className="container mx-auto px-6 max-w-6xl">
         <FadeIn direction="up">
-          <h2 className="text-4xl font-bold mb-8 tracking-wider text-center font-[family-name:var(--font-cyber)]" style={{ color: 'var(--text-primary)' }}>MILESTONES</h2>
+          <h2 className="text-2xl md:text-4xl font-bold mb-6 md:mb-8 tracking-wider text-center font-[family-name:var(--font-cyber)]" style={{ color: 'var(--text-primary)' }}>MILESTONES</h2>
         </FadeIn>
 
         <FadeIn direction="up" delay={0.1}>

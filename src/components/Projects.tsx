@@ -14,10 +14,10 @@ export default function Projects({ projects }: { projects: Project[] }) {
     <section id="projects" className="py-24 relative z-10">
       <div className="container mx-auto px-6 max-w-6xl">
         <FadeIn direction="up">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold tracking-wider" style={{ color: 'var(--text-primary)' }}>PROJECTS</h2>
+          <div className="text-center mb-10 md:mb-16">
+            <h2 className="text-2xl md:text-4xl font-bold tracking-wider" style={{ color: 'var(--text-primary)' }}>PROJECTS</h2>
             <div className="mt-3 mx-auto w-16 h-[2px]" style={{ background: 'var(--led-color)' }}></div>
-            <p className="mt-4 text-sm tracking-widest uppercase" style={{ color: 'var(--text-tertiary)' }}>
+            <p className="mt-4 text-xs md:text-sm tracking-widest uppercase" style={{ color: 'var(--text-tertiary)' }}>
               Selected work & contributions
             </p>
           </div>
@@ -82,11 +82,11 @@ export default function Projects({ projects }: { projects: Project[] }) {
                 </div>
 
                 {/* Content */}
-                <div className="p-5 md:p-6 flex flex-col flex-grow relative z-[1]">
-                  <h3 className="text-lg md:text-xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
+                <div className="p-4 md:p-6 flex flex-col flex-grow relative z-[1]">
+                  <h3 className="text-base md:text-xl font-bold mb-1 md:mb-2" style={{ color: 'var(--text-primary)' }}>
                     {project.title}
                   </h3>
-                  <p className="text-sm mb-4 flex-grow line-clamp-3 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                  <p className="text-xs md:text-sm mb-3 md:mb-4 flex-grow line-clamp-3 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                     {project.description}
                   </p>
                   
