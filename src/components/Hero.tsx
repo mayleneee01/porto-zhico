@@ -87,7 +87,7 @@ export default function Hero() {
         {/* "PORTFOLIO" text above photo */}
         <FadeIn direction="up" delay={0.1}>
           <h1
-            className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-[0.1em] sm:tracking-[0.15em] mb-1 sm:mb-2 md:mb-6 text-center font-[family-name:var(--font-cyber)] w-full"
+            className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-[0.1em] sm:tracking-[0.15em] mb-1 sm:mb-2 md:mb-4 text-center font-[family-name:var(--font-cyber)] w-full"
             style={{ color: 'var(--text-primary)' }}
           >
             PORTFOLIO
@@ -96,7 +96,7 @@ export default function Hero() {
 
         {/* Photo container */}
         <FadeIn direction="up" delay={0.3}>
-          <div className="relative w-48 h-56 sm:w-56 sm:h-72 md:w-72 md:h-[24rem] lg:w-80 lg:h-[28rem] xl:w-96 xl:h-[30rem]">
+          <div className="relative w-48 h-56 sm:w-56 sm:h-72 md:w-72 md:h-[22rem] lg:w-80 lg:h-[26rem] xl:w-[22rem] xl:h-[28rem]">
             
             {/* Profile photo — on top of text */}
             <div className="relative w-full h-full z-[1]" style={{
@@ -123,7 +123,7 @@ export default function Hero() {
         {/* "Zhico Pradita" text below photo — static */}
         <FadeIn direction="up" delay={0.5}>
           <h2
-            className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-[0.1em] sm:tracking-[0.15em] mt-2 sm:mt-3 md:mt-6 text-center font-[family-name:var(--font-cyber)] w-full"
+            className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-[0.1em] sm:tracking-[0.15em] mt-2 sm:mt-3 md:mt-4 text-center font-[family-name:var(--font-cyber)] w-full"
             style={{ color: 'var(--text-primary)' }}
           >
             ZHICO PRADITA
@@ -132,7 +132,7 @@ export default function Hero() {
 
         {/* Subtitle */}
         <FadeIn direction="up" delay={0.6}>
-          <p className="text-xs sm:text-sm md:text-lg lg:text-xl font-light tracking-[0.15em] sm:tracking-widest mt-1 sm:mt-2 mb-4 sm:mb-6 md:mb-10 uppercase text-center w-full px-2" style={{ color: 'var(--text-secondary)' }}>
+          <p className="text-xs sm:text-sm md:text-lg lg:text-xl font-light tracking-[0.15em] sm:tracking-widest mt-1 sm:mt-2 mb-4 sm:mb-6 md:mb-8 uppercase text-center w-full px-2" style={{ color: 'var(--text-secondary)' }}>
             Breaking Systems to Build Better Defenses
           </p>
         </FadeIn>

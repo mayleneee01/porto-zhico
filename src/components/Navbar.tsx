@@ -12,6 +12,7 @@ const navLinks = [
   { name: 'Home', href: '/#home', sectionId: 'home', icon: Home },
   { name: 'Experience', href: '/#experience', sectionId: 'experience', icon: Briefcase },
   { name: 'Milestones', href: '/#certifications', sectionId: 'certifications', icon: Trophy },
+  { name: 'Hire Me', href: '/#contact', sectionId: 'contact', icon: UserCheck },
 ];
 
 export default function Navbar() {
@@ -91,14 +92,14 @@ export default function Navbar() {
           isScrolled && "scrolled"
         )}
       >
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-3 lg:gap-5">
           {desktopNavLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
               onClick={(e) => handleNavClick(e, link)}
               className={clsx(
-                "text-sm uppercase tracking-wider transition-all duration-300 relative group px-2 py-1",
+                "text-[11px] lg:text-sm uppercase tracking-wider transition-all duration-300 relative group px-2 py-1 whitespace-nowrap",
                 activeSection === link.sectionId
                   ? "font-medium"
                   : "hover:opacity-100 opacity-60"
