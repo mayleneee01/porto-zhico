@@ -1,12 +1,13 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { Home, FolderKanban, Briefcase, Trophy, UserCheck, Sun, Moon, Wrench } from 'lucide-react';
+import { Home, FolderKanban, Briefcase, Trophy, UserCheck, Sun, Moon, Wrench, Code } from 'lucide-react';
 import clsx from 'clsx';
 import { useTheme } from './ThemeProvider';
 
 const navLinks = [
   { name: 'Project', href: '/#projects', sectionId: 'projects', icon: FolderKanban },
+  { name: 'Skills', href: '/#skills', sectionId: 'skills', icon: Code },
   { name: 'Tools', href: '/#tools', sectionId: 'tools', icon: Wrench },
   { name: 'Home', href: '/#home', sectionId: 'home', icon: Home },
   { name: 'Experience', href: '/#experience', sectionId: 'experience', icon: Briefcase },
@@ -74,6 +75,7 @@ export default function Navbar() {
   const desktopNavLinks = [
     { name: 'Home', href: '/#home', sectionId: 'home', icon: Home },
     { name: 'Project', href: '/#projects', sectionId: 'projects', icon: FolderKanban },
+    { name: 'Skills', href: '/#skills', sectionId: 'skills', icon: Code },
     { name: 'Tools', href: '/#tools', sectionId: 'tools', icon: Wrench },
     { name: 'Experience', href: '/#experience', sectionId: 'experience', icon: Briefcase },
     { name: 'Milestones', href: '/#certifications', sectionId: 'certifications', icon: Trophy },
