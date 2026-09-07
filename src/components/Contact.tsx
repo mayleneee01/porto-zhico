@@ -73,46 +73,46 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 relative z-10 bg-black/50">
+    <section id="contact" className="py-24 relative z-10" style={{ backgroundColor: 'var(--section-alt-bg)' }}>
       <div className="container mx-auto px-6 max-w-6xl">
         <FadeIn direction="up">
-          <h2 className="text-4xl font-bold mb-16 tracking-wider text-center text-gradient">CONTACT PERSON</h2>
+          <h2 className="text-4xl font-bold mb-16 tracking-wider text-center" style={{ color: 'var(--text-primary)' }}>HIRE ME</h2>
         </FadeIn>
         
         <div className="flex flex-col lg:flex-row gap-12">
           <FadeIn direction="right" className="w-full lg:w-1/3 space-y-6">
-            <h3 className="text-2xl font-bold text-white mb-6">Get In Touch</h3>
-            <p className="text-gray-400 font-light mb-8">
+            <h3 className="text-2xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>Get In Touch</h3>
+            <p className="font-light mb-8" style={{ color: 'var(--text-secondary)' }}>
               Interested in collaborating or have any questions? Feel free to reach out to me. I am always open to discussing new projects, creative ideas, or opportunities.
             </p>
             
-            <div className="flex items-center gap-4 text-gray-300">
-              <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center shrink-0">
+            <div className="flex items-center gap-4" style={{ color: 'var(--text-secondary)' }}>
+              <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0" style={{ background: 'var(--badge-bg)' }}>
                 <Mail size={20} />
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500">Email</p>
-                <a href="mailto:zhicoapta123@gmail.com" className="hover:text-white transition-colors">zhicoapta123@gmail.com</a>
+                <p className="text-sm font-medium" style={{ color: 'var(--text-muted)' }}>Email</p>
+                <a href="mailto:zhicoapta123@gmail.com" className="transition-colors hover:opacity-80" style={{ color: 'var(--text-primary)' }}>zhicoapta123@gmail.com</a>
               </div>
             </div>
             
-            <div className="flex items-center gap-4 text-gray-300">
-              <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center shrink-0">
+            <div className="flex items-center gap-4" style={{ color: 'var(--text-secondary)' }}>
+              <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0" style={{ background: 'var(--badge-bg)' }}>
                 <Phone size={20} />
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500">WhatsApp</p>
-                <a href="https://wa.me/6282352031324" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">082352031324</a>
+                <p className="text-sm font-medium" style={{ color: 'var(--text-muted)' }}>WhatsApp</p>
+                <a href="https://wa.me/6282352031324" target="_blank" rel="noreferrer" className="transition-colors hover:opacity-80" style={{ color: 'var(--text-primary)' }}>082352031324</a>
               </div>
             </div>
             
-            <div className="flex items-center gap-4 text-gray-300">
-              <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center shrink-0">
+            <div className="flex items-center gap-4" style={{ color: 'var(--text-secondary)' }}>
+              <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0" style={{ background: 'var(--badge-bg)' }}>
                 <MapPin size={20} />
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500">Location</p>
-                <p>Lampung, Indonesia</p>
+                <p className="text-sm font-medium" style={{ color: 'var(--text-muted)' }}>Location</p>
+                <p style={{ color: 'var(--text-primary)' }}>Lampung, Indonesia</p>
               </div>
             </div>
           </FadeIn>
@@ -120,13 +120,13 @@ export default function Contact() {
           <FadeIn direction="left" delay={0.2} className="w-full lg:w-2/3">
             {/* Status Messages */}
             {status === 'success' && (
-              <div className="mb-6 flex items-center gap-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 px-5 py-4 rounded-xl animate-fade-in">
+              <div className="mb-6 flex items-center gap-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 px-5 py-4 rounded-xl">
                 <CheckCircle size={20} className="shrink-0" />
                 <p className="text-sm font-medium">Message sent successfully! I&apos;ll get back to you soon.</p>
               </div>
             )}
             {status === 'error' && (
-              <div className="mb-6 flex items-center gap-3 bg-red-500/10 border border-red-500/20 text-red-400 px-5 py-4 rounded-xl animate-fade-in">
+              <div className="mb-6 flex items-center gap-3 bg-red-500/10 border border-red-500/20 text-red-400 px-5 py-4 rounded-xl">
                 <XCircle size={20} className="shrink-0" />
                 <p className="text-sm font-medium">{errorMessage}</p>
               </div>
@@ -135,23 +135,79 @@ export default function Contact() {
             <form ref={formRef} onSubmit={handleSubmit} className="glass p-8 rounded-2xl flex flex-col gap-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="contact-name" className="text-sm font-medium text-gray-400">Name</label>
-                  <input required type="text" id="contact-name" name="name" className="bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white/50 transition-colors" placeholder="John Doe" />
+                  <label htmlFor="contact-name" className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>Name</label>
+                  <input
+                    required
+                    type="text"
+                    id="contact-name"
+                    name="name"
+                    className="rounded-lg px-4 py-3 focus:outline-none transition-colors"
+                    style={{
+                      backgroundColor: 'var(--bg-input)',
+                      border: '1px solid var(--border-color)',
+                      color: 'var(--text-primary)',
+                    }}
+                    placeholder="John Doe"
+                  />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="contact-email" className="text-sm font-medium text-gray-400">Email</label>
-                  <input required type="email" id="contact-email" name="email" className="bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white/50 transition-colors" placeholder="john@example.com" />
+                  <label htmlFor="contact-email" className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>Email</label>
+                  <input
+                    required
+                    type="email"
+                    id="contact-email"
+                    name="email"
+                    className="rounded-lg px-4 py-3 focus:outline-none transition-colors"
+                    style={{
+                      backgroundColor: 'var(--bg-input)',
+                      border: '1px solid var(--border-color)',
+                      color: 'var(--text-primary)',
+                    }}
+                    placeholder="john@example.com"
+                  />
                 </div>
               </div>
               <div className="flex flex-col gap-2">
-                <label htmlFor="contact-subject" className="text-sm font-medium text-gray-400">Subject</label>
-                <input required type="text" id="contact-subject" name="subject" className="bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white/50 transition-colors" placeholder="Project Inquiry" />
+                <label htmlFor="contact-subject" className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>Subject</label>
+                <input
+                  required
+                  type="text"
+                  id="contact-subject"
+                  name="subject"
+                  className="rounded-lg px-4 py-3 focus:outline-none transition-colors"
+                  style={{
+                    backgroundColor: 'var(--bg-input)',
+                    border: '1px solid var(--border-color)',
+                    color: 'var(--text-primary)',
+                  }}
+                  placeholder="Project Inquiry"
+                />
               </div>
               <div className="flex flex-col gap-2">
-                <label htmlFor="contact-message" className="text-sm font-medium text-gray-400">Message</label>
-                <textarea required id="contact-message" name="message" rows={5} className="bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white/50 transition-colors resize-none" placeholder="Hello, I'd like to talk about..."></textarea>
+                <label htmlFor="contact-message" className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>Message</label>
+                <textarea
+                  required
+                  id="contact-message"
+                  name="message"
+                  rows={5}
+                  className="rounded-lg px-4 py-3 focus:outline-none transition-colors resize-none"
+                  style={{
+                    backgroundColor: 'var(--bg-input)',
+                    border: '1px solid var(--border-color)',
+                    color: 'var(--text-primary)',
+                  }}
+                  placeholder="Hello, I'd like to talk about..."
+                ></textarea>
               </div>
-              <button disabled={loading} type="submit" className="bg-white text-black font-bold tracking-wide py-3 px-6 rounded-lg hover:bg-gray-200 transition-colors flex items-center justify-center gap-2 mt-2 disabled:opacity-70 disabled:cursor-not-allowed">
+              <button
+                disabled={loading}
+                type="submit"
+                className="font-bold tracking-wide py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2 mt-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                style={{
+                  backgroundColor: 'var(--accent-color)',
+                  color: 'var(--accent-foreground)',
+                }}
+              >
                 {loading ? (
                   <>
                     <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">

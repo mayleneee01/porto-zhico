@@ -1,33 +1,35 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import Link from 'next/link';
-import { Home, FolderKanban, Briefcase, Trophy, Mail } from 'lucide-react';
+import { Home, FolderKanban, Briefcase, Trophy, UserCheck, Sun, Moon } from 'lucide-react';
 import clsx from 'clsx';
+import { useTheme } from './ThemeProvider';
 
 const navLinks = [
   { name: 'Project', href: '/#projects', sectionId: 'projects', icon: FolderKanban },
   { name: 'Milestones', href: '/#certifications', sectionId: 'certifications', icon: Trophy },
   { name: 'Home', href: '/#home', sectionId: 'home', icon: Home },
   { name: 'Experience', href: '/#experience', sectionId: 'experience', icon: Briefcase },
-  { name: 'Contact', href: '/#contact', sectionId: 'contact', icon: Mail },
+  { name: 'Hire Me', href: '/#contact', sectionId: 'contact', icon: UserCheck },
 ];
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const { theme, toggleTheme } = useTheme();
 
   // Section IDs in actual DOM order (top to bottom on the page).
   // This must match the order sections appear in page.tsx, NOT the navLinks display order.
   // Sections without a nav link (about, skills) are included so the algorithm
   // doesn't skip over them and light up the wrong tab.
-  const sectionIdsInDomOrder = ['home', 'about', 'skills', 'projects', 'experience', 'certifications', 'contact'];
+  const sectionIdsInDomOrder = ['home', 'about', 'skills', 'tools', 'projects', 'experience', 'certifications', 'contact'];
 
   // Map non-nav sections to the nav section that should be active when scrolled there
   const sectionToNavMap: Record<string, string> = {
     'home': 'home',
     'about': 'home',
     'skills': 'home',
+    'tools': 'home',
     'projects': 'projects',
     'experience': 'experience',
     'certifications': 'certifications',
@@ -69,54 +71,63 @@ export default function Navbar() {
     }
   };
 
-  // For desktop, reorder so Home is first if preferred, or keep as is.
-  // Actually, standard navbar is Home first. Let's create a desktop specific array.
+  // Desktop navbar: Home first
   const desktopNavLinks = [
     { name: 'Home', href: '/#home', sectionId: 'home', icon: Home },
     { name: 'Project', href: '/#projects', sectionId: 'projects', icon: FolderKanban },
     { name: 'Experience', href: '/#experience', sectionId: 'experience', icon: Briefcase },
     { name: 'Milestones', href: '/#certifications', sectionId: 'certifications', icon: Trophy },
-    { name: 'Contact', href: '/#contact', sectionId: 'contact', icon: Mail },
+    { name: 'Hire Me', href: '/#contact', sectionId: 'contact', icon: UserCheck },
   ];
 
   return (
     <>
-      {/* Desktop Navbar */}
+      {/* Desktop Floating Navbar */}
       <nav
         className={clsx(
-          "fixed top-0 left-0 right-0 z-[100] w-full transition-all duration-300 hidden md:block",
-          isScrolled
-            ? "py-4 bg-black/80 backdrop-blur-xl border-b border-white/10 shadow-xl"
-            : "py-6 bg-transparent border-b border-transparent"
+          "floating-nav hidden md:flex items-center gap-1",
+          isScrolled && "scrolled"
         )}
       >
-        <div className="container mx-auto px-6 max-w-6xl flex justify-center items-center">
-          <div className="flex gap-8">
-            {desktopNavLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={(e) => handleNavClick(e, link)}
+        <div className="flex items-center gap-6">
+          {desktopNavLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              onClick={(e) => handleNavClick(e, link)}
+              className={clsx(
+                "text-sm uppercase tracking-wider transition-all duration-300 relative group px-2 py-1",
+                activeSection === link.sectionId
+                  ? "font-medium"
+                  : "hover:opacity-100 opacity-60"
+              )}
+              style={{ color: activeSection === link.sectionId ? 'var(--text-primary)' : 'var(--text-secondary)' }}
+            >
+              {link.name}
+              <span
                 className={clsx(
-                  "text-sm uppercase tracking-wider transition-all duration-300 relative group",
+                  "absolute -bottom-1 left-0 h-[2px] transition-all duration-300",
                   activeSection === link.sectionId
-                    ? "text-white"
-                    : "text-gray-400 hover:text-white"
+                    ? "w-full"
+                    : "w-0 group-hover:w-full"
                 )}
-              >
-                {link.name}
-                <span
-                  className={clsx(
-                    "absolute -bottom-1 left-0 h-[2px] bg-white transition-all duration-300",
-                    activeSection === link.sectionId
-                      ? "w-full"
-                      : "w-0 group-hover:w-full"
-                  )}
-                />
-              </a>
-            ))}
-          </div>
+                style={{ backgroundColor: 'var(--text-primary)' }}
+              />
+            </a>
+          ))}
         </div>
+
+        {/* Divider */}
+        <div className="w-[1px] h-5 mx-3" style={{ backgroundColor: 'var(--border-color)' }}></div>
+
+        {/* Theme Toggle */}
+        <button
+          onClick={toggleTheme}
+          className="theme-toggle"
+          aria-label="Toggle theme"
+        >
+          {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+        </button>
       </nav>
 
       {/* Mobile Bottom Tab Bar */}
@@ -144,9 +155,8 @@ export default function Navbar() {
                     <Icon size={24} strokeWidth={isActive ? 2.5 : 1.5} />
                   </div>
                   <span className={clsx(
-                    "text-[10px] mt-1 tracking-wide transition-colors duration-300",
-                    isActive ? "text-white" : "text-gray-500"
-                  )}>
+                    "text-[10px] mt-1 tracking-wide transition-colors duration-300"
+                  )} style={{ color: isActive ? 'var(--text-primary)' : 'var(--text-muted)' }}>
                     {link.name}
                   </span>
                 </a>
@@ -168,13 +178,26 @@ export default function Navbar() {
                 </div>
                 <span className={clsx(
                   "text-[10px] mt-0.5 tracking-wide transition-colors duration-300",
-                  isActive ? "text-white" : "text-gray-500"
-                )}>
+                )} style={{ color: isActive ? 'var(--text-primary)' : 'var(--text-muted)' }}>
                   {link.name}
                 </span>
               </a>
             );
           })}
+          
+          {/* Mobile Theme Toggle */}
+          <button
+            onClick={toggleTheme}
+            className="mobile-tab-item"
+            aria-label="Toggle theme"
+          >
+            <div className="mobile-tab-icon">
+              {theme === 'dark' ? <Sun size={20} strokeWidth={1.5} /> : <Moon size={20} strokeWidth={1.5} />}
+            </div>
+            <span className="text-[10px] mt-0.5 tracking-wide" style={{ color: 'var(--text-muted)' }}>
+              {theme === 'dark' ? 'Light' : 'Dark'}
+            </span>
+          </button>
         </div>
       </nav>
     </>

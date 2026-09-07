@@ -2,6 +2,7 @@ import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
 import Skills from '@/components/Skills';
+import Tools from '@/components/Tools';
 import Projects from '@/components/Projects';
 import Certifications from '@/components/Certifications';
 import Experience from '@/components/Experience';
@@ -20,18 +21,19 @@ export default async function Home() {
 
   return (
     <PageWrapper>
-      <main className="min-h-screen text-white font-sans selection:bg-white selection:text-black flex flex-col pb-28 md:pb-0">
+      <main className="min-h-screen font-sans flex flex-col pb-28 md:pb-0" style={{ color: 'var(--text-primary)', WebkitFontSmoothing: 'antialiased' }}>
         <Navbar />
         <Hero />
         <About />
         <Skills skills={skills} />
+        <Tools />
         <Projects projects={projects} />
         <Experience experiences={experiences} />
         <Certifications certs={certifications} />
         <Contact />
         
-        <footer className="py-8 text-center border-t border-white/10">
-          <p className="text-sm text-gray-500 font-light tracking-widest">
+        <footer className="py-8 text-center" style={{ borderTop: '1px solid var(--footer-border)' }}>
+          <p className="text-sm font-light tracking-widest" style={{ color: 'var(--text-muted)' }}>
             &copy; {new Date().getFullYear()} ZHICO PRADITA. ALL RIGHTS RESERVED.
           </p>
         </footer>

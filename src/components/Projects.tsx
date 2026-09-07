@@ -14,44 +14,94 @@ export default function Projects({ projects }: { projects: Project[] }) {
     <section id="projects" className="py-24 relative z-10">
       <div className="container mx-auto px-6 max-w-6xl">
         <FadeIn direction="up">
-          <h2 className="text-4xl font-bold mb-16 tracking-wider text-center text-gradient">PROJECTS</h2>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold tracking-wider" style={{ color: 'var(--text-primary)' }}>PROJECTS</h2>
+            <div className="mt-3 mx-auto w-16 h-[2px]" style={{ background: 'var(--led-color)' }}></div>
+            <p className="mt-4 text-sm tracking-widest uppercase" style={{ color: 'var(--text-tertiary)' }}>
+              Selected work & contributions
+            </p>
+          </div>
         </FadeIn>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-7">
           {projects.map((project, index) => (
             <FadeIn key={project.id} direction="up" delay={index * 0.1}>
-              <div className="glass rounded-2xl overflow-hidden group h-full flex flex-row md:flex-col hover:border-white/30 hover:shadow-[0_0_20px_rgba(255,255,255,0.05)] transition-all items-center md:items-stretch">
-                <div className="w-24 h-24 ml-4 rounded-xl md:rounded-none md:ml-0 md:w-full md:h-auto md:aspect-video relative bg-[#111] overflow-hidden md:border-b border-white/10 shrink-0">
+              <div className="project-card glass rounded-2xl overflow-hidden group h-full flex flex-col">
+                {/* Image Area */}
+                <div className="w-full aspect-[16/10] relative overflow-hidden" style={{ backgroundColor: 'var(--bg-secondary)' }}>
                   {project.image ? (
                     <Image 
                       src={project.image} 
                       alt={project.title} 
                       fill 
                       sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="object-cover group-hover:scale-105 transition-transform duration-500" 
+                      className="object-cover group-hover:scale-110 transition-transform duration-700" 
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-gray-700 font-mono text-[10px] md:text-sm">No Image</div>
+                    <div className="w-full h-full flex items-center justify-center font-mono text-sm" style={{ color: 'var(--text-muted)' }}>
+                      No Image
+                    </div>
                   )}
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4">
+                  
+                  {/* Hover overlay with action buttons */}
+                  <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-all duration-300" style={{
+                    background: 'linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 100%)'
+                  }}>
                     {project.demoUrl && (
-                      <a href={project.demoUrl} target="_blank" rel="noreferrer" className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white text-black flex items-center justify-center hover:scale-110 transition-transform">
-                        <ExternalLink size={16} />
+                      <a
+                        href={project.demoUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="w-11 h-11 rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+                        style={{
+                          backgroundColor: 'var(--accent-color)',
+                          color: 'var(--accent-foreground)',
+                        }}
+                      >
+                        <ExternalLink size={18} />
                       </a>
                     )}
                     {project.githubUrl && (
-                      <a href={project.githubUrl} target="_blank" rel="noreferrer" className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#222] text-white flex items-center justify-center hover:scale-110 transition-transform">
-                        <GithubIcon size={16} />
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="w-11 h-11 rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+                        style={{
+                          backgroundColor: 'var(--bg-tertiary)',
+                          color: 'var(--text-primary)',
+                        }}
+                      >
+                        <GithubIcon size={18} />
                       </a>
                     )}
                   </div>
+
+                  {/* Top gradient for readability */}
+                  <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-black/30 to-transparent pointer-events-none"></div>
                 </div>
-                <div className="p-4 md:p-6 flex flex-col flex-grow min-w-0">
-                  <h3 className="text-base md:text-xl font-bold mb-1 md:mb-2 text-gray-100 truncate md:whitespace-normal">{project.title}</h3>
-                  <p className="text-gray-400 font-light text-xs md:text-sm mb-2 md:mb-4 flex-grow line-clamp-2 md:line-clamp-none">{project.description}</p>
-                  <div className="flex flex-wrap gap-1 md:gap-2 mt-auto">
+
+                {/* Content */}
+                <div className="p-5 md:p-6 flex flex-col flex-grow relative z-[1]">
+                  <h3 className="text-lg md:text-xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
+                    {project.title}
+                  </h3>
+                  <p className="text-sm mb-4 flex-grow line-clamp-3 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                    {project.description}
+                  </p>
+                  
+                  {/* Tech Stack */}
+                  <div className="flex flex-wrap gap-2 mt-auto pt-3" style={{ borderTop: '1px solid var(--border-subtle)' }}>
                     {project.techStack.split(',').map((tech, i) => (
-                      <span key={i} className="text-[9px] md:text-xs font-mono px-1.5 py-0.5 md:px-2 md:py-1 bg-white/5 border border-white/10 rounded text-gray-300 whitespace-nowrap">
+                      <span
+                        key={i}
+                        className="text-[10px] md:text-xs font-mono px-2.5 py-1 rounded-md whitespace-nowrap"
+                        style={{
+                          background: 'var(--badge-bg)',
+                          border: '1px solid var(--badge-border)',
+                          color: 'var(--badge-text)',
+                        }}
+                      >
                         {tech.trim()}
                       </span>
                     ))}
@@ -61,7 +111,9 @@ export default function Projects({ projects }: { projects: Project[] }) {
             </FadeIn>
           ))}
           {projects.length === 0 && (
-            <div className="col-span-full text-center text-gray-500">No projects added yet.</div>
+            <div className="col-span-full text-center" style={{ color: 'var(--text-muted)' }}>
+              No projects added yet.
+            </div>
           )}
         </div>
       </div>

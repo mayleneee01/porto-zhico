@@ -40,11 +40,11 @@ export default function Skills({ skills }: { skills: Skill[] }) {
     <section id="skills" className="py-24 relative z-10">
       <div className="container mx-auto px-6 max-w-4xl">
         <FadeIn direction="up">
-          <h2 className="text-4xl font-bold mb-16 tracking-wider text-center text-white font-[family-name:var(--font-cyber)]">SKILLS</h2>
+          <h2 className="text-4xl font-bold mb-16 tracking-wider text-center font-[family-name:var(--font-cyber)]" style={{ color: 'var(--text-primary)' }}>SKILLS</h2>
         </FadeIn>
         
         {skills.length === 0 && (
-          <div className="text-center text-gray-500">No skills added yet.</div>
+          <div className="text-center" style={{ color: 'var(--text-muted)' }}>No skills added yet.</div>
         )}
 
         <div className="space-y-16">
@@ -55,17 +55,22 @@ export default function Skills({ skills }: { skills: Skill[] }) {
             return (
               <div key={category} className="flex flex-col">
                 <FadeIn direction="up">
-                  <h3 className="text-sm md:text-base text-gray-400 tracking-[0.2em] mb-6 border-b border-white/10 pb-2 uppercase w-full">{category}</h3>
+                  <h3 className="text-sm md:text-base tracking-[0.2em] mb-6 pb-2 uppercase w-full" style={{
+                    color: 'var(--text-tertiary)',
+                    borderBottom: '1px solid var(--border-color)',
+                  }}>{category}</h3>
                 </FadeIn>
                 
                 <div className={categorySkills.length > 4 ? "grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-2 w-full" : "flex flex-col gap-2 w-full md:w-2/3"}>
                   {categorySkills.map((skill, index) => (
                     <FadeIn key={skill.id} direction="up" delay={index * 0.1}>
-                      <div className="flex items-center gap-4 py-3 border-b border-white/5 group hover:border-white/20 transition-colors cursor-default">
-                        <div className="text-gray-500 group-hover:text-white transition-colors shrink-0">
+                      <div className="flex items-center gap-4 py-3 group cursor-default transition-colors" style={{
+                        borderBottom: '1px solid var(--border-subtle)',
+                      }}>
+                        <div className="shrink-0 transition-colors" style={{ color: 'var(--text-muted)' }}>
                           {renderIcon(skill.configuredIcon)}
                         </div>
-                        <span className="text-gray-300 font-medium tracking-wide group-hover:text-white transition-colors">
+                        <span className="font-medium tracking-wide transition-colors" style={{ color: 'var(--text-secondary)' }}>
                           {skill.name}
                         </span>
                       </div>

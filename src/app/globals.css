@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #000000;
-  --color-foreground: #ffffff;
-  --color-border: #333333;
-  --color-accent: #ffffff;
-  --color-accent-foreground: #000000;
+  --color-background: var(--bg-primary);
+  --color-foreground: var(--text-primary);
+  --color-border: var(--border-color);
+  --color-accent: var(--accent-color);
+  --color-accent-foreground: var(--accent-foreground);
   
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -29,43 +29,208 @@
   }
 }
 
-:root {
-  --background: #000000;
-  --foreground: #ffffff;
-}
+/* ========================================
+   Theme Variables — Dark Mode (Default)
+   ======================================== */
+[data-theme="dark"], :root {
+  --bg-primary: #0A0A0A;
+  --bg-secondary: #111111;
+  --bg-tertiary: #1a1a1a;
+  --bg-card: rgba(255, 255, 255, 0.05);
+  --bg-card-hover: rgba(255, 255, 255, 0.08);
+  --bg-card-border: rgba(255, 255, 255, 0.12);
+  --bg-card-border-hover: rgba(255, 255, 255, 0.25);
+  --bg-input: rgba(0, 0, 0, 0.5);
+  
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  --text-tertiary: #71717a;
+  --text-muted: #52525b;
+  
+  --border-color: rgba(255, 255, 255, 0.1);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  
+  --accent-color: #ffffff;
+  --accent-foreground: #000000;
+  
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-shadow: rgba(0, 0, 0, 0.3);
+  --glass-inset: rgba(255, 255, 255, 0.08);
+  
+  --glow-color: rgba(255, 255, 255, 0.15);
+  --hero-overlay: rgba(0, 0, 0, 0.4);
+  --hero-vignette-to: #0A0A0A;
+  
+  --nav-bg: rgba(10, 10, 10, 0.7);
+  --nav-border: rgba(255, 255, 255, 0.1);
+  
+  --tab-bg: rgba(10, 10, 10, 0.85);
+  --tab-icon: rgba(255, 255, 255, 0.35);
+  --tab-icon-active: #ffffff;
+  --tab-icon-active-bg: rgba(255, 255, 255, 0.1);
+  
+  --badge-bg: rgba(255, 255, 255, 0.05);
+  --badge-border: rgba(255, 255, 255, 0.1);
+  --badge-text: #a1a1aa;
 
-body {
-  background-color: #0A0A0A;
-  color: var(--foreground);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
-  overflow-x: hidden;
+  --section-alt-bg: rgba(0, 0, 0, 0.3);
+  --footer-border: rgba(255, 255, 255, 0.1);
+
+  --led-color: #00ff88;
+  --led-glow: rgba(0, 255, 136, 0.6);
+  --led-glow-far: rgba(0, 255, 136, 0.2);
+
+  --timeline-dot-glow: rgba(255, 255, 255, 0.5);
+
+  --tools-card-bg: rgba(255, 255, 255, 0.04);
+  --tools-card-border: rgba(255, 255, 255, 0.08);
+  --tools-text: #a1a1aa;
+
+  --dot-color: rgba(255, 255, 255, 0.8);
 }
 
 /* ========================================
-   Glass Cards — Transparent Blur Style
+   Theme Variables — Light Mode
+   ======================================== */
+[data-theme="light"] {
+  --bg-primary: #f5f5f5;
+  --bg-secondary: #ebebeb;
+  --bg-tertiary: #e0e0e0;
+  --bg-card: rgba(0, 0, 0, 0.03);
+  --bg-card-hover: rgba(0, 0, 0, 0.06);
+  --bg-card-border: rgba(0, 0, 0, 0.1);
+  --bg-card-border-hover: rgba(0, 0, 0, 0.2);
+  --bg-input: rgba(255, 255, 255, 0.8);
+  
+  --text-primary: #1a1a2e;
+  --text-secondary: #4a4a5a;
+  --text-tertiary: #7a7a8a;
+  --text-muted: #9a9aaa;
+  
+  --border-color: rgba(0, 0, 0, 0.1);
+  --border-subtle: rgba(0, 0, 0, 0.05);
+  
+  --accent-color: #1a1a2e;
+  --accent-foreground: #ffffff;
+  
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-shadow: rgba(0, 0, 0, 0.08);
+  --glass-inset: rgba(255, 255, 255, 0.5);
+  
+  --glow-color: rgba(0, 0, 0, 0.05);
+  --hero-overlay: rgba(245, 245, 245, 0.3);
+  --hero-vignette-to: #f5f5f5;
+  
+  --nav-bg: rgba(245, 245, 245, 0.7);
+  --nav-border: rgba(0, 0, 0, 0.08);
+  
+  --tab-bg: rgba(245, 245, 245, 0.9);
+  --tab-icon: rgba(0, 0, 0, 0.35);
+  --tab-icon-active: #1a1a2e;
+  --tab-icon-active-bg: rgba(0, 0, 0, 0.08);
+  
+  --badge-bg: rgba(0, 0, 0, 0.04);
+  --badge-border: rgba(0, 0, 0, 0.08);
+  --badge-text: #4a4a5a;
+
+  --section-alt-bg: rgba(0, 0, 0, 0.02);
+  --footer-border: rgba(0, 0, 0, 0.08);
+
+  --led-color: #00cc6a;
+  --led-glow: rgba(0, 204, 106, 0.5);
+  --led-glow-far: rgba(0, 204, 106, 0.15);
+
+  --timeline-dot-glow: rgba(26, 26, 46, 0.4);
+
+  --tools-card-bg: rgba(0, 0, 0, 0.03);
+  --tools-card-border: rgba(0, 0, 0, 0.06);
+  --tools-text: #4a4a5a;
+
+  --dot-color: rgba(0, 0, 0, 0.15);
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ========================================
+   Glass Cards — Theme-Aware
    ======================================== */
 .glass {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--glass-bg);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--glass-border);
   box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    0 8px 32px var(--glass-shadow),
+    inset 0 1px 0 var(--glass-inset);
 }
 
 .glass-dark {
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--bg-card);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-subtle);
   box-shadow: 
-    0 4px 24px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    0 4px 24px var(--glass-shadow),
+    inset 0 1px 0 var(--glass-inset);
 }
 
 .text-gradient {
-  color: #ffffff;
+  color: var(--text-primary);
+}
+
+/* Section scroll offset for floating nav */
+section[id] {
+  scroll-margin-top: 100px;
+}
+
+/* ========================================
+   LED Marquee Animation
+   ======================================== */
+@keyframes led-scroll-left {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+@keyframes led-scroll-right {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes led-bounce {
+  0%, 100% { transform: translateX(50%); }
+  50% { transform: translateX(-50%); }
+}
+
+.led-text {
+  font-family: var(--font-cyber), 'Courier New', monospace;
+  color: var(--led-color);
+  text-shadow: 
+    0 0 10px var(--led-glow),
+    0 0 30px var(--led-glow),
+    0 0 60px var(--led-glow-far),
+    0 0 100px var(--led-glow-far);
+  letter-spacing: 0.15em;
+  white-space: nowrap;
+  animation: led-bounce 8s ease-in-out infinite;
+}
+
+@keyframes led-flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
+}
+
+.led-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
 }
 
 /* ========================================
@@ -79,7 +244,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #0A0A0A;
+  background: var(--bg-primary);
   gap: 2rem;
 }
 
@@ -94,7 +259,7 @@ body {
   position: absolute;
   width: 2px;
   height: 2px;
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--text-tertiary);
   border-radius: 50%;
   animation: particle-float linear infinite;
 }
@@ -139,10 +304,10 @@ body {
   inset: -8px;
   border-radius: 50%;
   border: 2px solid transparent;
-  border-top-color: rgba(255, 255, 255, 0.9);
-  border-right-color: rgba(255, 255, 255, 0.4);
-  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.6)) 
-          drop-shadow(0 0 24px rgba(255, 255, 255, 0.3));
+  border-top-color: var(--text-primary);
+  border-right-color: var(--text-tertiary);
+  filter: drop-shadow(0 0 12px var(--glow-color)) 
+          drop-shadow(0 0 24px var(--glow-color));
 }
 
 .loading-ring-inner {
@@ -150,9 +315,9 @@ body {
   inset: -16px;
   border-radius: 50%;
   border: 1px solid transparent;
-  border-bottom-color: rgba(255, 255, 255, 0.5);
-  border-left-color: rgba(255, 255, 255, 0.2);
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.4));
+  border-bottom-color: var(--text-secondary);
+  border-left-color: var(--text-muted);
+  filter: drop-shadow(0 0 8px var(--glow-color));
 }
 
 .loading-photo {
@@ -161,10 +326,10 @@ body {
   height: 100%;
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid rgba(255, 255, 255, 0.8);
+  border: 3px solid var(--text-primary);
   box-shadow: 
-    0 0 20px rgba(255, 255, 255, 0.3),
-    0 0 60px rgba(255, 255, 255, 0.15),
+    0 0 20px var(--glow-color),
+    0 0 60px var(--glow-color),
     inset 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
@@ -179,7 +344,7 @@ body {
   font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: 0.3em;
-  color: #ffffff;
+  color: var(--text-primary);
   font-family: var(--font-cyber), monospace;
 }
 
@@ -193,7 +358,7 @@ body {
   font-size: 0.75rem;
   font-weight: 300;
   letter-spacing: 0.5em;
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--text-tertiary);
   text-transform: uppercase;
 }
 
@@ -210,26 +375,26 @@ body {
 .loading-bar {
   width: 100%;
   height: 2px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--border-color);
   border-radius: 4px;
   overflow: hidden;
 }
 
 .loading-bar-fill {
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+  background: linear-gradient(90deg, transparent, var(--text-primary), transparent);
   border-radius: 4px;
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 12px var(--glow-color);
 }
 
 /* ========================================
-   Mobile Bottom Tab Bar
+   Mobile Bottom Tab Bar — Theme-Aware
    ======================================== */
 .mobile-tab-bar {
-  background: rgba(10, 10, 10, 0.85);
+  background: var(--tab-bg);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid var(--nav-border);
   padding-bottom: env(safe-area-inset-bottom, 8px);
 }
 
@@ -244,15 +409,15 @@ body {
 }
 
 .mobile-tab-icon {
-  color: rgba(255, 255, 255, 0.35);
+  color: var(--tab-icon);
   transition: all 0.3s ease;
   padding: 6px;
   border-radius: 12px;
 }
 
 .mobile-tab-icon-active {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.1);
+  color: var(--tab-icon-active);
+  background: var(--tab-icon-active-bg);
 }
 
 .mobile-tab-home-container {
@@ -272,23 +437,166 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.08);
-  border: 2px solid rgba(255, 255, 255, 0.15);
-  color: rgba(255, 255, 255, 0.5);
+  background: var(--bg-card);
+  border: 2px solid var(--bg-card-border);
+  color: var(--text-tertiary);
   transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 20px var(--glass-shadow);
 }
 
 .mobile-tab-home-active {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.4);
-  color: #ffffff;
+  background: var(--bg-card-hover);
+  border-color: var(--bg-card-border-hover);
+  color: var(--text-primary);
   box-shadow: 
-    0 0 20px rgba(255, 255, 255, 0.15),
-    0 4px 20px rgba(0, 0, 0, 0.3);
+    0 0 20px var(--glow-color),
+    0 4px 20px var(--glass-shadow);
+}
+
+/* ========================================
+   Floating Navbar
+   ======================================== */
+.floating-nav {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  background: var(--nav-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--nav-border);
+  border-radius: 9999px;
+  padding: 12px 28px;
+  box-shadow: 
+    0 8px 32px var(--glass-shadow),
+    inset 0 1px 0 var(--glass-inset);
+  transition: all 0.3s ease;
+}
+
+.floating-nav.scrolled {
+  top: 12px;
+  padding: 10px 24px;
+  box-shadow: 
+    0 12px 40px var(--glass-shadow),
+    inset 0 1px 0 var(--glass-inset);
+}
+
+/* ========================================
+   Tools Marquee
+   ======================================== */
+@keyframes tools-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.tools-marquee-track {
+  display: flex;
+  animation: tools-scroll 30s linear infinite;
+  width: max-content;
+}
+
+.tools-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ========================================
+   Project Card Hover Effect
+   ======================================== */
+.project-card {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--glow-color) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.project-card:hover::before {
+  opacity: 1;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--bg-card-border-hover);
+  box-shadow: 0 20px 60px var(--glass-shadow);
+}
+
+/* ========================================
+   Timeline Glow Dot
+   ======================================== */
+@keyframes timeline-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 var(--timeline-dot-glow); }
+  50% { box-shadow: 0 0 0 8px transparent; }
+}
+
+.timeline-dot {
+  animation: timeline-pulse 2s ease-in-out infinite;
+}
+
+/* ========================================
+   Theme Toggle Button
+   ======================================== */
+.theme-toggle {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-card);
+  border: 1px solid var(--bg-card-border);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+  border-color: var(--bg-card-border-hover);
+  transform: rotate(30deg);
 }
 
 /* Smooth scroll behavior */
 html {
   scroll-behavior: smooth;
+}
+
+/* ========================================
+   Experience Card Gradient Border
+   ======================================== */
+.exp-card {
+  position: relative;
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+}
+
+.exp-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 1rem;
+  padding: 1px;
+  background: linear-gradient(135deg, transparent 30%, var(--bg-card-border-hover) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.exp-card:hover::before {
+  opacity: 1;
 }

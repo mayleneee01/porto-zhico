@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
+import Image from 'next/image';
 import FadeIn from './FadeIn';
 
 const GithubIcon = ({ size = 24 }: { size?: number }) => (
@@ -58,53 +59,84 @@ export default function Hero() {
         <source src="/hero-bg.mp4" type="video/mp4" />
       </video>
 
-      {/* LAYER 1: Base Darkening (agar teks tetap terbaca) */}
-      <div className="absolute inset-0 bg-black/40 z-0"></div>
+      {/* LAYER 1: Base Darkening */}
+      <div className="absolute inset-0 z-0" style={{ backgroundColor: 'var(--hero-overlay)' }}></div>
 
-      {/* LAYER 2: Dot Grid Pattern (Elemen Tambahan ala Cyber/Tech) */}
+      {/* LAYER 2: Dot Grid Pattern */}
       <div 
         className="absolute inset-0 z-0 opacity-30" 
         style={{ 
-          backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.8) 1px, transparent 1px)', 
+          backgroundImage: `radial-gradient(var(--dot-color) 1px, transparent 1px)`, 
           backgroundSize: '48px 48px' 
         }}
       ></div>
 
-      {/* LAYER 3: Radial Vignette (Shadow di pinggiran layar) */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,#0A0A0A_120%)] z-0"></div>
+      {/* LAYER 3: Radial Vignette */}
+      <div className="absolute inset-0 z-0" style={{
+        background: `radial-gradient(circle at center, transparent 20%, var(--bg-primary) 120%)`
+      }}></div>
 
-      {/* LAYER 4: Smooth Bottom Fade (Agar tidak patah saat transisi ke section bawah) */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0A0A0A] z-0"></div>
+      {/* LAYER 4: Bottom Fade */}
+      <div className="absolute inset-0 z-0" style={{
+        background: `linear-gradient(to bottom, transparent, transparent 50%, var(--bg-primary))`
+      }}></div>
 
-      <div className="z-10 text-center px-6 relative">
-        <FadeIn direction="up">
-          <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter mb-4 text-white font-[family-name:var(--font-cyber)]">
-            PORTFOLIO
-          </h1>
-        </FadeIn>
+      {/* HERO CONTENT */}
+      <div className="z-10 relative flex flex-col items-center justify-center w-full max-w-5xl px-6">
         
-        <FadeIn direction="up" delay={0.2}>
-          <h2 className="text-2xl md:text-4xl text-white mb-4 tracking-widest uppercase font-[family-name:var(--font-cyber)]">
-            Zhico Pradita
-          </h2>
-        </FadeIn>
+        {/* Profile Photo Behind LED Text */}
+        <div className="relative flex flex-col items-center">
+          {/* Half-body profile photo */}
+          <FadeIn direction="up" delay={0.1}>
+            <div className="relative w-48 h-60 sm:w-56 sm:h-72 md:w-64 md:h-80 lg:w-72 lg:h-[22rem] mb-4">
+              <div className="absolute inset-0 rounded-2xl overflow-hidden" style={{
+                maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
+                WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
+              }}>
+                <Image
+                  src="/profile.png"
+                  alt="Zhico Pradita"
+                  fill
+                  priority
+                  sizes="(max-width: 640px) 192px, (max-width: 768px) 224px, (max-width: 1024px) 256px, 288px"
+                  className="object-cover object-[center_15%]"
+                />
+              </div>
+              {/* Subtle glow behind */}
+              <div className="absolute -inset-4 rounded-3xl opacity-30 blur-2xl" style={{
+                background: `radial-gradient(circle, var(--led-glow-far) 0%, transparent 70%)`
+              }}></div>
+            </div>
+          </FadeIn>
 
-        <FadeIn direction="up" delay={0.3}>
-          <p className="text-sm md:text-lg text-gray-300 font-light tracking-widest mb-8 uppercase">
+          {/* LED Marquee Text */}
+          <FadeIn direction="up" delay={0.3}>
+            <div className="led-container w-[90vw] max-w-3xl h-16 sm:h-20 md:h-24 flex items-center justify-center overflow-hidden">
+              <div className="led-text text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold">
+                ZHICO&nbsp;&nbsp;PRADITA
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+
+        {/* Subtitle */}
+        <FadeIn direction="up" delay={0.5}>
+          <p className="text-xs sm:text-sm md:text-lg font-light tracking-[0.3em] sm:tracking-widest mt-4 mb-8 uppercase text-center" style={{ color: 'var(--text-secondary)' }}>
             Breaking Systems to Build Better Defenses
           </p>
         </FadeIn>
         
-        <FadeIn direction="up" delay={0.5}>
-          <div className="flex justify-center gap-6 mt-4">
-            <a href="https://github.com/mayleneee01" target="_blank" rel="noreferrer" className="text-white hover:scale-110 transition-transform">
-              <GithubIcon size={32} />
+        {/* Social Links */}
+        <FadeIn direction="up" delay={0.7}>
+          <div className="flex justify-center gap-6">
+            <a href="https://github.com/mayleneee01" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform" style={{ color: 'var(--text-primary)' }}>
+              <GithubIcon size={28} />
             </a>
-            <a href="https://www.linkedin.com/in/zhico-pradita-6763432b2" target="_blank" rel="noreferrer" className="text-white hover:scale-110 transition-transform">
-              <LinkedinIcon size={32} />
+            <a href="https://www.linkedin.com/in/zhico-pradita-6763432b2" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform" style={{ color: 'var(--text-primary)' }}>
+              <LinkedinIcon size={28} />
             </a>
-            <a href="https://www.instagram.com/zhicoapta/" target="_blank" rel="noreferrer" className="text-white hover:scale-110 transition-transform">
-              <InstagramIcon size={32} />
+            <a href="https://www.instagram.com/zhicoapta/" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform" style={{ color: 'var(--text-primary)' }}>
+              <InstagramIcon size={28} />
             </a>
           </div>
         </FadeIn>
