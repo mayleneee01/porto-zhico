@@ -9,11 +9,11 @@ const defaultTools = [
   { id: '2', name: 'Burp Suite', icon: 'https://cdn.simpleicons.org/burpsuite/white', order: 2, createdAt: new Date(), updatedAt: new Date() },
   { id: '3', name: 'Wazuh', icon: 'https://www.google.com/s2/favicons?sz=128&domain=wazuh.com', order: 3, createdAt: new Date(), updatedAt: new Date() },
   { id: '4', name: 'Ghidra', icon: 'https://www.google.com/s2/favicons?sz=128&domain=ghidra-sre.org', order: 4, createdAt: new Date(), updatedAt: new Date() },
-  { id: '5', name: 'SQLMap', icon: 'https://www.google.com/s2/favicons?sz=128&domain=sqlmap.org', order: 5, createdAt: new Date(), updatedAt: new Date() },
+  { id: '5', name: 'SQLMap', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqldeveloper/sqldeveloper-original.svg', order: 5, createdAt: new Date(), updatedAt: new Date() },
   { id: '6', name: 'Nmap', icon: 'https://www.google.com/s2/favicons?sz=128&domain=nmap.org', order: 6, createdAt: new Date(), updatedAt: new Date() },
   { id: '7', name: 'Wireshark', icon: 'https://cdn.simpleicons.org/wireshark/white', order: 7, createdAt: new Date(), updatedAt: new Date() },
   { id: '8', name: 'Metasploit', icon: 'https://www.google.com/s2/favicons?sz=128&domain=metasploit.com', order: 8, createdAt: new Date(), updatedAt: new Date() },
-  { id: '9', name: 'Kali Linux', icon: 'https://cdn.simpleicons.org/kalilinux/white', order: 9, createdAt: new Date(), updatedAt: new Date() },
+  { id: '9', name: 'Parrot OS', icon: 'https://cdn.simpleicons.org/parrotsecurity/white', order: 9, createdAt: new Date(), updatedAt: new Date() },
   { id: '10', name: 'VS Code', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg', order: 10, createdAt: new Date(), updatedAt: new Date() },
   { id: '11', name: 'Docker', icon: 'https://cdn.simpleicons.org/docker/white', order: 11, createdAt: new Date(), updatedAt: new Date() },
   { id: '12', name: 'Git', icon: 'https://cdn.simpleicons.org/git/white', order: 12, createdAt: new Date(), updatedAt: new Date() },
@@ -59,15 +59,8 @@ export default function Tools({ tools = [] }: { tools?: Tool[] }) {
       <div className="container mx-auto px-6 max-w-6xl">
         <FadeIn direction="up" delay={0.2}>
           <div className="overflow-x-auto pb-6 custom-scrollbar">
-            {/* Grid layout with max 8 rows, flowing into columns */}
-            <div 
-              className="grid gap-x-8 gap-y-3"
-              style={{
-                gridTemplateRows: `repeat(${Math.min(8, displayTools.length)}, minmax(0, 1fr))`,
-                gridAutoFlow: 'column',
-                gridAutoColumns: 'minmax(240px, 1fr)'
-              }}
-            >
+            {/* Responsive grid that stacks on mobile */}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-x-8 md:gap-y-4">
               {displayTools.map((tool, i) => (
                 <div
                   key={`${tool.id}-${i}`}

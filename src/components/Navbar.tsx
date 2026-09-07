@@ -1,16 +1,16 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { Home, FolderKanban, Briefcase, Trophy, UserCheck, Sun, Moon } from 'lucide-react';
+import { Home, FolderKanban, Briefcase, Trophy, UserCheck, Sun, Moon, Wrench } from 'lucide-react';
 import clsx from 'clsx';
 import { useTheme } from './ThemeProvider';
 
 const navLinks = [
   { name: 'Project', href: '/#projects', sectionId: 'projects', icon: FolderKanban },
-  { name: 'Milestones', href: '/#certifications', sectionId: 'certifications', icon: Trophy },
+  { name: 'Tools', href: '/#tools', sectionId: 'tools', icon: Wrench },
   { name: 'Home', href: '/#home', sectionId: 'home', icon: Home },
   { name: 'Experience', href: '/#experience', sectionId: 'experience', icon: Briefcase },
-  { name: 'Hire Me', href: '/#contact', sectionId: 'contact', icon: UserCheck },
+  { name: 'Milestones', href: '/#certifications', sectionId: 'certifications', icon: Trophy },
 ];
 
 export default function Navbar() {
@@ -71,10 +71,10 @@ export default function Navbar() {
     }
   };
 
-  // Desktop navbar: Home first
   const desktopNavLinks = [
     { name: 'Home', href: '/#home', sectionId: 'home', icon: Home },
     { name: 'Project', href: '/#projects', sectionId: 'projects', icon: FolderKanban },
+    { name: 'Tools', href: '/#tools', sectionId: 'tools', icon: Wrench },
     { name: 'Experience', href: '/#experience', sectionId: 'experience', icon: Briefcase },
     { name: 'Milestones', href: '/#certifications', sectionId: 'certifications', icon: Trophy },
     { name: 'Hire Me', href: '/#contact', sectionId: 'contact', icon: UserCheck },
@@ -131,61 +131,74 @@ export default function Navbar() {
       </nav>
 
       {/* Mobile Bottom Tab Bar */}
-      <nav className="md:hidden fixed bottom-0 left-0 w-full z-[100] mobile-tab-bar">
-        <div className="flex justify-around items-end w-full px-2 pb-2 pt-1 relative">
-          {navLinks.map((link) => {
-            const Icon = link.icon;
-            const isHome = link.name === 'Home';
-            const isActive = activeSection === link.sectionId;
+      <div className="md:hidden fixed bottom-6 left-4 right-4 z-[100] flex justify-center pointer-events-none">
+        <nav className="mobile-tab-bar floating rounded-2xl pointer-events-auto" style={{
+          boxShadow: '0 10px 40px rgba(0,0,0,0.5)',
+          background: 'var(--glass-bg)',
+          backdropFilter: 'blur(20px)',
+          border: '1px solid var(--glass-border)',
+          padding: '4px 8px'
+        }}>
+          <div className="flex items-center justify-between gap-1 w-full relative">
+            {navLinks.map((link) => {
+              const Icon = link.icon;
+              const isHome = link.name === 'Home';
+              const isActive = activeSection === link.sectionId;
 
-            if (isHome) {
+              if (isHome) {
+                return (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    onClick={(e) => handleNavClick(e, link)}
+                    className="mobile-tab-home-container px-2"
+                  >
+                    <div
+                      className={clsx(
+                        "mobile-tab-home",
+                        isActive && "mobile-tab-home-active"
+                      )}
+                    >
+                      <Icon size={22} strokeWidth={isActive ? 2.5 : 1.5} />
+                    </div>
+                  </a>
+                );
+              }
+
               return (
                 <a
                   key={link.name}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link)}
-                  className="mobile-tab-home-container"
+                  className="mobile-tab-item py-2 px-3 flex flex-col items-center"
                 >
-                  <div
-                    className={clsx(
-                      "mobile-tab-home",
-                      isActive && "mobile-tab-home-active"
-                    )}
-                  >
-                    <Icon size={24} strokeWidth={isActive ? 2.5 : 1.5} />
+                  <div className={clsx(
+                    "mobile-tab-icon transition-transform duration-300",
+                    isActive ? "scale-110 mobile-tab-icon-active" : "opacity-70"
+                  )}>
+                    <Icon size={20} strokeWidth={isActive ? 2.5 : 1.5} />
                   </div>
-                  <span className={clsx(
-                    "text-[10px] mt-1 tracking-wide transition-colors duration-300"
-                  )} style={{ color: isActive ? 'var(--text-primary)' : 'var(--text-muted)' }}>
-                    {link.name}
-                  </span>
                 </a>
               );
-            }
+            })}
+          </div>
+        </nav>
+      </div>
 
-            return (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={(e) => handleNavClick(e, link)}
-                className="mobile-tab-item"
-              >
-                <div className={clsx(
-                  "mobile-tab-icon",
-                  isActive && "mobile-tab-icon-active"
-                )}>
-                  <Icon size={20} strokeWidth={isActive ? 2.5 : 1.5} />
-                </div>
-                <span className={clsx(
-                  "text-[10px] mt-0.5 tracking-wide transition-colors duration-300",
-                )} style={{ color: isActive ? 'var(--text-primary)' : 'var(--text-muted)' }}>
-                  {link.name}
-                </span>
-              </a>
-            );
-          })}
-        </div>
-      </nav>
+      {/* Mobile Theme Toggle - Floating Bottom Right above Tab Bar */}
+      <button
+        onClick={toggleTheme}
+        className="md:hidden fixed bottom-28 right-6 z-[90] w-12 h-12 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 active:scale-90"
+        style={{
+          background: 'var(--glass-bg)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid var(--glass-border)',
+          color: 'var(--text-primary)',
+        }}
+        aria-label="Toggle theme"
+      >
+        {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+      </button>
     </>
   );
 }
