@@ -49,8 +49,20 @@ export default function ThemeProvider({ children }: { children: React.ReactNode 
       return;
     }
 
-    const x = e.clientX;
-    const y = e.clientY;
+    let x = e?.clientX;
+    let y = e?.clientY;
+
+    // Use currentTarget bounding rect for perfect centering on the button, 
+    // and as a reliable fallback for mobile touch events where clientX/Y might be 0 or missing.
+    if (e?.currentTarget) {
+      const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+      x = rect.left + rect.width / 2;
+      y = rect.top + rect.height / 2;
+    } else if (x === undefined || y === undefined) {
+      x = innerWidth / 2;
+      y = innerHeight / 2;
+    }
+
     const endRadius = Math.hypot(
       Math.max(x, innerWidth - x),
       Math.max(y, innerHeight - y)
