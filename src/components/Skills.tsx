@@ -28,7 +28,7 @@ export default function Skills({ skills }: { skills: Skill[] }) {
     
     // Support for real image logos via URL
     if (name.startsWith('http') || name.startsWith('/')) {
-      return <img src={name} alt="Icon" width={20} height={20} className="object-contain" />;
+      return <img src={name} alt="Icon" width={20} height={20} className="object-contain theme-invert" />;
     }
 
     const IconComponent = (Icons as any)[name];

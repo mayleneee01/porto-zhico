@@ -81,15 +81,6 @@ export default function Hero() {
         background: `linear-gradient(to bottom, transparent, transparent 50%, var(--bg-primary))`
       }}></div>
 
-      {/* LAYER 5: Scrolling Background Text (Full Page) */}
-      <div className="absolute inset-0 z-0 flex items-center justify-center overflow-hidden pointer-events-none mix-blend-overlay">
-        <div className="outline-text-container-full">
-          <span className="outline-text">
-            ZHICO&nbsp;PRADITA&nbsp;&nbsp;&nbsp;&nbsp;ZHICO&nbsp;PRADITA&nbsp;&nbsp;&nbsp;&nbsp;ZHICO&nbsp;PRADITA&nbsp;&nbsp;&nbsp;&nbsp;
-          </span>
-        </div>
-      </div>
-
       {/* HERO CONTENT */}
       <div className="z-10 relative flex flex-col items-center justify-center w-full max-w-5xl px-6">
         

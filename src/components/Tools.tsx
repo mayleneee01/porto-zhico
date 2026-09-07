@@ -7,13 +7,17 @@ import { Tool } from '@/generated/prisma';
 const defaultTools = [
   { id: '1', name: 'Python', icon: 'https://cdn.simpleicons.org/python/white', order: 1, createdAt: new Date(), updatedAt: new Date() },
   { id: '2', name: 'Burp Suite', icon: 'https://cdn.simpleicons.org/burpsuite/white', order: 2, createdAt: new Date(), updatedAt: new Date() },
-  { id: '3', name: 'Nmap', icon: '🔍', order: 3, createdAt: new Date(), updatedAt: new Date() },
-  { id: '4', name: 'Wireshark', icon: 'https://cdn.simpleicons.org/wireshark/white', order: 4, createdAt: new Date(), updatedAt: new Date() },
-  { id: '5', name: 'Kali Linux', icon: 'https://cdn.simpleicons.org/kalilinux/white', order: 5, createdAt: new Date(), updatedAt: new Date() },
-  { id: '6', name: 'VS Code', icon: 'https://cdn.simpleicons.org/visualstudiocode/white', order: 6, createdAt: new Date(), updatedAt: new Date() },
-  { id: '7', name: 'Docker', icon: 'https://cdn.simpleicons.org/docker/white', order: 7, createdAt: new Date(), updatedAt: new Date() },
-  { id: '8', name: 'Git', icon: 'https://cdn.simpleicons.org/git/white', order: 8, createdAt: new Date(), updatedAt: new Date() },
-  { id: '9', name: 'Linux', icon: 'https://cdn.simpleicons.org/linux/white', order: 9, createdAt: new Date(), updatedAt: new Date() },
+  { id: '3', name: 'Wazuh', icon: '🛡️', order: 3, createdAt: new Date(), updatedAt: new Date() },
+  { id: '4', name: 'Ghidra', icon: '🐉', order: 4, createdAt: new Date(), updatedAt: new Date() },
+  { id: '5', name: 'SQLMap', icon: '💉', order: 5, createdAt: new Date(), updatedAt: new Date() },
+  { id: '6', name: 'Nmap', icon: '🔍', order: 6, createdAt: new Date(), updatedAt: new Date() },
+  { id: '7', name: 'Wireshark', icon: 'https://cdn.simpleicons.org/wireshark/white', order: 7, createdAt: new Date(), updatedAt: new Date() },
+  { id: '8', name: 'Metasploit', icon: '💀', order: 8, createdAt: new Date(), updatedAt: new Date() },
+  { id: '9', name: 'Kali Linux', icon: 'https://cdn.simpleicons.org/kalilinux/white', order: 9, createdAt: new Date(), updatedAt: new Date() },
+  { id: '10', name: 'VS Code', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg', order: 10, createdAt: new Date(), updatedAt: new Date() },
+  { id: '11', name: 'Docker', icon: 'https://cdn.simpleicons.org/docker/white', order: 11, createdAt: new Date(), updatedAt: new Date() },
+  { id: '12', name: 'Git', icon: 'https://cdn.simpleicons.org/git/white', order: 12, createdAt: new Date(), updatedAt: new Date() },
+  { id: '13', name: 'Linux', icon: 'https://cdn.simpleicons.org/linux/white', order: 13, createdAt: new Date(), updatedAt: new Date() },
 ];
 
 export default function Tools({ tools = [] }: { tools?: Tool[] }) {
@@ -24,7 +28,7 @@ export default function Tools({ tools = [] }: { tools?: Tool[] }) {
     
     // Support for real image logos via URL
     if (iconVal.startsWith('http') || iconVal.startsWith('/')) {
-      return <img src={iconVal} alt="Icon" width={24} height={24} className="object-contain" />;
+      return <img src={iconVal} alt="Icon" width={24} height={24} className="object-contain theme-invert" />;
     }
 
     // Emoji check (simple heuristic)

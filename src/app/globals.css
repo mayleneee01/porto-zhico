@@ -573,7 +573,6 @@ section[id] {
    Theme Toggle Button
    ======================================== */
 .theme-toggle {
-  position: relative;
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -592,6 +591,13 @@ section[id] {
   color: var(--text-primary);
   border-color: var(--bg-card-border-hover);
   transform: rotate(30deg);
+}
+
+/* ========================================
+   Image Invert for Light Mode
+   ======================================== */
+[data-theme="light"] .theme-invert {
+  filter: invert(1) hue-rotate(180deg);
 }
 
 /* Smooth scroll behavior */

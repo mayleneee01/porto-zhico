@@ -56,6 +56,9 @@ export default function ThemeProvider({ children }: { children: React.ReactNode 
       Math.max(y, innerHeight - y)
     );
 
+    // Temporarily disable CSS transitions to prevent lag during the View Transition
+    document.body.classList.remove('theme-ready');
+
     const transition = document.startViewTransition(() => {
       setTheme(newTheme);
       document.documentElement.setAttribute('data-theme', newTheme);
@@ -73,11 +76,16 @@ export default function ThemeProvider({ children }: { children: React.ReactNode 
           clipPath: theme === 'dark' ? clipPath : [...clipPath].reverse(),
         },
         {
-          duration: 500,
+          duration: 400,
           easing: 'ease-out',
           pseudoElement: theme === 'dark' ? '::view-transition-new(root)' : '::view-transition-old(root)',
         }
       );
+    });
+
+    // Re-enable CSS transitions after the View Transition completes
+    transition.finished.finally(() => {
+      document.body.classList.add('theme-ready');
     });
   }, [theme]);
 
