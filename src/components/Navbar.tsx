@@ -184,22 +184,17 @@ export default function Navbar() {
               </a>
             );
           })}
-          
-          {/* Mobile Theme Toggle */}
-          <button
-            onClick={toggleTheme}
-            className="mobile-tab-item"
-            aria-label="Toggle theme"
-          >
-            <div className="mobile-tab-icon">
-              {theme === 'dark' ? <Sun size={20} strokeWidth={1.5} /> : <Moon size={20} strokeWidth={1.5} />}
-            </div>
-            <span className="text-[10px] mt-0.5 tracking-wide" style={{ color: 'var(--text-muted)' }}>
-              {theme === 'dark' ? 'Light' : 'Dark'}
-            </span>
-          </button>
         </div>
       </nav>
+
+      {/* Mobile Theme Toggle - Top Right */}
+      <button
+        onClick={toggleTheme}
+        className="md:hidden fixed top-4 right-4 z-[100] theme-toggle"
+        aria-label="Toggle theme"
+      >
+        {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+      </button>
     </>
   );
 }

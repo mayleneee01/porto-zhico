@@ -230,7 +230,7 @@ section[id] {
   letter-spacing: 0.15em;
   white-space: nowrap;
   animation: outline-scroll 12s linear infinite;
-  font-size: clamp(5rem, 15vw, 14rem);
+  font-size: clamp(3.5rem, 12vw, 14rem);
   line-height: 1;
   text-transform: uppercase;
   user-select: none;

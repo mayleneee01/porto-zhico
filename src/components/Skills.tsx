@@ -25,6 +25,12 @@ const SKILL_CONFIG: Record<string, { category: string; icon: string }> = {
 export default function Skills({ skills }: { skills: Skill[] }) {
   const renderIcon = (name: string | null) => {
     if (!name) return <Icons.Code2 size={20} />;
+    
+    // Support for real image logos via URL
+    if (name.startsWith('http') || name.startsWith('/')) {
+      return <img src={name} alt="Icon" width={20} height={20} className="object-contain" />;
+    }
+
     const IconComponent = (Icons as any)[name];
     return IconComponent ? <IconComponent size={20} /> : <Icons.Code2 size={20} />;
   };
