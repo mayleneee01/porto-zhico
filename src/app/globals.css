@@ -88,6 +88,7 @@
   --tools-text: #a1a1aa;
 
   --dot-color: rgba(255, 255, 255, 0.8);
+  --outline-stroke: rgba(255, 255, 255, 0.35);
 }
 
 /* ========================================
@@ -149,6 +150,7 @@
   --tools-text: #4a4a5a;
 
   --dot-color: rgba(0, 0, 0, 0.15);
+  --outline-stroke: rgba(0, 0, 0, 0.2);
 }
 
 body {
@@ -156,7 +158,18 @@ body {
   color: var(--text-primary);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
   overflow-x: hidden;
-  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ========================================
+   Smooth Theme Transitions
+   Apply transitions only AFTER initial load to prevent flash.
+   The .theme-ready class is added by ThemeProvider after mount.
+   ======================================== */
+.theme-ready,
+.theme-ready *:not(.outline-text):not(.tools-marquee-track):not(.loading-particle):not(.loading-ring-outer):not(.loading-ring-inner):not(.loading-bar-fill):not(.timeline-dot),
+.theme-ready *::before,
+.theme-ready *::after {
+  transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, fill 0.35s ease, stroke 0.35s ease, -webkit-text-stroke-color 0.35s ease !important;
 }
 
 /* ========================================
@@ -192,45 +205,43 @@ section[id] {
 }
 
 /* ========================================
-   LED Marquee Animation
+   Outline Text Scrolling Animation
    ======================================== */
-@keyframes led-scroll-left {
+@keyframes outline-scroll {
   0% { transform: translateX(100%); }
   100% { transform: translateX(-100%); }
 }
 
-@keyframes led-scroll-right {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+.outline-text-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  z-index: 0;
 }
 
-@keyframes led-bounce {
-  0%, 100% { transform: translateX(50%); }
-  50% { transform: translateX(-50%); }
-}
-
-.led-text {
+.outline-text {
   font-family: var(--font-cyber), 'Courier New', monospace;
-  color: var(--led-color);
-  text-shadow: 
-    0 0 10px var(--led-glow),
-    0 0 30px var(--led-glow),
-    0 0 60px var(--led-glow-far),
-    0 0 100px var(--led-glow-far);
+  font-weight: 900;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--outline-stroke);
   letter-spacing: 0.15em;
   white-space: nowrap;
-  animation: led-bounce 8s ease-in-out infinite;
+  animation: outline-scroll 12s linear infinite;
+  font-size: clamp(5rem, 15vw, 14rem);
+  line-height: 1;
+  text-transform: uppercase;
+  user-select: none;
+  opacity: 0.4;
 }
 
-@keyframes led-flicker {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.85; }
-}
-
-.led-container {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
+@media (min-width: 768px) {
+  .outline-text {
+    -webkit-text-stroke: 3px var(--outline-stroke);
+    opacity: 0.3;
+  }
 }
 
 /* ========================================

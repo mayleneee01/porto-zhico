@@ -84,44 +84,62 @@ export default function Hero() {
       {/* HERO CONTENT */}
       <div className="z-10 relative flex flex-col items-center justify-center w-full max-w-5xl px-6">
         
-        {/* Profile Photo Behind LED Text */}
-        <div className="relative flex flex-col items-center">
-          {/* Half-body profile photo */}
-          <FadeIn direction="up" delay={0.1}>
-            <div className="relative w-48 h-60 sm:w-56 sm:h-72 md:w-64 md:h-80 lg:w-72 lg:h-[22rem] mb-4">
-              <div className="absolute inset-0 rounded-2xl overflow-hidden" style={{
-                maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
-                WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
-              }}>
-                <Image
-                  src="/profile.png"
-                  alt="Zhico Pradita"
-                  fill
-                  priority
-                  sizes="(max-width: 640px) 192px, (max-width: 768px) 224px, (max-width: 1024px) 256px, 288px"
-                  className="object-cover object-[center_15%]"
-                />
-              </div>
-              {/* Subtle glow behind */}
-              <div className="absolute -inset-4 rounded-3xl opacity-30 blur-2xl" style={{
-                background: `radial-gradient(circle, var(--led-glow-far) 0%, transparent 70%)`
-              }}></div>
-            </div>
-          </FadeIn>
+        {/* "PORTFOLIO" text above photo */}
+        <FadeIn direction="up" delay={0.1}>
+          <h1
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-[0.3em] mb-4 md:mb-6 text-center font-[family-name:var(--font-cyber)]"
+            style={{ color: 'var(--text-primary)' }}
+          >
+            PORTFOLIO
+          </h1>
+        </FadeIn>
 
-          {/* LED Marquee Text */}
-          <FadeIn direction="up" delay={0.3}>
-            <div className="led-container w-[90vw] max-w-3xl h-16 sm:h-20 md:h-24 flex items-center justify-center overflow-hidden">
-              <div className="led-text text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold">
-                ZHICO&nbsp;&nbsp;PRADITA
-              </div>
+        {/* Photo container with scrolling outline text behind */}
+        <FadeIn direction="up" delay={0.3}>
+          <div className="relative w-52 h-64 sm:w-60 sm:h-72 md:w-72 md:h-[22rem] lg:w-80 lg:h-[26rem]">
+            
+            {/* Scrolling outline text — BEHIND photo */}
+            <div className="outline-text-container">
+              <span className="outline-text">
+                ZHICO&nbsp;PRADITA&nbsp;&nbsp;&nbsp;&nbsp;ZHICO&nbsp;PRADITA&nbsp;&nbsp;&nbsp;&nbsp;ZHICO&nbsp;PRADITA&nbsp;&nbsp;&nbsp;&nbsp;
+              </span>
             </div>
-          </FadeIn>
-        </div>
+
+            {/* Profile photo — on top of text */}
+            <div className="relative w-full h-full z-[1]" style={{
+              maskImage: 'linear-gradient(to bottom, black 65%, transparent 100%)',
+              WebkitMaskImage: 'linear-gradient(to bottom, black 65%, transparent 100%)',
+            }}>
+              <Image
+                src="/profile.png"
+                alt="Zhico Pradita"
+                fill
+                priority
+                sizes="(max-width: 640px) 208px, (max-width: 768px) 240px, (max-width: 1024px) 288px, 320px"
+                className="object-cover object-[center_15%] rounded-2xl"
+              />
+            </div>
+
+            {/* Subtle glow behind photo */}
+            <div className="absolute -inset-8 rounded-3xl opacity-20 blur-3xl z-0" style={{
+              background: `radial-gradient(circle, var(--glow-color) 0%, transparent 70%)`
+            }}></div>
+          </div>
+        </FadeIn>
+
+        {/* "Zhico Pradita" text below photo — static */}
+        <FadeIn direction="up" delay={0.5}>
+          <h2
+            className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-[0.2em] mt-2 md:mt-4 text-center font-[family-name:var(--font-cyber)]"
+            style={{ color: 'var(--text-primary)' }}
+          >
+            ZHICO PRADITA
+          </h2>
+        </FadeIn>
 
         {/* Subtitle */}
-        <FadeIn direction="up" delay={0.5}>
-          <p className="text-xs sm:text-sm md:text-lg font-light tracking-[0.3em] sm:tracking-widest mt-4 mb-8 uppercase text-center" style={{ color: 'var(--text-secondary)' }}>
+        <FadeIn direction="up" delay={0.6}>
+          <p className="text-xs sm:text-sm md:text-base font-light tracking-[0.3em] sm:tracking-widest mt-3 mb-8 uppercase text-center" style={{ color: 'var(--text-secondary)' }}>
             Breaking Systems to Build Better Defenses
           </p>
         </FadeIn>

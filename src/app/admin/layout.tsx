@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { LayoutDashboard, FolderKanban, Award, Briefcase, Code2, LogOut, Menu, X } from 'lucide-react';
 import clsx from 'clsx';
@@ -34,7 +35,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     <div className="flex flex-col md:flex-row min-h-screen bg-black text-white font-sans selection:bg-white selection:text-black">
       {/* Mobile Top Bar */}
       <div className="md:hidden flex items-center justify-between p-4 border-b border-white/10 bg-black sticky top-0 z-50">
-        <div className="text-xl font-bold">ZP. ADMIN</div>
+        <div className="flex items-center gap-3">
+          <Image src="/logo.png" alt="ZP Logo" width={36} height={36} className="rounded-lg" />
+          <span className="text-xl font-bold">ZP. ADMIN</span>
+        </div>
         <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -46,7 +50,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         isMobileMenuOpen ? "flex" : "hidden"
       )}>
         <div className="p-6 border-b border-white/10">
-          <Link href="/" className="text-2xl font-bold tracking-widest text-gradient">
+          <Link href="/" className="flex items-center gap-3 text-2xl font-bold tracking-widest text-gradient">
+            <Image src="/logo.png" alt="ZP Logo" width={44} height={44} className="rounded-lg" />
             ZP. ADMIN
           </Link>
         </div>
