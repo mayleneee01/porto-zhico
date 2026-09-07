@@ -35,6 +35,10 @@ export async function reorderItems(model: string, items: { id: string; order: nu
     for (const item of items) {
       await prisma.skill.update({ where: { id: item.id }, data: { order: item.order } });
     }
+  } else if (model === 'Tool') {
+    for (const item of items) {
+      await prisma.tool.update({ where: { id: item.id }, data: { order: item.order } });
+    }
   }
   
   revalidatePath('/admin');
@@ -319,5 +323,37 @@ export async function deleteExp(formData: FormData) {
   const id = formData.get('id') as string;
   await prisma.experience.delete({ where: { id } });
   revalidatePath('/admin/experience');
+  revalidatePath('/');
+}
+
+// TOOLS
+export async function addTool(formData: FormData) {
+  await prisma.tool.create({
+    data: {
+      name: formData.get('name') as string,
+      icon: (formData.get('icon') as string) || null,
+    },
+  });
+  revalidatePath('/admin/tools');
+  revalidatePath('/');
+}
+
+export async function updateTool(formData: FormData) {
+  const id = formData.get('id') as string;
+  await prisma.tool.update({
+    where: { id },
+    data: {
+      name: formData.get('name') as string,
+      icon: (formData.get('icon') as string) || null,
+    },
+  });
+  revalidatePath('/admin/tools');
+  revalidatePath('/');
+}
+
+export async function deleteTool(formData: FormData) {
+  const id = formData.get('id') as string;
+  await prisma.tool.delete({ where: { id } });
+  revalidatePath('/admin/tools');
   revalidatePath('/');
 }

@@ -250,13 +250,13 @@ section[id] {
   line-height: 1;
   text-transform: uppercase;
   user-select: none;
-  opacity: 0.4;
+  opacity: 0.6;
 }
 
 @media (min-width: 768px) {
   .outline-text {
     -webkit-text-stroke: 3px var(--outline-stroke);
-    opacity: 0.3;
+    opacity: 0.5;
   }
 }
 
@@ -626,4 +626,26 @@ html {
 
 .exp-card:hover::before {
   opacity: 1;
+}
+
+/* ========================================
+   Custom Scrollbar
+   ======================================== */
+.custom-scrollbar::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: var(--bg-card);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
 }

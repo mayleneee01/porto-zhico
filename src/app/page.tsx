@@ -18,6 +18,7 @@ export default async function Home() {
   const projects = await prisma.project.findMany({ orderBy: { order: 'asc' } }).catch(() => []);
   const certifications = await prisma.certification.findMany({ orderBy: { order: 'asc' } }).catch(() => []);
   const experiences = await prisma.experience.findMany({ orderBy: { order: 'asc' } }).catch(() => []);
+  const tools = await prisma.tool.findMany({ orderBy: { order: 'asc' } }).catch(() => []);
 
   return (
     <PageWrapper>
@@ -26,7 +27,7 @@ export default async function Home() {
         <Hero />
         <About />
         <Skills skills={skills} />
-        <Tools />
+        <Tools tools={tools} />
         <Projects projects={projects} />
         <Experience experiences={experiences} />
         <Certifications certs={certifications} />
