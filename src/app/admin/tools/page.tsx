@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma';
 import { addTool } from '../actions';
 import ToolList from './ToolList';
+import IconSelect from '@/components/admin/IconSelect';
 
 export const revalidate = 0;
 
@@ -20,10 +21,7 @@ export default async function AdminTools() {
                 <label className="text-xs text-gray-400 uppercase tracking-wider mb-1 block">Tool Name *</label>
                 <input required name="name" className="w-full bg-black/50 border border-white/10 rounded p-2 text-white text-sm" placeholder="e.g. Next.js, Penetration Testing" />
               </div>
-              <div>
-                <label className="text-xs text-gray-400 uppercase tracking-wider mb-1 block">Icon URL (Optional)</label>
-                <input name="icon" className="w-full bg-black/50 border border-white/10 rounded p-2 text-white text-sm" placeholder="https://..." />
-              </div>
+              <IconSelect name="icon" label="Tool Logo" />
               
               <button type="submit" className="bg-white text-black font-bold py-2 rounded hover:bg-gray-200 transition-colors mt-4">
                 ADD TOOL

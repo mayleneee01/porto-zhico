@@ -22,7 +22,6 @@ export default function About() {
                   alt="Zhico Pradita" 
                   fill 
                   sizes="(max-width: 768px) 256px, 320px"
-                  priority
                   className="object-cover object-[center_20%]" 
                 />
               </div>
@@ -32,7 +31,10 @@ export default function About() {
           <FadeIn direction="left" delay={0.2} className="w-full md:w-2/3">
             <div className="glass p-5 md:p-8 rounded-2xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2" style={{ backgroundColor: 'var(--bg-card)' }}></div>
-              <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4" style={{ color: 'var(--text-primary)' }}>SOC Analyst & Penetration Tester</h3>
+              <div className="flex flex-wrap items-center gap-3 mb-3 md:mb-4">
+                <h3 className="text-xl md:text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>SOC Analyst & Penetration Tester</h3>
+                <span className="text-[10px] md:text-xs font-mono tracking-wider px-2.5 py-1 rounded-full" style={{ color: 'var(--badge-text)', background: 'var(--badge-bg)', border: '1px solid var(--badge-border)' }}>1+ YEAR EXPERIENCE</span>
+              </div>
               <p className="text-sm md:text-lg leading-relaxed mb-4 md:mb-6 font-light" style={{ color: 'var(--text-secondary)' }}>
                 As an Informatics student at <strong style={{ color: 'var(--text-primary)', fontWeight: 500 }}>Institut Teknologi Sumatera (ITERA)</strong>, I have cultivated a profound expertise in cybersecurity. My mission is not merely to understand digital threats, but to anticipate, hunt, and neutralize them before they compromise critical infrastructure.
               </p>

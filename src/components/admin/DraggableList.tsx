@@ -7,7 +7,7 @@ import { GripVertical } from 'lucide-react';
 
 interface DraggableListProps<T extends { id: string; order: number }> {
   items: T[];
-  model: 'Experience' | 'Project' | 'Certification' | 'Skill';
+  model: 'Experience' | 'Project' | 'Certification' | 'Skill' | 'Tool';
   renderItem: (item: T, index: number) => React.ReactNode;
 }
 

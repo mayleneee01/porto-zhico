@@ -6,6 +6,7 @@ import { Skill } from '@/generated/prisma';
 import { deleteSkill, updateSkill } from '../actions';
 
 import DraggableList from '@/components/admin/DraggableList';
+import IconSelect from '@/components/admin/IconSelect';
 
 export default function SkillList({ skills }: { skills: Skill[] }) {
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -31,10 +32,7 @@ export default function SkillList({ skills }: { skills: Skill[] }) {
                 <label className="text-xs text-gray-400 uppercase tracking-wider mb-1 block">Name *</label>
                 <input required name="name" defaultValue={skill.name} className="w-full bg-black/50 border border-white/10 rounded p-2 text-white text-sm" />
               </div>
-              <div>
-                <label className="text-xs text-gray-400 uppercase tracking-wider mb-1 block">Icon URL</label>
-                <input name="icon" defaultValue={skill.icon || ''} className="w-full bg-black/50 border border-white/10 rounded p-2 text-white text-sm" />
-              </div>
+              <IconSelect name="icon" defaultValue={skill.icon} label="Skill Logo" />
               
               <div className="flex gap-2 justify-end mt-2">
                 <button type="button" onClick={() => setEditingId(null)} className="px-3 py-1.5 bg-gray-800 text-white rounded hover:bg-gray-700 transition flex items-center gap-2 text-xs">

@@ -3,6 +3,7 @@
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 import { put } from '@vercel/blob';
+import { normalizeIcon } from '@/lib/icon-options';
 
 function sanitizeFilename(filename: string): string {
   const parts = filename.split('.');
@@ -57,7 +58,6 @@ export async function addProject(formData: FormData) {
       const blob = await put(cleanName, imageFile, { 
         access: 'public',
         addRandomSuffix: true,
-        allowOverwrite: true
       });
       imageUrl = blob.url;
       console.log(`Uploaded successfully: ${imageUrl}`);
@@ -94,7 +94,6 @@ export async function updateProject(formData: FormData) {
       const blob = await put(cleanName, imageFile, { 
         access: 'public',
         addRandomSuffix: true,
-        allowOverwrite: true
       });
       imageUrl = blob.url;
       console.log(`Uploaded successfully: ${imageUrl}`);
@@ -143,7 +142,6 @@ export async function addCert(formData: FormData) {
       const blob = await put(cleanName, imageFile, { 
         access: 'public',
         addRandomSuffix: true,
-        allowOverwrite: true
       });
       imageUrl = blob.url;
       console.log(`Uploaded successfully: ${imageUrl}`);
@@ -179,7 +177,6 @@ export async function updateCert(formData: FormData) {
     const blob = await put(cleanName, imageFile, { 
       access: 'public',
       addRandomSuffix: true,
-      allowOverwrite: true
     });
     imageUrl = blob.url;
   }
@@ -216,8 +213,8 @@ export async function deleteCert(formData: FormData) {
 export async function addSkill(formData: FormData) {
   await prisma.skill.create({
     data: {
-      name: formData.get('name') as string,
-      icon: (formData.get('icon') as string) || null,
+      name: (formData.get('name') as string).trim(),
+      icon: normalizeIcon(formData.get('icon')),
     },
   });
   revalidatePath('/admin/skills');
@@ -229,8 +226,8 @@ export async function updateSkill(formData: FormData) {
   await prisma.skill.update({
     where: { id },
     data: {
-      name: formData.get('name') as string,
-      icon: (formData.get('icon') as string) || null,
+      name: (formData.get('name') as string).trim(),
+      icon: normalizeIcon(formData.get('icon')),
     },
   });
   revalidatePath('/admin/skills');
@@ -256,7 +253,6 @@ export async function addExp(formData: FormData) {
       const blob = await put(cleanName, iconFile, { 
         access: 'public',
         addRandomSuffix: true,
-        allowOverwrite: true
       });
       iconUrl = blob.url;
       console.log(`Uploaded successfully: ${iconUrl}`);
@@ -292,7 +288,6 @@ export async function updateExp(formData: FormData) {
     const blob = await put(cleanName, iconFile, { 
       access: 'public',
       addRandomSuffix: true,
-      allowOverwrite: true
     });
     iconUrl = blob.url;
   }
@@ -330,8 +325,8 @@ export async function deleteExp(formData: FormData) {
 export async function addTool(formData: FormData) {
   await prisma.tool.create({
     data: {
-      name: formData.get('name') as string,
-      icon: (formData.get('icon') as string) || null,
+      name: (formData.get('name') as string).trim(),
+      icon: normalizeIcon(formData.get('icon')),
     },
   });
   revalidatePath('/admin/tools');
@@ -343,8 +338,8 @@ export async function updateTool(formData: FormData) {
   await prisma.tool.update({
     where: { id },
     data: {
-      name: formData.get('name') as string,
-      icon: (formData.get('icon') as string) || null,
+      name: (formData.get('name') as string).trim(),
+      icon: normalizeIcon(formData.get('icon')),
     },
   });
   revalidatePath('/admin/tools');

@@ -3,6 +3,7 @@
 import { useRef, useEffect } from 'react';
 import Image from 'next/image';
 import FadeIn from './FadeIn';
+import ResumeDownload from './ResumeDownload';
 
 const GithubIcon = ({ size = 24 }: { size?: number }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -49,6 +50,8 @@ export default function Hero() {
         loop
         muted
         playsInline
+        preload="metadata"
+        poster="/profile.png"
         onEnded={() => {
           if (videoRef.current) {
             videoRef.current.play().catch(e => console.warn(e));
@@ -57,6 +60,7 @@ export default function Hero() {
         className="absolute inset-0 w-full h-full object-cover z-0"
       >
         <source src="/hero-bg.mp4" type="video/mp4" />
+        Your browser does not support background video.
       </video>
 
       {/* LAYER 1: Base Darkening */}
@@ -139,7 +143,8 @@ export default function Hero() {
         
         {/* Social Links */}
         <FadeIn direction="up" delay={0.7}>
-          <div className="flex justify-center gap-6">
+          <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6">
+            <ResumeDownload />
             <a href="https://github.com/mayleneee01" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform" style={{ color: 'var(--text-primary)' }}>
               <GithubIcon size={28} />
             </a>

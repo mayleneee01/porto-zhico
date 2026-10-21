@@ -14,11 +14,13 @@ import { prisma } from '@/lib/prisma';
 // inside admin actions will automatically regenerate the page whenever database content changes.
 
 export default async function Home() {
-  const skills = await prisma.skill.findMany({ orderBy: { order: 'asc' } }).catch(() => []);
-  const projects = await prisma.project.findMany({ orderBy: { order: 'asc' } }).catch(() => []);
-  const certifications = await prisma.certification.findMany({ orderBy: { order: 'asc' } }).catch(() => []);
-  const experiences = await prisma.experience.findMany({ orderBy: { order: 'asc' } }).catch(() => []);
-  const tools = await prisma.tool.findMany({ orderBy: { order: 'asc' } }).catch(() => []);
+  const [skills, projects, certifications, experiences, tools] = await Promise.all([
+    prisma.skill.findMany({ orderBy: { order: 'asc' } }).catch(() => []),
+    prisma.project.findMany({ orderBy: { order: 'asc' } }).catch(() => []),
+    prisma.certification.findMany({ orderBy: { order: 'asc' } }).catch(() => []),
+    prisma.experience.findMany({ orderBy: { order: 'asc' } }).catch(() => []),
+    prisma.tool.findMany({ orderBy: { order: 'asc' } }).catch(() => []),
+  ]);
 
   return (
     <PageWrapper>
