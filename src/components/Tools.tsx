@@ -4,20 +4,8 @@ import FadeIn from './FadeIn';
 import * as Icons from 'lucide-react';
 import { Tool } from '@/generated/prisma';
 
-const defaultTools = [
-  'Python', 'Burp Suite', 'Wazuh', 'Ghidra', 'SQLMap', 'Nmap', 'Wireshark',
-  'Metasploit', 'Parrot OS', 'VS Code', 'Docker', 'Git', 'Linux',
-].map((name, index) => ({
-  id: `default-${index}`,
-  name,
-  icon: 'Terminal',
-  order: index,
-  createdAt: new Date(),
-  updatedAt: new Date(),
-}));
-
 export default function Tools({ tools = [] }: { tools?: Tool[] }) {
-  const displayTools = tools.length > 0 ? tools : defaultTools;
+  if (!tools || tools.length === 0) return null;
 
   const renderIcon = (iconVal: string | null) => {
     const IconComponent = (Icons as unknown as Record<string, React.ComponentType<any>>)[iconVal || 'Terminal'];
@@ -41,7 +29,7 @@ export default function Tools({ tools = [] }: { tools?: Tool[] }) {
         <FadeIn direction="up" delay={0.2}>
           <div className="pb-6">
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-x-8 md:gap-y-4">
-              {displayTools.map((tool, i) => (
+              {tools.map((tool, i) => (
                 <div key={`${tool.id}-${i}`} className="flex items-center gap-4 px-5 py-3 rounded-xl transition-all duration-300 cursor-default group" style={{ background: 'var(--tools-card-bg)', border: '1px solid var(--tools-card-border)' }}>
                   <div className="flex items-center justify-center w-8 h-8 opacity-80 group-hover:opacity-100 transition-opacity" style={{ color: 'var(--text-primary)' }}>
                     {renderIcon(tool.icon)}

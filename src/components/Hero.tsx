@@ -143,7 +143,7 @@ export default function Hero() {
         
         {/* CV Download Button */}
         <FadeIn direction="up" delay={0.7}>
-          <div className="w-full max-w-xs">
+          <div className="w-full max-w-xs mb-6">
             <ResumeDownload />
           </div>
         </FadeIn>

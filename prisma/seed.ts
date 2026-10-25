@@ -8,6 +8,7 @@ async function main() {
   await prisma.certification.deleteMany();
   await prisma.experience.deleteMany();
   await prisma.skill.deleteMany();
+  await prisma.tool.deleteMany();
 
   // Create Skills
   await prisma.skill.createMany({
