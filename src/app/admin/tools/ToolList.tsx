@@ -6,7 +6,6 @@ import { Tool } from '@/generated/prisma';
 import { deleteTool, updateTool } from '../actions';
 
 import DraggableList from '@/components/admin/DraggableList';
-import IconSelect from '@/components/admin/IconSelect';
 
 export default function ToolList({ tools }: { tools: Tool[] }) {
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -25,14 +24,21 @@ export default function ToolList({ tools }: { tools: Tool[] }) {
             <form action={async (formData) => {
               await updateTool(formData);
               setEditingId(null);
-            }} className="flex flex-col gap-3">
+            }} className="flex flex-col gap-3" enctype="multipart/form-data">
               <input type="hidden" name="id" value={tool.id} />
               
               <div>
                 <label className="text-xs text-gray-400 uppercase tracking-wider mb-1 block">Name *</label>
                 <input required name="name" defaultValue={tool.name} className="w-full bg-black/50 border border-white/10 rounded p-2 text-white text-sm" />
               </div>
-              <IconSelect name="icon" defaultValue={tool.icon} label="Tool Logo" />
+              <div>
+                <label className="text-xs text-gray-400 uppercase tracking-wider mb-1 block">Tool Logo (Image)</label>
+                <input type="file" name="iconFile" accept="image/*" className="w-full bg-black/50 border border-white/10 rounded p-2 text-white text-sm file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-bold file:bg-white/10 file:text-white hover:file:bg-white/20" />
+                {tool.icon && (
+                  <p className="text-xs text-gray-500 mt-1">Current: <a href={tool.icon} target="_blank" rel="noopener noreferrer" className="underline hover:text-white">{tool.icon}</a></p>
+                )}
+                <p className="text-xs text-gray-500 mt-1">Upload new image to replace, or leave empty to keep current</p>
+              </div>
               
               <div className="flex gap-2 justify-end mt-2">
                 <button type="button" onClick={() => setEditingId(null)} className="px-3 py-1.5 bg-gray-800 text-white rounded hover:bg-gray-700 transition flex items-center gap-2 text-xs">

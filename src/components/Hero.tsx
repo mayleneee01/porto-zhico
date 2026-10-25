@@ -141,10 +141,16 @@ export default function Hero() {
           </p>
         </FadeIn>
         
-        {/* Social Links */}
+        {/* CV Download Button */}
         <FadeIn direction="up" delay={0.7}>
-          <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6">
+          <div className="w-full max-w-xs">
             <ResumeDownload />
+          </div>
+        </FadeIn>
+
+        {/* Social Links */}
+        <FadeIn direction="up" delay={0.8}>
+          <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6">
             <a href="https://github.com/mayleneee01" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform" style={{ color: 'var(--text-primary)' }}>
               <GithubIcon size={28} />
             </a>

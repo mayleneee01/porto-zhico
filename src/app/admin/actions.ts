@@ -323,27 +323,71 @@ export async function deleteExp(formData: FormData) {
 
 // TOOLS
 export async function addTool(formData: FormData) {
-  await prisma.tool.create({
-    data: {
-      name: (formData.get('name') as string).trim(),
-      icon: normalizeIcon(formData.get('icon')),
-    },
-  });
-  revalidatePath('/admin/tools');
-  revalidatePath('/');
+  try {
+    let iconUrl = null;
+    const iconFile = formData.get('iconFile') as File | null;
+    
+    if (iconFile && iconFile.size > 0) {
+      const cleanName = sanitizeFilename(iconFile.name);
+      console.log(`Uploading tool icon: ${cleanName} (${iconFile.size} bytes)`);
+      const blob = await put(cleanName, iconFile, { 
+        access: 'public',
+        addRandomSuffix: true,
+      });
+      iconUrl = blob.url;
+      console.log(`Uploaded successfully: ${iconUrl}`);
+    }
+
+    await prisma.tool.create({
+      data: {
+        name: (formData.get('name') as string).trim(),
+        icon: iconUrl,
+      },
+    });
+    revalidatePath('/admin/tools');
+    revalidatePath('/');
+  } catch (error) {
+    console.error("ADD_TOOL_ERROR:", error);
+    throw error;
+  }
 }
 
 export async function updateTool(formData: FormData) {
-  const id = formData.get('id') as string;
-  await prisma.tool.update({
-    where: { id },
-    data: {
+  try {
+    const id = formData.get('id') as string;
+    
+    let iconUrl: string | undefined = undefined;
+    const iconFile = formData.get('iconFile') as File | null;
+    
+    if (iconFile && iconFile.size > 0) {
+      const cleanName = sanitizeFilename(iconFile.name);
+      console.log(`Uploading new tool icon: ${cleanName} (${iconFile.size} bytes)`);
+      const blob = await put(cleanName, iconFile, { 
+        access: 'public',
+        addRandomSuffix: true,
+      });
+      iconUrl = blob.url;
+      console.log(`Uploaded successfully: ${iconUrl}`);
+    }
+
+    const data: any = {
       name: (formData.get('name') as string).trim(),
-      icon: normalizeIcon(formData.get('icon')),
-    },
-  });
-  revalidatePath('/admin/tools');
-  revalidatePath('/');
+    };
+
+    if (iconUrl) {
+      data.icon = iconUrl;
+    }
+
+    await prisma.tool.update({
+      where: { id },
+      data,
+    });
+    revalidatePath('/admin/tools');
+    revalidatePath('/');
+  } catch (error) {
+    console.error("UPDATE_TOOL_ERROR:", error);
+    throw error;
+  }
 }
 
 export async function deleteTool(formData: FormData) {
