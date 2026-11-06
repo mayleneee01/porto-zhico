@@ -10,6 +10,16 @@ import DraggableList from '@/components/admin/DraggableList';
 export default function ToolList({ tools }: { tools: Tool[] }) {
   const [editingId, setEditingId] = useState<string | null>(null);
 
+  const isImage = (icon: string | null) => {
+    if (!icon) return false;
+    return (
+      icon.startsWith('http://') ||
+      icon.startsWith('https://') ||
+      icon.startsWith('/') ||
+      icon.startsWith('data:')
+    );
+  };
+
   if (tools.length === 0) {
     return <p className="text-gray-500">No tools found.</p>;
   }
@@ -24,7 +34,7 @@ export default function ToolList({ tools }: { tools: Tool[] }) {
             <form action={async (formData) => {
               await updateTool(formData);
               setEditingId(null);
-            }} className="flex flex-col gap-3" enctype="multipart/form-data">
+            }} className="flex flex-col gap-3" encType="multipart/form-data">
               <input type="hidden" name="id" value={tool.id} />
               
               <div>
@@ -35,7 +45,16 @@ export default function ToolList({ tools }: { tools: Tool[] }) {
                 <label className="text-xs text-gray-400 uppercase tracking-wider mb-1 block">Tool Logo (Image)</label>
                 <input type="file" name="iconFile" accept="image/*" className="w-full bg-black/50 border border-white/10 rounded p-2 text-white text-sm file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-bold file:bg-white/10 file:text-white hover:file:bg-white/20" />
                 {tool.icon && (
-                  <p className="text-xs text-gray-500 mt-1">Current: <a href={tool.icon} target="_blank" rel="noopener noreferrer" className="underline hover:text-white">{tool.icon}</a></p>
+                  <div className="flex items-center gap-2 mt-2">
+                    {isImage(tool.icon) && (
+                      <div className="w-8 h-8 rounded bg-white/5 border border-white/10 p-1 shrink-0 flex items-center justify-center overflow-hidden">
+                        <img src={tool.icon} alt={tool.name} className="w-full h-full object-contain" />
+                      </div>
+                    )}
+                    <p className="text-xs text-gray-500 truncate max-w-xs">
+                      Current: <a href={tool.icon} target="_blank" rel="noopener noreferrer" className="underline hover:text-white">{tool.icon}</a>
+                    </p>
+                  </div>
                 )}
                 <p className="text-xs text-gray-500 mt-1">Upload new image to replace, or leave empty to keep current</p>
               </div>
@@ -51,9 +70,16 @@ export default function ToolList({ tools }: { tools: Tool[] }) {
             </form>
           ) : (
             <div className="flex justify-between items-center h-full">
-              <div>
-                <h3 className="font-bold text-lg">{tool.name}</h3>
-                {tool.icon && <p className="text-xs text-gray-500 truncate w-32">{tool.icon}</p>}
+              <div className="flex items-center gap-3">
+                {tool.icon && isImage(tool.icon) && (
+                  <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 p-1 shrink-0 flex items-center justify-center overflow-hidden">
+                    <img src={tool.icon} alt={tool.name} className="w-full h-full object-contain" />
+                  </div>
+                )}
+                <div>
+                  <h3 className="font-bold text-lg">{tool.name}</h3>
+                  {tool.icon && <p className="text-xs text-gray-500 truncate max-w-[200px]">{tool.icon}</p>}
+                </div>
               </div>
               <div className="flex gap-2 shrink-0">
                 <button onClick={() => setEditingId(tool.id)} className="text-blue-400 hover:text-blue-300 hover:bg-blue-900/20 p-2 rounded transition-colors">

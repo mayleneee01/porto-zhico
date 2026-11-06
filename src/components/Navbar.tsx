@@ -22,7 +22,7 @@ export default function Navbar() {
 
   // Section IDs in actual DOM order (top to bottom on the page).
   // This must match the order sections appear in page.tsx, NOT the navLinks display order.
-  // Sections without a nav link (about, skills) are included so the algorithm
+  // Sections without a nav link (about) are included so the algorithm
   // doesn't skip over them and light up the wrong tab.
   const sectionIdsInDomOrder = ['home', 'about', 'skills', 'tools', 'projects', 'experience', 'certifications', 'contact'];
 
@@ -30,8 +30,8 @@ export default function Navbar() {
   const sectionToNavMap: Record<string, string> = {
     'home': 'home',
     'about': 'home',
-    'skills': 'home',
-    'tools': 'home',
+    'skills': 'skills',
+    'tools': 'tools',
     'projects': 'projects',
     'experience': 'experience',
     'certifications': 'certifications',

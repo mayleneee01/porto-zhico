@@ -26,16 +26,36 @@ export default function Skills({ skills }: { skills: Skill[] }) {
   const renderIcon = (name: string | null) => {
     if (!name) return <Icons.Code2 size={20} />;
 
+    const isImageUrl =
+      name.startsWith('http://') ||
+      name.startsWith('https://') ||
+      name.startsWith('/') ||
+      name.startsWith('data:');
+
+    if (isImageUrl) {
+      return <img src={name} alt="" className="w-5 h-5 object-contain" />;
+    }
+
     const IconComponent = (Icons as any)[name];
     return IconComponent ? <IconComponent size={20} /> : <Icons.Code2 size={20} />;
   };
 
   const groupedSkills = skills.reduce((acc, skill) => {
-    const config = SKILL_CONFIG[skill.name] || { category: 'OTHER SKILLS', icon: skill.icon || 'Code2' };
-    if (!acc[config.category]) acc[config.category] = [];
-    acc[config.category].push({ ...skill, configuredIcon: config.icon });
+    const category =
+      skill.category && skill.category !== 'OTHER SKILLS'
+        ? skill.category
+        : SKILL_CONFIG[skill.name]?.category || skill.category || 'OTHER SKILLS';
+    const icon = skill.icon || SKILL_CONFIG[skill.name]?.icon || 'Code2';
+
+    if (!acc[category]) acc[category] = [];
+    acc[category].push({ ...skill, configuredIcon: icon });
     return acc;
   }, {} as Record<string, (Skill & { configuredIcon: string })[]>);
+
+  const displayCategories = [
+    ...CATEGORY_ORDER,
+    ...Object.keys(groupedSkills).filter((cat) => !CATEGORY_ORDER.includes(cat)),
+  ];
 
   return (
     <section id="skills" className="py-24 relative z-10">
@@ -49,7 +69,7 @@ export default function Skills({ skills }: { skills: Skill[] }) {
         )}
 
         <div className="space-y-16">
-          {CATEGORY_ORDER.map((category) => {
+          {displayCategories.map((category) => {
             const categorySkills = groupedSkills[category];
             if (!categorySkills || categorySkills.length === 0) return null;
 

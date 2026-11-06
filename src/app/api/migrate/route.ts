@@ -21,6 +21,9 @@ export async function GET() {
     // Add category column to Certification if it doesn't exist
     await prisma.$executeRawUnsafe(`ALTER TABLE "Certification" ADD COLUMN IF NOT EXISTS "category" TEXT NOT NULL DEFAULT 'certification';`);
     
+    // Add category column to Skill if it doesn't exist
+    await prisma.$executeRawUnsafe(`ALTER TABLE "Skill" ADD COLUMN IF NOT EXISTS "category" TEXT NOT NULL DEFAULT 'OTHER SKILLS';`);
+    
     return NextResponse.json({ success: true, message: "Database schema migration complete!" });
   } catch (error: any) {
     console.error("Migration error:", error);

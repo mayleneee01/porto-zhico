@@ -215,6 +215,7 @@ export async function addSkill(formData: FormData) {
     data: {
       name: (formData.get('name') as string).trim(),
       icon: normalizeIcon(formData.get('icon')),
+      category: ((formData.get('category') as string) || 'OTHER SKILLS').trim(),
     },
   });
   revalidatePath('/admin/skills');
@@ -228,6 +229,7 @@ export async function updateSkill(formData: FormData) {
     data: {
       name: (formData.get('name') as string).trim(),
       icon: normalizeIcon(formData.get('icon')),
+      category: ((formData.get('category') as string) || 'OTHER SKILLS').trim(),
     },
   });
   revalidatePath('/admin/skills');

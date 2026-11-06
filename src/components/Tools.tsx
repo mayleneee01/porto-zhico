@@ -7,8 +7,26 @@ import { Tool } from '@/generated/prisma';
 export default function Tools({ tools = [] }: { tools?: Tool[] }) {
   if (!tools || tools.length === 0) return null;
 
-  const renderIcon = (iconVal: string | null) => {
-    const IconComponent = (Icons as unknown as Record<string, React.ComponentType<any>>)[iconVal || 'Terminal'];
+  const renderIcon = (iconVal: string | null, name: string) => {
+    if (!iconVal) return <Icons.Terminal size={20} />;
+
+    const isImageUrl =
+      iconVal.startsWith('http://') ||
+      iconVal.startsWith('https://') ||
+      iconVal.startsWith('/') ||
+      iconVal.startsWith('data:');
+
+    if (isImageUrl) {
+      return (
+        <img
+          src={iconVal}
+          alt={name}
+          className="w-full h-full object-contain"
+        />
+      );
+    }
+
+    const IconComponent = (Icons as unknown as Record<string, React.ComponentType<any>>)[iconVal];
     return IconComponent ? <IconComponent size={20} /> : <Icons.Terminal size={20} />;
   };
 
@@ -31,8 +49,8 @@ export default function Tools({ tools = [] }: { tools?: Tool[] }) {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-x-8 md:gap-y-4">
               {tools.map((tool, i) => (
                 <div key={`${tool.id}-${i}`} className="flex items-center gap-4 px-5 py-3 rounded-xl transition-all duration-300 cursor-default group" style={{ background: 'var(--tools-card-bg)', border: '1px solid var(--tools-card-border)' }}>
-                  <div className="flex items-center justify-center w-8 h-8 opacity-80 group-hover:opacity-100 transition-opacity" style={{ color: 'var(--text-primary)' }}>
-                    {renderIcon(tool.icon)}
+                  <div className="flex items-center justify-center w-8 h-8 opacity-80 group-hover:opacity-100 transition-opacity shrink-0" style={{ color: 'var(--text-primary)' }}>
+                    {renderIcon(tool.icon, tool.name)}
                   </div>
                   <span className="text-sm md:text-base font-medium tracking-wide whitespace-nowrap transition-colors duration-300" style={{ color: 'var(--tools-text)' }}>
                     {tool.name}

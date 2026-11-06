@@ -21,6 +21,15 @@ export default async function AdminSkills() {
                 <label className="text-xs text-gray-400 uppercase tracking-wider mb-1 block">Skill Name *</label>
                 <input required name="name" className="w-full bg-black/50 border border-white/10 rounded p-2 text-white text-sm" placeholder="e.g. Next.js, Penetration Testing" />
               </div>
+              <div>
+                <label className="text-xs text-gray-400 uppercase tracking-wider mb-1 block">Category *</label>
+                <select name="category" required defaultValue="OTHER SKILLS" className="w-full bg-black/50 border border-white/10 rounded p-2 text-white text-sm">
+                  <option value="OFFENSIVE SECURITY">OFFENSIVE SECURITY</option>
+                  <option value="DEFENSIVE SECURITY">DEFENSIVE SECURITY</option>
+                  <option value="INVESTIGATION & ANALYSIS">INVESTIGATION & ANALYSIS</option>
+                  <option value="OTHER SKILLS">OTHER SKILLS</option>
+                </select>
+              </div>
               <IconSelect name="icon" label="Skill Logo" />
               
               <button type="submit" className="bg-white text-black font-bold py-2 rounded hover:bg-gray-200 transition-colors mt-4">

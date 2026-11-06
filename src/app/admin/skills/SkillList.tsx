@@ -32,6 +32,15 @@ export default function SkillList({ skills }: { skills: Skill[] }) {
                 <label className="text-xs text-gray-400 uppercase tracking-wider mb-1 block">Name *</label>
                 <input required name="name" defaultValue={skill.name} className="w-full bg-black/50 border border-white/10 rounded p-2 text-white text-sm" />
               </div>
+              <div>
+                <label className="text-xs text-gray-400 uppercase tracking-wider mb-1 block">Category *</label>
+                <select name="category" required defaultValue={skill.category || 'OTHER SKILLS'} className="w-full bg-black/50 border border-white/10 rounded p-2 text-white text-sm">
+                  <option value="OFFENSIVE SECURITY">OFFENSIVE SECURITY</option>
+                  <option value="DEFENSIVE SECURITY">DEFENSIVE SECURITY</option>
+                  <option value="INVESTIGATION & ANALYSIS">INVESTIGATION & ANALYSIS</option>
+                  <option value="OTHER SKILLS">OTHER SKILLS</option>
+                </select>
+              </div>
               <IconSelect name="icon" defaultValue={skill.icon} label="Skill Logo" />
               
               <div className="flex gap-2 justify-end mt-2">
@@ -46,7 +55,12 @@ export default function SkillList({ skills }: { skills: Skill[] }) {
           ) : (
             <div className="flex justify-between items-center h-full">
               <div>
-                <h3 className="font-bold text-lg">{skill.name}</h3>
+                <div className="flex items-center gap-2">
+                  <h3 className="font-bold text-lg">{skill.name}</h3>
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-gray-300 font-mono uppercase tracking-wider">
+                    {skill.category || 'OTHER SKILLS'}
+                  </span>
+                </div>
                 {skill.icon && <p className="text-xs text-gray-500 truncate w-32">{skill.icon}</p>}
               </div>
               <div className="flex gap-2 shrink-0">
