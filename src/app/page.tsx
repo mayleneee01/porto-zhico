@@ -15,7 +15,14 @@ import { prisma } from '@/lib/prisma';
 
 export default async function Home() {
   const [skills, projects, certifications, experiences, tools] = await Promise.all([
-    prisma.skill.findMany({ orderBy: { order: 'asc' } }).catch(() => []),
+    prisma.skill.findMany({ orderBy: { order: 'asc' } }).catch(async () => {
+      try {
+        await prisma.$executeRawUnsafe(`ALTER TABLE "Skill" ADD COLUMN IF NOT EXISTS "category" TEXT NOT NULL DEFAULT 'OTHER SKILLS';`);
+        return await prisma.skill.findMany({ orderBy: { order: 'asc' } });
+      } catch {
+        return [];
+      }
+    }),
     prisma.project.findMany({ orderBy: { order: 'asc' } }).catch(() => []),
     prisma.certification.findMany({ orderBy: { order: 'asc' } }).catch(() => []),
     prisma.experience.findMany({ orderBy: { order: 'asc' } }).catch(() => []),

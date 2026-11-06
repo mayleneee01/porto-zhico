@@ -2,11 +2,23 @@ import { prisma } from '@/lib/prisma';
 import { addSkill } from '../actions';
 import SkillList from './SkillList';
 import IconSelect from '@/components/admin/IconSelect';
+import { Skill } from '@/generated/prisma';
 
 export const revalidate = 0;
 
 export default async function AdminSkills() {
-  const skills = await prisma.skill.findMany({ orderBy: { order: 'asc' } });
+  let skills: Skill[] = [];
+  try {
+    skills = await prisma.skill.findMany({ orderBy: { order: 'asc' } });
+  } catch (error) {
+    try {
+      await prisma.$executeRawUnsafe(`ALTER TABLE "Skill" ADD COLUMN IF NOT EXISTS "category" TEXT NOT NULL DEFAULT 'OTHER SKILLS';`);
+      skills = await prisma.skill.findMany({ orderBy: { order: 'asc' } });
+    } catch (e) {
+      console.error('Failed to load skills:', e);
+      skills = [];
+    }
+  }
 
   return (
     <div>

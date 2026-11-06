@@ -211,27 +211,38 @@ export async function deleteCert(formData: FormData) {
 
 // SKILLS
 export async function addSkill(formData: FormData) {
-  await prisma.skill.create({
-    data: {
-      name: (formData.get('name') as string).trim(),
-      icon: normalizeIcon(formData.get('icon')),
-      category: ((formData.get('category') as string) || 'OTHER SKILLS').trim(),
-    },
-  });
+  const data = {
+    name: (formData.get('name') as string).trim(),
+    icon: normalizeIcon(formData.get('icon')),
+    category: ((formData.get('category') as string) || 'OTHER SKILLS').trim(),
+  };
+
+  try {
+    await prisma.skill.create({ data });
+  } catch (err) {
+    await prisma.$executeRawUnsafe(`ALTER TABLE "Skill" ADD COLUMN IF NOT EXISTS "category" TEXT NOT NULL DEFAULT 'OTHER SKILLS';`);
+    await prisma.skill.create({ data });
+  }
+
   revalidatePath('/admin/skills');
   revalidatePath('/');
 }
 
 export async function updateSkill(formData: FormData) {
   const id = formData.get('id') as string;
-  await prisma.skill.update({
-    where: { id },
-    data: {
-      name: (formData.get('name') as string).trim(),
-      icon: normalizeIcon(formData.get('icon')),
-      category: ((formData.get('category') as string) || 'OTHER SKILLS').trim(),
-    },
-  });
+  const data = {
+    name: (formData.get('name') as string).trim(),
+    icon: normalizeIcon(formData.get('icon')),
+    category: ((formData.get('category') as string) || 'OTHER SKILLS').trim(),
+  };
+
+  try {
+    await prisma.skill.update({ where: { id }, data });
+  } catch (err) {
+    await prisma.$executeRawUnsafe(`ALTER TABLE "Skill" ADD COLUMN IF NOT EXISTS "category" TEXT NOT NULL DEFAULT 'OTHER SKILLS';`);
+    await prisma.skill.update({ where: { id }, data });
+  }
+
   revalidatePath('/admin/skills');
   revalidatePath('/');
 }
