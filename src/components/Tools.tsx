@@ -27,32 +27,43 @@ export default function Tools({ tools = [] }: { tools?: Tool[] }) {
     }
 
     const IconComponent = (Icons as unknown as Record<string, React.ComponentType<any>>)[iconVal];
-    return IconComponent ? <IconComponent size={20} /> : <Icons.Terminal size={20} />;
+    return IconComponent ? <IconComponent className="w-4 h-4 sm:w-5 sm:h-5" /> : <Icons.Terminal className="w-4 h-4 sm:w-5 sm:h-5" />;
   };
 
   return (
-    <section id="tools" className="py-20 relative z-10 overflow-hidden">
-      <div className="container mx-auto px-6 max-w-6xl mb-12">
+    <section id="tools" className="py-16 md:py-20 relative z-10 overflow-hidden">
+      <div className="container mx-auto px-4 sm:px-6 max-w-6xl mb-8 md:mb-12">
         <FadeIn direction="up">
-          <h2 className="text-4xl font-bold tracking-wider text-center font-[family-name:var(--font-cyber)]" style={{ color: 'var(--text-primary)' }}>
+          <h2 className="text-2xl md:text-4xl font-bold tracking-wider text-center font-[family-name:var(--font-cyber)]" style={{ color: 'var(--text-primary)' }}>
             TOOLS & SOFTWARE
           </h2>
-          <p className="text-center mt-3 tracking-widest text-xs uppercase" style={{ color: 'var(--text-tertiary)' }}>
+          <p className="text-center mt-2 md:mt-3 tracking-widest text-[11px] md:text-xs uppercase" style={{ color: 'var(--text-tertiary)' }}>
             Frequently used in my workflow
           </p>
         </FadeIn>
       </div>
 
-      <div className="container mx-auto px-6 max-w-6xl">
+      <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
         <FadeIn direction="up" delay={0.2}>
           <div className="pb-6">
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-x-8 md:gap-y-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-3.5 md:gap-x-6 md:gap-y-4">
               {tools.map((tool, i) => (
-                <div key={`${tool.id}-${i}`} className="flex items-center gap-4 px-5 py-3 rounded-xl transition-all duration-300 cursor-default group" style={{ background: 'var(--tools-card-bg)', border: '1px solid var(--tools-card-border)' }}>
-                  <div className="flex items-center justify-center w-8 h-8 opacity-80 group-hover:opacity-100 transition-opacity shrink-0" style={{ color: 'var(--text-primary)' }}>
+                <div
+                  key={`${tool.id}-${i}`}
+                  className="flex items-center gap-2.5 sm:gap-3 md:gap-4 px-3 py-2.5 sm:px-4 sm:py-3 md:px-5 md:py-3.5 rounded-xl transition-all duration-300 cursor-default group min-w-0 overflow-hidden"
+                  style={{ background: 'var(--tools-card-bg)', border: '1px solid var(--tools-card-border)' }}
+                  title={tool.name}
+                >
+                  <div
+                    className="flex items-center justify-center w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 opacity-80 group-hover:opacity-100 transition-opacity shrink-0"
+                    style={{ color: 'var(--text-primary)' }}
+                  >
                     {renderIcon(tool.icon, tool.name)}
                   </div>
-                  <span className="text-sm md:text-base font-medium tracking-wide whitespace-nowrap transition-colors duration-300" style={{ color: 'var(--tools-text)' }}>
+                  <span
+                    className="text-xs sm:text-sm md:text-base font-medium tracking-wide truncate min-w-0 block transition-colors duration-300"
+                    style={{ color: 'var(--tools-text)' }}
+                  >
                     {tool.name}
                   </span>
                 </div>
